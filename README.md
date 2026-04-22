@@ -1,23 +1,24 @@
 # ⚖ AB Layout (Advocate Benefit Layout)
 
+Version: 1.0
+
 Open-source Microsoft Word Add-in for applying Indian court document formats instantly.
 
-## 🚀 Features
-- One-click court formatting
-- Multi-court support
-- Undo layout
+## ✨ Features
+- Apply court layouts in one click
 - Works on existing documents
-- Live updates via GitHub
+- Undo layout support
+- Lightweight and fast
 
 ## 📥 Installation
 
-1. Download manifest.xml
-2. Open Word
+1. Download `manifest.xml`
+2. Open Microsoft Word
 3. Insert → Add-ins → Upload My Add-in
-4. Select manifest.xml
+4. Select `manifest.xml`
 
-## 🌐 Live Source
+## 🌐 Live
 https://isrgrajan.github.io/ab-layout/
 
 ## 🤝 Contribute
-Add new layouts in /layouts/layouts.json and submit PR.
+Add layouts in `/layouts/layouts.json` and submit a pull request.
