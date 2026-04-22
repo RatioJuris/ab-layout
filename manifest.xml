@@ -1,25 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!--
-AB Layout (Advocate Benefit Layout)
-Version: 1.0.0
-
-Description:
-Production-ready Microsoft Word Office JS Add-in manifest.
-Defines add-in identity, permissions, and task pane entry.
-
-Author:
-Bee Isrg Rajan
-
-Repository:
-https://github.com/isrgrajan/ab-layout
--->
-
 <OfficeApp
   xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:type="TaskPaneApp">
 
-  <Id>ab-layout-isrgrajan-v1</Id>
+  <Id>8b7c2d3a-6f9a-4b7c-9d2e-1a2b3c4d5e6f</Id>
   <Version>1.0.0.0</Version>
   <ProviderName>AB Layout</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
@@ -27,28 +12,25 @@ https://github.com/isrgrajan/ab-layout
   <DisplayName DefaultValue="AB Layout"/>
   <Description DefaultValue="Advocate Benefit Layout for Indian Courts"/>
 
-  <!-- Icons -->
   <IconUrl DefaultValue="https://isrgrajan.github.io/ab-layout/assets/icon-32.png"/>
   <HighResolutionIconUrl DefaultValue="https://isrgrajan.github.io/ab-layout/assets/icon-32.png"/>
 
-  <!-- Hosts -->
+  <SupportUrl DefaultValue="https://github.com/isrgrajan/ab-layout"/>
+
   <Hosts>
     <Host Name="Document"/>
   </Hosts>
 
-  <!-- Requirements -->
   <Requirements>
     <Sets DefaultMinVersion="1.3">
       <Set Name="WordApi"/>
     </Sets>
   </Requirements>
 
-  <!-- Source -->
   <DefaultSettings>
     <SourceLocation DefaultValue="https://isrgrajan.github.io/ab-layout/web/taskpane.html"/>
   </DefaultSettings>
 
-  <!-- Permissions -->
   <Permissions>ReadWriteDocument</Permissions>
 
 </OfficeApp>
