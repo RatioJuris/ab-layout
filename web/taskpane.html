@@ -3,21 +3,83 @@ AB Layout (Advocate Benefit Layout)
 Version: 1.0
 
 Description:
-Main UI file for the Office Add-in task pane.
-
-Purpose:
-- Provides user interface for selecting court layouts
-- Contains dropdowns for State and Court
-- Includes action buttons (Apply / Undo)
-- Displays real-time status messages
-
-Notes:
-- Loads Office.js for Word API interaction
-- Connected with taskpane.js for logic
+Refined UI for Word task pane.
+Focused on clarity, accessibility, and professional legal-tool feel.
 
 Author:
 Bee Isrg Rajan
-
-Repository:
-https://github.com/isrgrajan/ab-layout
 -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AB Layout</title>
+
+  <!-- Office JS -->
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="title-row">
+      <span class="icon">⚖</span>
+      <h1>AB Layout</h1>
+    </div>
+    <p class="subtitle">Advocate Benefit Layout</p>
+  </header>
+
+  <!-- Divider -->
+  <hr />
+
+  <!-- Main Content -->
+  <main>
+
+    <!-- State -->
+    <section class="section">
+      <label for="stateSelect">State</label>
+      <select id="stateSelect" aria-label="Select State"></select>
+    </section>
+
+    <!-- Court -->
+    <section class="section">
+      <label for="courtSelect">Court</label>
+      <select id="courtSelect" aria-label="Select Court"></select>
+    </section>
+
+    <!-- Actions -->
+    <section class="actions">
+      <button id="applyBtn" onclick="applySelected()" disabled>
+        ✅ Apply Layout
+      </button>
+
+      <button id="undoBtn" class="secondary" onclick="undoLayout()">
+        ↩ Undo
+      </button>
+    </section>
+
+    <!-- Status -->
+    <section id="status" class="status" role="status" aria-live="polite">
+      Initializing...
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <span>v1.0</span>
+    <span>•</span>
+    <span>AB Layout</span>
+  </footer>
+
+  <!-- Script -->
+  <script src="taskpane.js"></script>
+
+</body>
+</html>
