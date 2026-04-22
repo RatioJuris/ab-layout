@@ -9,12 +9,19 @@ Author:
 Bee Isrg Rajan
 */
 
-Office.onReady(() => {
-  loadLayouts();
+let isOfficeReady = false;
+
+Office.onReady((info) => {
+  if (info.host === Office.HostType.Word) {
+    isOfficeReady = true;
+    loadLayouts();
+  } else {
+    setStatus("Open inside Microsoft Word");
+  }
 });
 
 const LAYOUTS_URL =
-  "https://isrgrajan.github.io/ab-layout/layouts/layouts.json?v=1.0.0";
+  "https://isrgrajan.github.io/ab-layout/layouts/layouts.json?v=1.0.1";
 
 let dataStore = {};
 let currentLayout = null;
@@ -33,13 +40,18 @@ function toPoints(value, unit = "inch") {
   unit = (unit || "inch").toLowerCase().trim();
 
   if (unit === "cm") return value * 28.3465;
-  return value * 72; // default inch
+
+  // FORCE inch default
+  return value * 72;
 }
 
 function resolveUnit(layout) {
-  return (layout?.unit || dataStore?._meta?.unit || "inch")
+  const unit = (layout?.unit || dataStore?._meta?.unit || "inch")
     .toLowerCase()
     .trim();
+
+  if (unit === "cm") return "cm";
+  return "inch"; // force everything else to inch
 }
 
 /* ===== Load Layouts ===== */
@@ -64,7 +76,7 @@ async function loadLayouts() {
   }
 }
 
-/* ===== Populate UI (SIMPLIFIED) ===== */
+/* ===== Populate UI ===== */
 
 function populateLayouts() {
   const select = document.getElementById("courtSelect");
@@ -99,6 +111,11 @@ function getSelectedLayout() {
 /* ===== Apply Layout ===== */
 
 async function applySelected() {
+  if (!isOfficeReady) {
+    setStatus("Open inside Microsoft Word");
+    return;
+  }
+
   const layout = getSelectedLayout();
   if (!layout) return;
 
@@ -137,6 +154,9 @@ async function applySelected() {
           margins = index === 0 ? layout.firstPage : layout.otherPages;
         }
 
+        // SAFETY: ensure margins exist
+        if (!margins) return;
+
         section.pageSetup.pageWidth = toPoints(layout.width, unit);
         section.pageSetup.pageHeight = toPoints(layout.height, unit);
 
@@ -151,6 +171,7 @@ async function applySelected() {
 
     currentLayout = layout;
     setStatus("Applied: " + layout.name);
+
   } catch (error) {
     console.error(error);
     setStatus("Failed to apply layout");
@@ -187,6 +208,7 @@ async function undoLayout() {
 
     currentLayout = null;
     setStatus("Layout restored");
+
   } catch (error) {
     console.error(error);
     setStatus("Undo failed");
