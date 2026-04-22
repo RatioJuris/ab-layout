@@ -1,15 +1,10 @@
 /*
 AB Layout (Advocate Benefit Layout)
-Version: 1.0
+Version: 1.0.0
 
 Description:
-Professional styling for Word task pane UI.
-
-Design Goals:
-- Clean and distraction-free
-- Consistent spacing and hierarchy
-- Native-like Word sidebar experience
-- Lightweight and fast
+Production-grade styling for Microsoft Word task pane UI.
+Designed for clarity, accessibility, and a professional legal-tool feel.
 
 Author:
 Bee Isrg Rajan
@@ -18,13 +13,24 @@ Repository:
 https://github.com/isrgrajan/ab-layout
 */
 
-/* ===== Base ===== */
+/* ===== Reset / Base ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: "Segoe UI", Arial, sans-serif;
-  padding: 12px;
-  margin: 0;
   background: #ffffff;
   color: #1f1f1f;
+  padding: 12px;
+  overflow-y: auto;
 }
 
 /* ===== Header ===== */
@@ -42,12 +48,13 @@ body {
 
 .icon {
   font-size: 18px;
+  line-height: 1;
 }
 
 h1 {
   font-size: 18px;
-  margin: 0;
   font-weight: 600;
+  margin: 0;
 }
 
 .subtitle {
@@ -69,79 +76,90 @@ hr {
 }
 
 label {
+  display: block;
   font-size: 13px;
   font-weight: 600;
-  display: block;
+  color: #333333;
   margin-bottom: 4px;
-  color: #333;
 }
 
-/* ===== Dropdown ===== */
+/* ===== Select (Dropdown) ===== */
 select {
   width: 100%;
   padding: 8px;
+  font-size: 13px;
   border-radius: 4px;
   border: 1px solid #c8c8c8;
-  background: #fff;
-  font-size: 13px;
-  transition: border 0.2s ease, box-shadow 0.2s ease;
+  background-color: #ffffff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+select:hover {
+  border-color: #999999;
 }
 
 select:focus {
   outline: none;
   border-color: #0f6cbd;
-  box-shadow: 0 0 0 2px rgba(15,108,189,0.2);
+  box-shadow: 0 0 0 2px rgba(15, 108, 189, 0.2);
 }
 
-/* ===== Buttons ===== */
+/* ===== Actions ===== */
 .actions {
   margin-top: 10px;
 }
 
+/* ===== Buttons ===== */
 button {
   width: 100%;
   padding: 10px;
   margin-top: 8px;
   border-radius: 4px;
   border: none;
-  cursor: pointer;
-  font-weight: 600;
   font-size: 13px;
-  transition: all 0.2s ease;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s ease, transform 0.05s ease;
 }
 
 /* Primary Button */
 button:not(.secondary) {
-  background: #0f6cbd;
+  background-color: #0f6cbd;
   color: #ffffff;
 }
 
 button:not(.secondary):hover:not(:disabled) {
-  background: #094a8f;
+  background-color: #094a8f;
 }
 
 /* Secondary Button */
 button.secondary {
-  background: #f3f3f3;
-  color: #333;
+  background-color: #f3f3f3;
+  color: #333333;
 }
 
 button.secondary:hover {
-  background: #e0e0e0;
+  background-color: #e0e0e0;
 }
 
-/* Disabled */
+/* Disabled State */
 button:disabled {
-  background: #cccccc;
+  background-color: #cccccc;
+  color: #666666;
   cursor: not-allowed;
-  color: #666;
+}
+
+/* Click feedback */
+button:active:not(:disabled) {
+  transform: scale(0.98);
 }
 
 /* ===== Status ===== */
 .status {
   margin-top: 12px;
   font-size: 13px;
-  color: #444;
+  color: #444444;
   min-height: 18px;
 }
 
@@ -150,27 +168,21 @@ button:disabled {
   margin-top: 18px;
   text-align: center;
   font-size: 11px;
-  color: #888;
+  color: #888888;
 }
 
-/* ===== Micro UX Enhancements ===== */
-
-/* Subtle hover for selects */
-select:hover {
-  border-color: #999;
+/* ===== Accessibility ===== */
+button:focus,
+select:focus {
+  outline: none;
 }
 
-/* Smooth UI feel */
-* {
-  box-sizing: border-box;
+/* ===== Scroll Safety ===== */
+body::-webkit-scrollbar {
+  width: 6px;
 }
 
-/* Prevent text selection on buttons */
-button {
-  user-select: none;
-}
-
-/* Scroll safety (Word pane can shrink) */
-body {
-  overflow-y: auto;
+body::-webkit-scrollbar-thumb {
+  background: #cccccc;
+  border-radius: 3px;
 }
