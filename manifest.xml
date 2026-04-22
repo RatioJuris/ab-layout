@@ -2,6 +2,8 @@
 <OfficeApp
   xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+  xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
   xsi:type="TaskPaneApp">
 
   <Id>8b7c2d3a-6f9a-4b7c-9d2e-1a2b3c4d5e6f</Id>
@@ -14,7 +16,6 @@
 
   <IconUrl DefaultValue="https://isrgrajan.github.io/ab-layout/assets/icon-32.png"/>
   <HighResolutionIconUrl DefaultValue="https://isrgrajan.github.io/ab-layout/assets/icon-32.png"/>
-
   <SupportUrl DefaultValue="https://github.com/isrgrajan/ab-layout"/>
 
   <Hosts>
@@ -32,5 +33,76 @@
   </DefaultSettings>
 
   <Permissions>ReadWriteDocument</Permissions>
+
+  <!-- Ribbon + Quick Access Toolbar -->
+  <VersionOverrides
+    xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
+    xsi:type="VersionOverridesV1_0">
+
+    <Hosts>
+      <Host xsi:type="Document">
+
+        <DesktopFormFactor>
+
+          <!-- Ribbon UI -->
+          <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <OfficeTab id="TabHome">
+              <Group id="ABLayoutGroup">
+                <Label resid="groupLabel"/>
+
+                <Control xsi:type="Button" id="OpenTaskpaneButton">
+                  <Label resid="buttonLabel"/>
+                  <Supertip>
+                    <Title resid="buttonLabel"/>
+                    <Description resid="buttonDesc"/>
+                  </Supertip>
+
+                  <Icon>
+                    <bt:Image size="16" resid="icon16"/>
+                    <bt:Image size="32" resid="icon32"/>
+                    <bt:Image size="80" resid="icon80"/>
+                  </Icon>
+
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>ABLayoutPane</TaskpaneId>
+                    <SourceLocation resid="taskpaneUrl"/>
+                  </Action>
+                </Control>
+
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+
+          <!-- Quick Access Toolbar -->
+          <ExtensionPoint xsi:type="QuickAccessToolbar">
+            <OfficeCommand id="OpenTaskpaneButton"/>
+          </ExtensionPoint>
+
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+
+    <Resources>
+      <bt:Images>
+        <bt:Image id="icon16" DefaultValue="https://isrgrajan.github.io/ab-layout/assets/icon-32.png"/>
+        <bt:Image id="icon32" DefaultValue="https://isrgrajan.github.io/ab-layout/assets/icon-32.png"/>
+        <bt:Image id="icon80" DefaultValue="https://isrgrajan.github.io/ab-layout/assets/icon-32.png"/>
+      </bt:Images>
+
+      <bt:Urls>
+        <bt:Url id="taskpaneUrl" DefaultValue="https://isrgrajan.github.io/ab-layout/web/taskpane.html"/>
+      </bt:Urls>
+
+      <bt:ShortStrings>
+        <bt:String id="groupLabel" DefaultValue="AB Layout"/>
+        <bt:String id="buttonLabel" DefaultValue="AB Layout"/>
+      </bt:ShortStrings>
+
+      <bt:LongStrings>
+        <bt:String id="buttonDesc" DefaultValue="Apply court layouts instantly"/>
+      </bt:LongStrings>
+    </Resources>
+
+  </VersionOverrides>
 
 </OfficeApp>
