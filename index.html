@@ -1,0 +1,239 @@
+<!--
+AB Layout (Advocate Benefit Layout)
+Version: 1.0.0
+
+Description:
+Dynamic landing page for AB Layout (GitHub Pages).
+Includes features, installation, dynamic version loading, privacy, contact, and copyright.
+
+Author:
+Bee Isrg Rajan
+
+Repository:
+https://github.com/isrgrajan/ab-layout
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AB Layout – Advocate Benefit Layout</title>
+
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      margin: 0;
+      background: #f9fafb;
+      color: #1f2937;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: #6b7280;
+    }
+
+    .cta {
+      margin-top: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 18px;
+      margin: 6px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .btn-primary {
+      background: #0f6cbd;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #094a8f;
+    }
+
+    .btn-secondary {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .btn-secondary:hover {
+      background: #d1d5db;
+    }
+
+    section {
+      margin-top: 40px;
+    }
+
+    h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      padding-left: 18px;
+      line-height: 1.6;
+    }
+
+    .card {
+      background: white;
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+      margin-top: 10px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      padding: 20px;
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    code {
+      background: #f3f4f6;
+      padding: 4px 6px;
+      border-radius: 4px;
+    }
+
+    .small {
+      font-size: 12px;
+      color: #6b7280;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- Header -->
+    <header>
+      <h1>⚖ AB Layout</h1>
+      <p class="subtitle">Advocate Benefit Layout for Microsoft Word</p>
+
+      <div class="cta">
+        <a class="btn btn-primary" href="https://isrgrajan.github.io/ab-layout/manifest.xml">
+          ⬇ Download Add-in
+        </a>
+
+        <a class="btn btn-secondary" href="https://github.com/isrgrajan/ab-layout" target="_blank">
+          ⭐ View on GitHub
+        </a>
+      </div>
+
+      <p class="small" id="version">Loading version...</p>
+    </header>
+
+    <!-- About -->
+    <section>
+      <h2>📌 About</h2>
+      <div class="card">
+        AB Layout is a lightweight Microsoft Word Add-in that enables advocates to apply
+        court-specific formatting instantly with one click.
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section>
+      <h2>🚀 Features</h2>
+      <div class="card">
+        <ul>
+          <li>🏛 One-click court formatting</li>
+          <li>📄 High Court, District Court & Affidavit layouts</li>
+          <li>🔁 Undo support</li>
+          <li>⚙ Preset-based architecture</li>
+          <li>🌐 Live updates via GitHub</li>
+          <li>💻 Works on existing documents</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Installation -->
+    <section>
+      <h2>📥 Installation</h2>
+      <div class="card">
+        <ol>
+          <li>Download the add-in</li>
+          <li>Open Microsoft Word</li>
+          <li>Go to <code>Insert → Add-ins → Upload My Add-in</code></li>
+          <li>Select <code>manifest.xml</code></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Privacy -->
+    <section>
+      <h2>🔒 Privacy Policy</h2>
+      <div class="card">
+        AB Layout does not collect personal data.  
+        For platform-level privacy details, refer to GitHub:
+        <br/><br/>
+        <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement" target="_blank">
+          GitHub Privacy Policy
+        </a>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section>
+      <h2>📬 Contact</h2>
+      <div class="card">
+        Maintained by <strong>Bee Isrg Rajan</strong><br/>
+        GitHub:
+        <a href="https://github.com/isrgrajan" target="_blank">
+          https://github.com/isrgrajan
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>© <span id="year"></span> Bee Isrg Rajan</p>
+      <p>
+        <a href="https://github.com/isrgrajan/ab-layout" target="_blank">Repository</a>
+      </p>
+    </footer>
+
+  </div>
+
+  <!-- Script -->
+  <script>
+    // Dynamic year
+    document.getElementById("year").innerText = new Date().getFullYear();
+
+    // Dynamic version fetch
+    fetch("https://isrgrajan.github.io/ab-layout/layouts/layouts.json")
+      .then(res => res.json())
+      .then(data => {
+        const version = data._meta?.version || "1.0.0";
+        document.getElementById("version").innerText = "Version: " + version;
+      })
+      .catch(() => {
+        document.getElementById("version").innerText = "Version: 1.0.0";
+      });
+  </script>
+
+</body>
+</html>
