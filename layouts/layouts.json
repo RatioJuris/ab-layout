@@ -1,0 +1,39 @@
+{
+  "version": "2.1.0",
+  "states": [
+    {
+      "name": "Uttar Pradesh",
+      "courts": [
+        {
+          "id": "allahabad_hc_lko",
+          "name": "Allahabad HC (Lucknow Bench)",
+          "width": 8.5,
+          "height": 14,
+          "margins": {
+            "top": 1.5,
+            "bottom": 1.5,
+            "left": 0.5,
+            "right": 1.7
+          }
+        }
+      ]
+    },
+    {
+      "name": "India",
+      "courts": [
+        {
+          "id": "supreme_court",
+          "name": "Supreme Court",
+          "width": 8.5,
+          "height": 14,
+          "margins": {
+            "top": 1,
+            "bottom": 1,
+            "left": 1,
+            "right": 1
+          }
+        }
+      ]
+    }
+  ]
+}
