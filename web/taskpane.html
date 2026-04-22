@@ -1,88 +1,194 @@
-<!--
+/*
 AB Layout (Advocate Benefit Layout)
 Version: 1.0.0
 
 Description:
-Production-ready UI for Microsoft Word task pane.
-Provides court selection and layout actions.
+Production-ready layout engine for Microsoft Word Add-in.
 
 Author:
 Bee Isrg Rajan
+*/
 
-Repository:
-https://github.com/isrgrajan/ab-layout
--->
+Office.onReady(() => {
+  loadLayouts();
+});
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AB Layout</title>
+const LAYOUTS_URL =
+  "https://isrgrajan.github.io/ab-layout/layouts/layouts.json?v=1.0.0";
 
-  <!-- Office JS -->
-  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+let dataStore = {};
+let currentLayout = null;
+let previousLayout = null;
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="styles.css" />
-</head>
+/* ===== Utils ===== */
 
-<body>
+function setStatus(message) {
+  const el = document.getElementById("status");
+  if (el) el.innerText = message;
+}
 
-  <!-- Header -->
-  <header class="header">
-    <div class="title-row">
-      <span class="icon">⚖</span>
-      <h1>AB Layout</h1>
-    </div>
-    <p class="subtitle">Advocate Benefit Layout</p>
-  </header>
+function toPoints(value, unit = "inch") {
+  if (value === undefined || value === null) return 0;
 
-  <!-- Divider -->
-  <hr />
+  unit = (unit || "inch").toLowerCase().trim();
 
-  <!-- Main Content -->
-  <main>
+  if (unit === "cm") return value * 28.3465;
+  return value * 72; // default inch
+}
 
-    <!-- State Selection -->
-    <section class="section">
-      <label for="stateSelect">State</label>
-      <select id="stateSelect" aria-label="Select State"></select>
-    </section>
+function resolveUnit(layout) {
+  return (layout?.unit || dataStore?._meta?.unit || "inch")
+    .toLowerCase()
+    .trim();
+}
 
-    <!-- Court Selection -->
-    <section class="section">
-      <label for="courtSelect">Court</label>
-      <select id="courtSelect" aria-label="Select Court"></select>
-    </section>
+/* ===== Load Layouts ===== */
 
-    <!-- Actions -->
-    <section class="actions">
-      <button id="applyBtn" onclick="applySelected()" disabled>
-        Apply Layout
-      </button>
+async function loadLayouts() {
+  try {
+    setStatus("Loading layouts...");
 
-      <button id="undoBtn" class="secondary" onclick="undoLayout()">
-        Undo
-      </button>
-    </section>
+    const response = await fetch(LAYOUTS_URL);
+    if (!response.ok) throw new Error("Failed to fetch layouts");
 
-    <!-- Status -->
-    <section id="status" class="status" role="status" aria-live="polite">
-      Initializing...
-    </section>
+    dataStore = await response.json();
 
-  </main>
+    populateLayouts();
 
-  <!-- Footer -->
-  <footer class="footer">
-    <span>v1.0.0</span>
-    <span> • </span>
-    <span>AB Layout</span>
-  </footer>
+    document.getElementById("applyBtn").disabled = false;
 
-  <!-- Script -->
-  <script src="taskpane.js"></script>
+    setStatus("Ready");
+  } catch (error) {
+    console.error(error);
+    setStatus("Failed to load layouts");
+  }
+}
 
-</body>
-</html>
+/* ===== Populate UI (SIMPLIFIED) ===== */
+
+function populateLayouts() {
+  const select = document.getElementById("courtSelect");
+  select.innerHTML = "";
+
+  (dataStore.layouts || []).forEach((layout, index) => {
+    const option = document.createElement("option");
+    option.value = index;
+    option.textContent = layout.name;
+    select.appendChild(option);
+  });
+}
+
+/* ===== Layout Resolution ===== */
+
+function getSelectedLayout() {
+  const index = document.getElementById("courtSelect").value;
+
+  const item = dataStore.layouts[index];
+  if (!item) return null;
+
+  const preset = dataStore.presets?.[item.preset];
+  if (!preset) return null;
+
+  return {
+    id: item.id,
+    name: item.name,
+    ...preset
+  };
+}
+
+/* ===== Apply Layout ===== */
+
+async function applySelected() {
+  const layout = getSelectedLayout();
+  if (!layout) return;
+
+  if (currentLayout && currentLayout.id === layout.id) {
+    setStatus("Already applied");
+    return;
+  }
+
+  const unit = resolveUnit(layout);
+
+  try {
+    await Word.run(async (context) => {
+      const sections = context.document.sections;
+      sections.load("items/pageSetup");
+
+      await context.sync();
+
+      if (!sections.items.length) return;
+
+      /* Save previous */
+      const first = sections.items[0].pageSetup;
+
+      previousLayout = {
+        width: first.pageWidth,
+        height: first.pageHeight,
+        top: first.topMargin,
+        bottom: first.bottomMargin,
+        left: first.leftMargin,
+        right: first.rightMargin
+      };
+
+      sections.items.forEach((section, index) => {
+        let margins = layout.margins;
+
+        if (layout.multiPage) {
+          margins = index === 0 ? layout.firstPage : layout.otherPages;
+        }
+
+        section.pageSetup.pageWidth = toPoints(layout.width, unit);
+        section.pageSetup.pageHeight = toPoints(layout.height, unit);
+
+        section.pageSetup.topMargin = toPoints(margins.top, unit);
+        section.pageSetup.bottomMargin = toPoints(margins.bottom, unit);
+        section.pageSetup.leftMargin = toPoints(margins.left, unit);
+        section.pageSetup.rightMargin = toPoints(margins.right, unit);
+      });
+
+      await context.sync();
+    });
+
+    currentLayout = layout;
+    setStatus("Applied: " + layout.name);
+  } catch (error) {
+    console.error(error);
+    setStatus("Failed to apply layout");
+  }
+}
+
+/* ===== Undo Layout ===== */
+
+async function undoLayout() {
+  if (!previousLayout) {
+    setStatus("No previous layout");
+    return;
+  }
+
+  try {
+    await Word.run(async (context) => {
+      const sections = context.document.sections;
+      sections.load("items");
+
+      await context.sync();
+
+      sections.items.forEach((section) => {
+        section.pageSetup.pageWidth = previousLayout.width;
+        section.pageSetup.pageHeight = previousLayout.height;
+
+        section.pageSetup.topMargin = previousLayout.top;
+        section.pageSetup.bottomMargin = previousLayout.bottom;
+        section.pageSetup.leftMargin = previousLayout.left;
+        section.pageSetup.rightMargin = previousLayout.right;
+      });
+
+      await context.sync();
+    });
+
+    currentLayout = null;
+    setStatus("Layout restored");
+  } catch (error) {
+    console.error(error);
+    setStatus("Undo failed");
+  }
+}
