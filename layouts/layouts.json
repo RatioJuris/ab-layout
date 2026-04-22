@@ -1,37 +1,227 @@
 {
-  "version": "2.1.0",
+  "_meta": {
+    "project": "AB Layout (Advocate Benefit Layout)",
+    "version": "1.0.0",
+    "author": "Bee Isrg Rajan",
+    "description": "Production-ready layout definitions for Indian courts",
+    "unit": "inch"
+  },
+
+  "presets": {
+    "high_court": {
+      "label": "High Court",
+      "width": 8.5,
+      "height": 14,
+      "unit": "inch",
+      "margins": {
+        "top": 1.5,
+        "bottom": 1.5,
+        "left": 0.5,
+        "right": 1.7
+      }
+    },
+
+    "high_court_new": {
+      "label": "High Court (New Format)",
+      "width": 8.5,
+      "height": 14,
+      "unit": "inch",
+      "margins": {
+        "top": 1.5,
+        "bottom": 1.5,
+        "left": 0.5,
+        "right": 1.7
+      }
+    },
+
+    "district_a4": {
+      "label": "District Court (A4)",
+      "width": 8.5,
+      "height": 11,
+      "unit": "inch",
+      "margins": {
+        "top": 1,
+        "bottom": 1,
+        "left": 0.5,
+        "right": 1.5
+      }
+    },
+
+    "district_legal": {
+      "label": "District Court (Legal)",
+      "width": 8.5,
+      "height": 14,
+      "unit": "inch",
+      "margins": {
+        "top": 1.5,
+        "bottom": 1.5,
+        "left": 0.5,
+        "right": 1.7
+      }
+    },
+
+    "notary_affidavit": {
+      "label": "Notary / Affidavit",
+      "width": 8.5,
+      "height": 11,
+      "unit": "inch",
+      "multiPage": true,
+      "firstPage": {
+        "top": 6.5,
+        "bottom": 0.8,
+        "left": 1,
+        "right": 1
+      },
+      "otherPages": {
+        "top": 1,
+        "bottom": 1,
+        "left": 1,
+        "right": 1
+      }
+    }
+  },
+
   "states": [
     {
       "name": "Uttar Pradesh",
       "courts": [
         {
-          "id": "allahabad_hc_lko",
-          "name": "Allahabad HC (Lucknow Bench)",
-          "width": 8.5,
-          "height": 14,
-          "margins": {
-            "top": 1.5,
-            "bottom": 1.5,
-            "left": 0.5,
-            "right": 1.7
-          }
+          "id": "allahabad_hc_prayagraj",
+          "name": "Allahabad High Court (Prayagraj)",
+          "preset": "high_court",
+          "type": "high_court"
+        },
+        {
+          "id": "allahabad_hc_lucknow",
+          "name": "Allahabad High Court (Lucknow Bench)",
+          "preset": "high_court",
+          "type": "high_court"
+        },
+        {
+          "id": "up_district_a4",
+          "name": "District Courts (A4)",
+          "preset": "district_a4",
+          "type": "district_court"
+        },
+        {
+          "id": "up_district_legal",
+          "name": "District Courts (Legal)",
+          "preset": "district_legal",
+          "type": "district_court"
+        },
+        {
+          "id": "up_affidavit",
+          "name": "Notary / Affidavit",
+          "preset": "notary_affidavit",
+          "type": "affidavit"
         }
       ]
     },
+
     {
-      "name": "India",
+      "name": "Delhi",
       "courts": [
         {
-          "id": "supreme_court",
-          "name": "Supreme Court",
-          "width": 8.5,
-          "height": 14,
-          "margins": {
-            "top": 1,
-            "bottom": 1,
-            "left": 1,
-            "right": 1
-          }
+          "id": "delhi_high_court",
+          "name": "Delhi High Court",
+          "preset": "high_court",
+          "type": "high_court"
+        },
+        {
+          "id": "delhi_district_a4",
+          "name": "District Courts (A4)",
+          "preset": "district_a4",
+          "type": "district_court"
+        },
+        {
+          "id": "delhi_district_legal",
+          "name": "District Courts (Legal)",
+          "preset": "district_legal",
+          "type": "district_court"
+        }
+      ]
+    },
+
+    {
+      "name": "Maharashtra",
+      "courts": [
+        {
+          "id": "bombay_hc_mumbai",
+          "name": "Bombay High Court (Mumbai)",
+          "preset": "high_court",
+          "type": "high_court"
+        },
+        {
+          "id": "bombay_hc_nagpur",
+          "name": "Bombay High Court (Nagpur Bench)",
+          "preset": "high_court",
+          "type": "high_court"
+        },
+        {
+          "id": "mh_district_a4",
+          "name": "District Courts (A4)",
+          "preset": "district_a4",
+          "type": "district_court"
+        },
+        {
+          "id": "mh_district_legal",
+          "name": "District Courts (Legal)",
+          "preset": "district_legal",
+          "type": "district_court"
+        }
+      ]
+    },
+
+    {
+      "name": "Tamil Nadu",
+      "courts": [
+        {
+          "id": "madras_hc_chennai",
+          "name": "Madras High Court (Chennai)",
+          "preset": "high_court",
+          "type": "high_court"
+        },
+        {
+          "id": "madras_hc_madurai",
+          "name": "Madras High Court (Madurai Bench)",
+          "preset": "high_court",
+          "type": "high_court"
+        }
+      ]
+    },
+
+    {
+      "name": "Karnataka",
+      "courts": [
+        {
+          "id": "karnataka_high_court",
+          "name": "Karnataka High Court (Bengaluru)",
+          "preset": "high_court",
+          "type": "high_court"
+        }
+      ]
+    },
+
+    {
+      "name": "West Bengal",
+      "courts": [
+        {
+          "id": "calcutta_high_court",
+          "name": "Calcutta High Court",
+          "preset": "high_court",
+          "type": "high_court"
+        }
+      ]
+    },
+
+    {
+      "name": "India (Central)",
+      "courts": [
+        {
+          "id": "supreme_court_india",
+          "name": "Supreme Court of India",
+          "preset": "high_court",
+          "type": "supreme_court"
         }
       ]
     }
