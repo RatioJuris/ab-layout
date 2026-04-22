@@ -1,3 +1,27 @@
+/*
+AB Layout (Advocate Benefit Layout)
+Version: 1.0
+
+Description:
+Styling file for the task pane UI.
+
+Purpose:
+- Defines layout and visual structure
+- Ensures clean and professional appearance
+- Optimized for readability inside Word sidebar
+
+Design Goals:
+- Minimal and distraction-free UI
+- Fast rendering
+- Consistent spacing and typography
+
+Author:
+Bee Isrg Rajan
+
+Repository:
+https://github.com/isrgrajan/ab-layout
+*/
+
 body {
   font-family: Segoe UI, Arial;
   padding: 12px;
