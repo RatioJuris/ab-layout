@@ -6,8 +6,6 @@
   xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
   xsi:type="TaskPaneApp">
 
-  <!-- ===== CORE ===== -->
-
   <Id>8b7c2d3a-6f9a-4b7c-9d2e-1a2b3c4d5e6f</Id>
   <Version>3.1.0.0</Version>
 
@@ -17,28 +15,19 @@
   <DisplayName DefaultValue="AB Layout"/>
   <Description DefaultValue="Legal formatting engine for Indian courts."/>
 
-  <!-- ===== ICONS ===== -->
-
+  <!-- ICONS -->
   <IconUrl DefaultValue="https://ratiojuris.github.io/ab-layout/assets/icons/icon-32.png"/>
   <HighResolutionIconUrl DefaultValue="https://ratiojuris.github.io/ab-layout/assets/icons/icon-80.png"/>
 
-  <!-- ===== LINKS ===== -->
-
   <SupportUrl DefaultValue="https://github.com/RatioJuris/ab-layout"/>
-
-  <!-- ===== SECURITY ===== -->
 
   <AppDomains>
     <AppDomain>https://ratiojuris.github.io</AppDomain>
   </AppDomains>
 
-  <!-- ===== HOST ===== -->
-
   <Hosts>
     <Host Name="Document"/>
   </Hosts>
-
-  <!-- ===== REQUIREMENTS ===== -->
 
   <Requirements>
     <Sets DefaultMinVersion="1.3">
@@ -46,17 +35,13 @@
     </Sets>
   </Requirements>
 
-  <!-- ===== ENTRY ===== -->
-
   <DefaultSettings>
     <SourceLocation DefaultValue="https://ratiojuris.github.io/ab-layout/web/taskpane.html"/>
   </DefaultSettings>
 
-  <!-- ===== PERMISSIONS ===== -->
-
   <Permissions>ReadWriteDocument</Permissions>
 
-  <!-- ===== MODERN RIBBON ===== -->
+  <!-- ===== RIBBON ===== -->
 
   <VersionOverrides
     xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
@@ -67,47 +52,117 @@
 
         <DesktopFormFactor>
 
-          <!-- ===== CUSTOM TAB ===== -->
+          <!-- REQUIRED FOR ExecuteFunction -->
+          <FunctionFile resid="functionFileUrl"/>
 
           <ExtensionPoint xsi:type="PrimaryCommandSurface">
 
             <CustomTab id="ABLayoutTab">
               <Label resid="tabLabel"/>
 
-              <Group id="ABLayoutGroup">
-                <Label resid="groupLabel"/>
+              <!-- ===== COURT ===== -->
+              <Group id="CourtGroup">
+                <Label resid="courtGroupLabel"/>
 
-                <Control xsi:type="Button" id="OpenTaskpaneButton">
-
-                  <Label resid="buttonLabel"/>
-
+                <Control xsi:type="Button" id="HighCourtBtn">
+                  <Label resid="highCourtLabel"/>
                   <Supertip>
-                    <Title resid="buttonLabel"/>
-                    <Description resid="buttonDesc"/>
+                    <Title resid="highCourtLabel"/>
+                    <Description resid="highCourtDesc"/>
                   </Supertip>
-
                   <Icon>
                     <bt:Image size="16" resid="icon16"/>
                     <bt:Image size="32" resid="icon32"/>
                     <bt:Image size="80" resid="icon80"/>
                   </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>applyHighCourt</FunctionName>
+                  </Action>
+                </Control>
 
+                <Control xsi:type="Button" id="DistrictCourtBtn">
+                  <Label resid="districtLabel"/>
+                  <Supertip>
+                    <Title resid="districtLabel"/>
+                    <Description resid="districtDesc"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="icon16"/>
+                    <bt:Image size="32" resid="icon32"/>
+                    <bt:Image size="80" resid="icon80"/>
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>applyDistrictCourt</FunctionName>
+                  </Action>
+                </Control>
+
+              </Group>
+
+              <!-- ===== AFFIDAVIT ===== -->
+              <Group id="AffidavitGroup">
+                <Label resid="affidavitGroupLabel"/>
+
+                <Control xsi:type="Button" id="AffidavitBtn">
+                  <Label resid="affidavitLabel"/>
+                  <Supertip>
+                    <Title resid="affidavitLabel"/>
+                    <Description resid="affidavitDesc"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="icon16"/>
+                    <bt:Image size="32" resid="icon32"/>
+                    <bt:Image size="80" resid="icon80"/>
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>applyAffidavit</FunctionName>
+                  </Action>
+                </Control>
+
+              </Group>
+
+              <!-- ===== ACTIONS ===== -->
+              <Group id="ActionGroup">
+                <Label resid="actionGroupLabel"/>
+
+                <Control xsi:type="Button" id="UndoBtn">
+                  <Label resid="undoLabel"/>
+                  <Supertip>
+                    <Title resid="undoLabel"/>
+                    <Description resid="undoDesc"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="icon16"/>
+                    <bt:Image size="32" resid="icon32"/>
+                    <bt:Image size="80" resid="icon80"/>
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>undoLayout</FunctionName>
+                  </Action>
+                </Control>
+
+                <!-- OPTIONAL: OPEN PANEL -->
+                <Control xsi:type="Button" id="OpenPaneBtn">
+                  <Label resid="openPaneLabel"/>
+                  <Icon>
+                    <bt:Image size="16" resid="icon16"/>
+                    <bt:Image size="32" resid="icon32"/>
+                    <bt:Image size="80" resid="icon80"/>
+                  </Icon>
                   <Action xsi:type="ShowTaskpane">
                     <TaskpaneId>ABLayoutPane</TaskpaneId>
                     <SourceLocation resid="taskpaneUrl"/>
                   </Action>
-
                 </Control>
 
               </Group>
+
             </CustomTab>
 
           </ExtensionPoint>
 
-          <!-- ===== QUICK ACCESS TOOLBAR ===== -->
-
+          <!-- QUICK ACCESS -->
           <ExtensionPoint xsi:type="QuickAccessToolbar">
-            <OfficeCommand id="OpenTaskpaneButton"/>
+            <OfficeCommand id="HighCourtBtn"/>
           </ExtensionPoint>
 
         </DesktopFormFactor>
@@ -119,27 +174,35 @@
 
     <Resources>
 
-      <!-- ICONS -->
       <bt:Images>
         <bt:Image id="icon16" DefaultValue="https://ratiojuris.github.io/ab-layout/assets/icons/icon-16.png"/>
         <bt:Image id="icon32" DefaultValue="https://ratiojuris.github.io/ab-layout/assets/icons/icon-32.png"/>
         <bt:Image id="icon80" DefaultValue="https://ratiojuris.github.io/ab-layout/assets/icons/icon-80.png"/>
       </bt:Images>
 
-      <!-- URL -->
       <bt:Urls>
         <bt:Url id="taskpaneUrl" DefaultValue="https://ratiojuris.github.io/ab-layout/web/taskpane.html"/>
+        <bt:Url id="functionFileUrl" DefaultValue="https://ratiojuris.github.io/ab-layout/web/taskpane.html"/>
       </bt:Urls>
 
-      <!-- TEXT -->
       <bt:ShortStrings>
         <bt:String id="tabLabel" DefaultValue="AB Layout"/>
-        <bt:String id="groupLabel" DefaultValue="Layout Tools"/>
-        <bt:String id="buttonLabel" DefaultValue="AB Layout"/>
+        <bt:String id="courtGroupLabel" DefaultValue="Court"/>
+        <bt:String id="affidavitGroupLabel" DefaultValue="Affidavit"/>
+        <bt:String id="actionGroupLabel" DefaultValue="Actions"/>
+
+        <bt:String id="highCourtLabel" DefaultValue="High Court"/>
+        <bt:String id="districtLabel" DefaultValue="District Court"/>
+        <bt:String id="affidavitLabel" DefaultValue="Affidavit"/>
+        <bt:String id="undoLabel" DefaultValue="Undo"/>
+        <bt:String id="openPaneLabel" DefaultValue="Panel"/>
       </bt:ShortStrings>
 
       <bt:LongStrings>
-        <bt:String id="buttonDesc" DefaultValue="Apply court layouts instantly"/>
+        <bt:String id="highCourtDesc" DefaultValue="Apply High Court layout"/>
+        <bt:String id="districtDesc" DefaultValue="Apply District Court layout"/>
+        <bt:String id="affidavitDesc" DefaultValue="Apply affidavit format"/>
+        <bt:String id="undoDesc" DefaultValue="Revert last layout"/>
       </bt:LongStrings>
 
     </Resources>
