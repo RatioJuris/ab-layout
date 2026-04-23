@@ -2,7 +2,7 @@
   "_meta": {
     "project": "AB Layout (Advocate Benefit Layout)",
     "version": "1.0.0",
-    "author": "Bee Isrg Rajan",
+    "maintainer": "RatioJuris",
     "description": "Production-ready layout definitions for Indian courts",
     "unit": "inch"
   },
