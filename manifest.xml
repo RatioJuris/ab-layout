@@ -14,9 +14,10 @@
   <DisplayName DefaultValue="AB Layout"/>
   <Description DefaultValue="Advocate Benefit Layout for Indian Courts"/>
 
-  <IconUrl DefaultValue="https://isrgrajan.github.io/ab-layout/assets/icon-32.png"/>
-  <HighResolutionIconUrl DefaultValue="https://isrgrajan.github.io/ab-layout/assets/icon-32.png"/>
-  <SupportUrl DefaultValue="https://github.com/isrgrajan/ab-layout"/>
+  <!-- ✅ Updated to RatioJuris (privacy-safe) -->
+  <IconUrl DefaultValue="https://ratiojuris.github.io/ab-layout/assets/icon-32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://ratiojuris.github.io/ab-layout/assets/icon-32.png"/>
+  <SupportUrl DefaultValue="https://github.com/RatioJuris/ab-layout"/>
 
   <Hosts>
     <Host Name="Document"/>
@@ -29,7 +30,7 @@
   </Requirements>
 
   <DefaultSettings>
-    <SourceLocation DefaultValue="https://isrgrajan.github.io/ab-layout/web/taskpane.html"/>
+    <SourceLocation DefaultValue="https://ratiojuris.github.io/ab-layout/web/taskpane.html"/>
   </DefaultSettings>
 
   <Permissions>ReadWriteDocument</Permissions>
@@ -84,13 +85,13 @@
 
     <Resources>
       <bt:Images>
-        <bt:Image id="icon16" DefaultValue="https://isrgrajan.github.io/ab-layout/assets/icon-32.png"/>
-        <bt:Image id="icon32" DefaultValue="https://isrgrajan.github.io/ab-layout/assets/icon-32.png"/>
-        <bt:Image id="icon80" DefaultValue="https://isrgrajan.github.io/ab-layout/assets/icon-32.png"/>
+        <bt:Image id="icon16" DefaultValue="https://ratiojuris.github.io/ab-layout/assets/icon-32.png"/>
+        <bt:Image id="icon32" DefaultValue="https://ratiojuris.github.io/ab-layout/assets/icon-32.png"/>
+        <bt:Image id="icon80" DefaultValue="https://ratiojuris.github.io/ab-layout/assets/icon-32.png"/>
       </bt:Images>
 
       <bt:Urls>
-        <bt:Url id="taskpaneUrl" DefaultValue="https://isrgrajan.github.io/ab-layout/web/taskpane.html"/>
+        <bt:Url id="taskpaneUrl" DefaultValue="https://ratiojuris.github.io/ab-layout/web/taskpane.html"/>
       </bt:Urls>
 
       <bt:ShortStrings>
