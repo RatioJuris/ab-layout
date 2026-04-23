@@ -1,42 +1,88 @@
 /*
-AB Layout (Advocate Benefit Layout)
-Version: 1.1.0
+File: styles.css
+Path: /web/styles.css
+Version: 3.1.0
 
 Description:
-Microsoft Word native-like UI with auto dark/light mode support
+Adaptive UI system with auto + manual theme support and improved contrast
 
 Maintainer:
 RatioJuris
 */
 
-/* ===== Root Theme (Auto Detect) ===== */
+/* ===== THEME TOKENS ===== */
 
 :root {
   --bg: #ffffff;
   --text: #1f1f1f;
   --muted: #6b6b6b;
   --border: #e5e5e5;
+
   --primary: #0f6cbd;
   --primary-hover: #094a8f;
+
   --secondary: #f3f3f3;
   --secondary-hover: #e0e0e0;
+
+  --link: #0f6cbd;
+
+  --status-info: #6b7280;
+  --status-success: #16a34a;
+  --status-error: #dc2626;
 }
 
-/* Dark Mode Auto */
+/* ===== DARK MODE (AUTO) ===== */
+
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme]) {
     --bg: #1f1f1f;
     --text: #f5f5f5;
     --muted: #b3b3b3;
     --border: #333333;
+
     --primary: #4cc2ff;
     --primary-hover: #2aa3e0;
+
     --secondary: #2b2b2b;
     --secondary-hover: #3a3a3a;
+
+    --link: #4cc2ff;
   }
 }
 
-/* ===== Base ===== */
+/* ===== MANUAL THEME OVERRIDE ===== */
+
+[data-theme="dark"] {
+  --bg: #1f1f1f;
+  --text: #f5f5f5;
+  --muted: #b3b3b3;
+  --border: #333333;
+
+  --primary: #4cc2ff;
+  --primary-hover: #2aa3e0;
+
+  --secondary: #2b2b2b;
+  --secondary-hover: #3a3a3a;
+
+  --link: #4cc2ff;
+}
+
+[data-theme="light"] {
+  --bg: #ffffff;
+  --text: #1f1f1f;
+  --muted: #6b6b6b;
+  --border: #e5e5e5;
+
+  --primary: #0f6cbd;
+  --primary-hover: #094a8f;
+
+  --secondary: #f3f3f3;
+  --secondary-hover: #e0e0e0;
+
+  --link: #0f6cbd;
+}
+
+/* ===== BASE ===== */
 
 * {
   box-sizing: border-box;
@@ -51,7 +97,18 @@ body {
   transition: background 0.2s ease, color 0.2s ease;
 }
 
-/* ===== Header ===== */
+/* ===== LINKS (FIXED VISIBILITY ISSUE) ===== */
+
+a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ===== HEADER ===== */
 
 .header {
   text-align: center;
@@ -80,7 +137,7 @@ h1 {
   color: var(--muted);
 }
 
-/* ===== Divider ===== */
+/* ===== DIVIDER ===== */
 
 hr {
   border: none;
@@ -88,7 +145,7 @@ hr {
   margin: 10px 0;
 }
 
-/* ===== Section ===== */
+/* ===== SECTION ===== */
 
 .section {
   margin-bottom: 12px;
@@ -102,7 +159,7 @@ label {
   margin-bottom: 4px;
 }
 
-/* ===== Dropdown ===== */
+/* ===== DROPDOWN ===== */
 
 select {
   width: 100%;
@@ -125,7 +182,7 @@ select:focus {
   box-shadow: 0 0 0 2px rgba(15,108,189,0.2);
 }
 
-/* ===== Buttons ===== */
+/* ===== BUTTONS ===== */
 
 button {
   width: 100%;
@@ -171,16 +228,24 @@ button:active:not(:disabled) {
   transform: scale(0.97);
 }
 
-/* ===== Status ===== */
+/* ===== STATUS (ENGINE AWARE) ===== */
 
 .status {
   margin-top: 10px;
   font-size: 12px;
-  color: var(--muted);
   min-height: 16px;
+  color: var(--status-info);
 }
 
-/* ===== Footer ===== */
+.status.success {
+  color: var(--status-success);
+}
+
+.status.error {
+  color: var(--status-error);
+}
+
+/* ===== FOOTER ===== */
 
 .footer {
   margin-top: 16px;
@@ -189,7 +254,7 @@ button:active:not(:disabled) {
   color: var(--muted);
 }
 
-/* ===== Scrollbar (Subtle like Word) ===== */
+/* ===== SCROLLBAR ===== */
 
 ::-webkit-scrollbar {
   width: 6px;
