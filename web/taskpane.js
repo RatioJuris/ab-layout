@@ -5,8 +5,8 @@ Version: 1.0.0
 Description:
 Production-ready layout engine for Microsoft Word Add-in.
 
-Author:
-Bee Isrg Rajan
+Maintainer:
+RatioJuris
 */
 
 let isOfficeReady = false;
@@ -21,7 +21,7 @@ Office.onReady((info) => {
 });
 
 const LAYOUTS_URL =
-  "https://isrgrajan.github.io/ab-layout/layouts/layouts.json?v=1.0.1";
+  "https://ratiojuris.github.io/ab-layout/layouts/layouts.json?v=1.0.1";
 
 let dataStore = {};
 let currentLayout = null;
