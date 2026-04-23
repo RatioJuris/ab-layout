@@ -1,34 +1,52 @@
 # ⚖️ AB Layout (Advocate Benefit Layout)
 
-![Version](https://img.shields.io/badge/Version-1.0-blue)
-![License](https://img.shields.io/badge/License-Apache%202.0-green)
 ![Platform](https://img.shields.io/badge/Platform-Microsoft%20Word%20Add--in-orange)
-![Status](https://img.shields.io/badge/Status-Stable-brightgreen)
+![Architecture](https://img.shields.io/badge/Engine-Ribbon%20Driven-blue)
+![License](https://img.shields.io/badge/License-Apache%202.0-green)
+![Status](https://img.shields.io/badge/Status-Production--Ready-brightgreen)
 
 ---
 
 ## ⟡ Overview
 
-**AB Layout** is an open-source **Microsoft Word Office JS Add-in** designed for structured, court-compliant legal drafting in India.
+**AB Layout** is a structured **legal formatting engine** built as a Microsoft Word Office JS Add-in.
 
-It transforms raw documents into **court-ready formats instantly**, eliminating repetitive formatting effort.
+It converts unstructured drafts into **court-compliant documents instantly**, eliminating repetitive formatting and ensuring consistency across filings.
+
+Designed for:
+
+* Advocates
+* Law students
+* Legal professionals
+
+---
+
+## ⟡ Core System
+
+AB Layout operates as a **ribbon-driven engine**, not just a taskpane utility.
+
+```text
+Ribbon Action → Layout Engine → Word API → Structured Output
+```
 
 ---
 
 ## ⟡ Capabilities
 
-- ⚡ Instant **court-specific formatting**
-- 📄 Legal page conversion *(8.5" × 14")*
-- 🔁 Reversible actions *(Undo supported)*
-- 📑 Works on **large documents (100+ pages)**
-- 🌐 **Live layout updates via GitHub**
-- 🧩 Open and extensible system
+* ⚡ One-click **court-compliant formatting**
+* 🏛 Support for **High Court, District Court, Affidavits**
+* 📄 Automatic **legal page structuring**
+* 🔁 Safe **Undo / Revert system**
+* 📑 Handles **large documents (100+ pages)**
+* 🌐 **Dynamic layout updates (GitHub-powered)**
+* 🔌 **Offline fallback support**
+* 🧩 Fully **extensible architecture**
 
 ---
 
-## ⟡ Live Demo
+## ⟡ Live System
 
-🌐 **Access Add-in Source:**  
+🌐 Access the hosted add-in:
 👉 https://ratiojuris.github.io/ab-layout/
 
 ---
@@ -36,9 +54,10 @@ It transforms raw documents into **court-ready formats instantly**, eliminating 
 ## ⟡ Installation
 
 ```text
-Download manifest.xml  
-Open Word → Insert → Add-ins → Upload My Add-in  
-Select manifest.xml  
+1. Download manifest.xml
+2. Open Microsoft Word
+3. Insert → Add-ins → Upload My Add-in
+4. Select manifest.xml
 ```
 
 ---
@@ -46,19 +65,19 @@ Select manifest.xml
 ## ⟡ Usage Flow
 
 ```text
-Open Panel → Select Court → Apply Layout → Undo (if required)
+Ribbon → Select Layout → Apply → Undo (if required)
 ```
 
 ---
 
-## ⟡ Structure
+## ⟡ Project Structure
 
 ```bash
 ab-layout/
-├── manifest.xml
-├── web/
-├── layouts/
-├── assets/
+├── manifest.xml          # Add-in definition
+├── web/                  # UI + engine
+├── layouts/              # Layout schema (JSON)
+├── assets/               # Icons and resources
 └── README.md
 ```
 
@@ -67,31 +86,46 @@ ab-layout/
 ## ⟡ Contribution Protocol
 
 ```text
-1. Edit /layouts/layouts.json
-2. Add court format
-3. Validate formatting
-4. Submit PR
+1. Modify /layouts/layouts.json
+2. Add or update layout presets
+3. Validate formatting integrity
+4. Submit Pull Request
 ```
+
+---
+
+## ⟡ Privacy & Data Policy
+
+AB Layout:
+
+* ❌ Does NOT collect personal data
+* ❌ Does NOT transmit document content
+* ✅ Operates locally within Microsoft Word
+
+External dependency:
+
+* Microsoft Office JS runtime
 
 ---
 
 ## ⟡ License
 
-Apache License 2.0
+Licensed under the **Apache License 2.0**
 
 ---
 
 ## ⟡ Maintainer
 
-Maintained as an independent system initiative  
+Maintained as an independent system initiative
+
 🔗 https://github.com/RatioJuris
 
 ---
 
 ## ⟡ Support
 
-- ⭐ Star the repository  
-- 🍴 Fork and contribute  
-- 📢 Share with legal professionals  
+* ⭐ Star the repository
+* 🍴 Fork and contribute
+* 📢 Share with the legal community
 
 ---
