@@ -1,9 +1,10 @@
 <!--
-AB Layout (Advocate Benefit Layout)
-Version: 2.0.0
+File: taskpane.html
+Path: /web/taskpane.html
+Version: 3.1.0
 
 Description:
-Engine-driven UI for Microsoft Word Add-in with dynamic state sync.
+Engine-driven UI with adaptive theme + full integration
 
 Maintainer:
 RatioJuris
@@ -20,11 +21,16 @@ RatioJuris
   <!-- Office JS -->
   <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="styles.css" />
+  <!-- FQD + CACHE SAFE -->
+  <link rel="stylesheet" href="https://ratiojuris.github.io/ab-layout/web/styles.css?v=3.1.0" />
 </head>
 
 <body>
+
+  <!-- THEME TOGGLE -->
+  <div style="text-align:right; font-size:12px; cursor:pointer;" onclick="toggleTheme()">
+    🌗 Theme
+  </div>
 
   <!-- Header -->
   <header class="header">
@@ -40,13 +46,11 @@ RatioJuris
   <!-- Main -->
   <main>
 
-    <!-- Layout Selection -->
     <section class="section">
       <label for="courtSelect">Layout</label>
       <select id="courtSelect"></select>
     </section>
 
-    <!-- Actions -->
     <section class="section">
       <button id="applyBtn" onclick="applySelected()" disabled>
         Apply Layout
@@ -57,7 +61,7 @@ RatioJuris
       </button>
     </section>
 
-    <!-- Status -->
+    <!-- STATUS (CLASS-BASED NOW) -->
     <section id="status" class="status" aria-live="polite">
       Initializing engine...
     </section>
@@ -66,18 +70,18 @@ RatioJuris
 
   <!-- Footer -->
   <footer class="footer">
-    <span id="version">v2.0.0</span>
+    <span id="version">v3.1.0</span>
     <span> • </span>
-    <span id="engineState">Engine Ready</span>
+    <span id="engineState">Initializing...</span>
   </footer>
 
-  <!-- Script -->
-  <script src="taskpane.js"></script>
+  <!-- SCRIPT (FQD + VERSION) -->
+  <script src="https://ratiojuris.github.io/ab-layout/web/taskpane.js?v=3.1.0"></script>
 
-  <!-- UI Intelligence Layer -->
+  <!-- UI LAYER -->
   <script>
     const CONFIG = {
-      metaUrl: "https://ratiojuris.github.io/ab-layout/layouts/layouts.json"
+      metaUrl: "https://ratiojuris.github.io/ab-layout/layouts/layouts.json?v=3.1.0"
     };
 
     const UI = {
@@ -89,35 +93,23 @@ RatioJuris
       engineState: document.getElementById("engineState")
     };
 
-    /* ===== Dynamic Meta Sync ===== */
+    /* ===== META SYNC ===== */
 
     fetch(CONFIG.metaUrl)
       .then(res => res.json())
       .then(data => {
         const meta = data._meta || {};
 
-        if (meta.version) {
-          UI.version.innerText = "v" + meta.version;
-        }
-
-        if (meta.description) {
-          UI.subtitle.innerText = meta.description;
-        }
-      })
-      .catch(() => {
-        // silent fallback
+        if (meta.version) UI.version.innerText = "v" + meta.version;
+        if (meta.description) UI.subtitle.innerText = meta.description;
       });
 
-    /* ===== UI Hooks (Engine Integration) ===== */
+    /* ===== UI HOOKS ===== */
 
-    // Called from engine
     function uiSetStatus(message, type = "info") {
       UI.status.innerText = message;
 
-      UI.status.style.color =
-        type === "error" ? "#dc2626" :
-        type === "success" ? "#16a34a" :
-        "#6b7280";
+      UI.status.className = "status " + type;
     }
 
     function uiSetEngineState(state) {
@@ -132,19 +124,35 @@ RatioJuris
       UI.undoBtn.disabled = !enable;
     }
 
-    /* ===== Theme Sync with Word ===== */
+    /* ===== THEME SYSTEM ===== */
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute("data-theme");
+      const next = current === "dark" ? "light" : "dark";
+
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+    }
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      document.documentElement.setAttribute("data-theme", savedTheme);
+    }
+
+    /* ===== WORD THEME SYNC ===== */
 
     Office.onReady(() => {
       try {
         const theme = Office.context.officeTheme;
 
-        if (theme?.bodyBackgroundColor) {
+        if (!savedTheme && theme?.bodyBackgroundColor) {
           document.body.style.backgroundColor = theme.bodyBackgroundColor;
           document.body.style.color = theme.bodyForegroundColor;
         }
 
       } catch (e) {
-        // fallback to CSS
+        // fallback
       }
     });
   </script>
