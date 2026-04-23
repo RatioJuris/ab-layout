@@ -1,161 +1,160 @@
-<!--
-File: taskpane.html
-Path: /web/taskpane.html
-Version: 3.1.0
-
-Description:
-Engine-driven UI with adaptive theme + full integration
-
-Maintainer:
-RatioJuris
--->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <title>AB Layout</title>
+<title>AB Layout</title>
 
-  <!-- Office JS -->
-  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+<!-- Office JS (must stay CDN) -->
+<script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
 
-  <!-- FQD + CACHE SAFE -->
-  <link rel="stylesheet" href="https://ratiojuris.github.io/ab-layout/web/styles.css?v=3.1.0" />
+<!-- 🔥 LOCAL FIRST (offline safe) -->
+<link rel="stylesheet" href="styles.css" />
+
 </head>
 
-<body>
+<body oncontextmenu="return false;"> <!-- 🚫 Right-click disabled -->
 
-  <!-- THEME TOGGLE -->
-  <div style="text-align:right; font-size:12px; cursor:pointer;" onclick="toggleTheme()">
-    🌗 Theme
+<!-- THEME -->
+<div style="text-align:right; font-size:12px; cursor:pointer;" onclick="toggleTheme()">
+  🌗 Theme
+</div>
+
+<header class="header">
+  <div class="title-row">
+    <span class="icon">⚖</span>
+    <h1>AB Layout</h1>
   </div>
+  <div class="subtitle" id="subtitle">Advocate Benefit Layout</div>
+</header>
 
-  <!-- Header -->
-  <header class="header">
-    <div class="title-row">
-      <span class="icon">⚖</span>
-      <h1>AB Layout</h1>
-    </div>
-    <div class="subtitle" id="subtitle">Advocate Benefit Layout</div>
-  </header>
+<hr />
 
-  <hr />
+<main>
 
-  <!-- Main -->
-  <main>
+  <section class="section">
+    <label for="courtSelect">Layout</label>
+    <select id="courtSelect"></select>
+  </section>
 
-    <section class="section">
-      <label for="courtSelect">Layout</label>
-      <select id="courtSelect"></select>
-    </section>
+  <section class="section">
+    <button id="applyBtn" onclick="applySelected()" disabled>
+      Apply Layout
+    </button>
 
-    <section class="section">
-      <button id="applyBtn" onclick="applySelected()" disabled>
-        Apply Layout
-      </button>
+    <button id="undoBtn" class="secondary" onclick="undoLayout()" disabled>
+      Undo
+    </button>
+  </section>
 
-      <button id="undoBtn" class="secondary" onclick="undoLayout()" disabled>
-        Undo
-      </button>
-    </section>
+  <section id="status" class="status">Initializing engine...</section>
 
-    <!-- STATUS (CLASS-BASED NOW) -->
-    <section id="status" class="status" aria-live="polite">
-      Initializing engine...
-    </section>
+</main>
 
-  </main>
+<footer class="footer">
+  <span id="version">v3.1.0</span>
+  <span> • </span>
+  <span id="engineState">Initializing...</span>
+</footer>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <span id="version">v3.1.0</span>
-    <span> • </span>
-    <span id="engineState">Initializing...</span>
-  </footer>
+<!-- 🔥 LOCAL ENGINE -->
+<script src="taskpane.js"></script>
 
-  <!-- SCRIPT (FQD + VERSION) -->
-  <script src="https://ratiojuris.github.io/ab-layout/web/taskpane.js?v=3.1.0"></script>
+<script>
 
-  <!-- UI LAYER -->
-  <script>
-    const CONFIG = {
-      metaUrl: "https://ratiojuris.github.io/ab-layout/layouts/layouts.json?v=3.1.0"
-    };
+/* ===== CONFIG ===== */
 
-    const UI = {
-      version: document.getElementById("version"),
-      subtitle: document.getElementById("subtitle"),
-      status: document.getElementById("status"),
-      applyBtn: document.getElementById("applyBtn"),
-      undoBtn: document.getElementById("undoBtn"),
-      engineState: document.getElementById("engineState")
-    };
+const CONFIG = {
+  remote: "https://ratiojuris.github.io/ab-layout/layouts/layouts.json",
+  local: "layouts/layouts.json"
+};
 
-    /* ===== META SYNC ===== */
+/* ===== UI ===== */
 
-    fetch(CONFIG.metaUrl)
-      .then(res => res.json())
-      .then(data => {
-        const meta = data._meta || {};
+const UI = {
+  version: document.getElementById("version"),
+  subtitle: document.getElementById("subtitle"),
+  status: document.getElementById("status"),
+  applyBtn: document.getElementById("applyBtn"),
+  undoBtn: document.getElementById("undoBtn"),
+  engineState: document.getElementById("engineState")
+};
 
-        if (meta.version) UI.version.innerText = "v" + meta.version;
-        if (meta.description) UI.subtitle.innerText = meta.description;
-      });
+/* ===== SAFE FETCH (ONLINE → OFFLINE FALLBACK) ===== */
 
-    /* ===== UI HOOKS ===== */
+async function fetchLayouts() {
+  try {
+    const res = await fetch(CONFIG.remote);
+    if (!res.ok) throw "remote fail";
+    return await res.json();
+  } catch {
+    console.warn("⚠️ Offline mode activated");
 
-    function uiSetStatus(message, type = "info") {
-      UI.status.innerText = message;
+    const res = await fetch(CONFIG.local);
+    return await res.json();
+  }
+}
 
-      UI.status.className = "status " + type;
+/* ===== META LOAD ===== */
+
+fetchLayouts().then(data => {
+
+  const meta = data._meta || {};
+
+  if (meta.version) UI.version.innerText = "v" + meta.version;
+  if (meta.description) UI.subtitle.innerText = meta.description;
+
+});
+
+/* ===== UI HOOKS ===== */
+
+function uiSetStatus(msg, type="info") {
+  UI.status.innerText = msg;
+  UI.status.className = "status " + type;
+}
+
+function uiSetEngineState(state) {
+  UI.engineState.innerText = state;
+}
+
+function uiEnableApply(v) {
+  UI.applyBtn.disabled = !v;
+}
+
+function uiEnableUndo(v) {
+  UI.undoBtn.disabled = !v;
+}
+
+/* ===== THEME ===== */
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute("data-theme");
+  const next = current === "dark" ? "light" : "dark";
+
+  document.documentElement.setAttribute("data-theme", next);
+  localStorage.setItem("theme", next);
+}
+
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme) {
+  document.documentElement.setAttribute("data-theme", savedTheme);
+}
+
+/* ===== WORD SYNC ===== */
+
+Office.onReady(() => {
+  try {
+    const theme = Office.context.officeTheme;
+
+    if (!savedTheme && theme?.bodyBackgroundColor) {
+      document.body.style.backgroundColor = theme.bodyBackgroundColor;
+      document.body.style.color = theme.bodyForegroundColor;
     }
+  } catch {}
+});
 
-    function uiSetEngineState(state) {
-      UI.engineState.innerText = state;
-    }
-
-    function uiEnableApply(enable) {
-      UI.applyBtn.disabled = !enable;
-    }
-
-    function uiEnableUndo(enable) {
-      UI.undoBtn.disabled = !enable;
-    }
-
-    /* ===== THEME SYSTEM ===== */
-
-    function toggleTheme() {
-      const current = document.documentElement.getAttribute("data-theme");
-      const next = current === "dark" ? "light" : "dark";
-
-      document.documentElement.setAttribute("data-theme", next);
-      localStorage.setItem("theme", next);
-    }
-
-    // Load saved theme
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-      document.documentElement.setAttribute("data-theme", savedTheme);
-    }
-
-    /* ===== WORD THEME SYNC ===== */
-
-    Office.onReady(() => {
-      try {
-        const theme = Office.context.officeTheme;
-
-        if (!savedTheme && theme?.bodyBackgroundColor) {
-          document.body.style.backgroundColor = theme.bodyBackgroundColor;
-          document.body.style.color = theme.bodyForegroundColor;
-        }
-
-      } catch (e) {
-        // fallback
-      }
-    });
-  </script>
+</script>
 
 </body>
 </html>
