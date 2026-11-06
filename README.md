@@ -1,126 +1,158 @@
 <p align="center"><img src="assets/icon-128.png" width="96" height="96" alt="AB Layout logo"></p>
 
-# AB Layout (Advocate Benefit Layout)
+<h1 align="center">AB Layout</h1>
+<p align="center"><b>Advocate Benefit Layout</b> — court-ready documents in Microsoft Word, without changing a word.</p>
 
-![Platform](https://img.shields.io/badge/Platform-Microsoft%20Word%20Add--in-blue)
-![License](https://img.shields.io/badge/License-GPL--3.0--or--later-green)
-![Status](https://img.shields.io/badge/Status-4.0.0%20%E2%80%94%20pending%20real--Word%20validation-orange)
+<p align="center">
+  <a href="https://ratiojuris.github.io/ab-layout/">Website</a> ·
+  <a href="docs/USER_GUIDE.md">User Guide</a> ·
+  <a href="#install">Install</a> ·
+  <a href="https://github.com/RatioJuris/ab-layout/issues">Get help</a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Microsoft%20Word-Add--in-blue" alt="Microsoft Word add-in">
+  <img src="https://img.shields.io/badge/Price-Free-brightgreen" alt="Free">
+  <img src="https://img.shields.io/badge/License-GPL--3.0--or--later-green" alt="GPL-3.0-or-later">
+</p>
 
 **Developed by PrajnaBytes International Private Limited and RatioJuris.**
 
-A free Microsoft Word add-in that helps advocates in India spend less time
-fighting document formatting. It checks a document for formatting problems
-and filing slip-ups, makes formatting consistent **without changing a single
-word**, converts Hindi between Kruti Dev and Unicode, and sets paper size and
-margins.
+AB Layout is a free add-in for Microsoft Word that helps advocates in India
+spend less time fighting document formatting. It checks your petition,
+affidavit or written submission, makes the formatting consistent, converts
+Hindi between Kruti Dev and Unicode, and sets paper and margins.
 
-No AI. No account. No subscription. Your document stays in Word.
+**No AI. No account. No subscription. Your document stays in Word.**
 
 ---
 
-## Who it is for
+## What it does
 
-Advocates in district courts, High Courts and the Supreme Court; juniors
-preparing drafts for seniors; independent practitioners and chambers —
-including those with one ordinary Windows PC and no budget for legal software.
+### ✅ Check Document
+Finds problems before you print or file, and jumps to each one:
+- different fonts, sizes, line spacing, alignment or indents in the body text;
+- paragraph numbers that skip or repeat ("Jumps from 3 to 5; 4 missing");
+- blanks left to fill — `____`, `XXX`, `dd/mm/yyyy`;
+- highlighted or coloured text, comments, unaccepted tracked changes;
+- Hindi typed in the old Kruti Dev font;
+- the wrong paper size (Word for Windows and Mac).
 
-## Main uses
+Nothing in your document is changed by a check.
 
-- A petition assembled from old files and PDFs has four fonts and three
-  spacings → **Clean Document** makes it consistent, keeps the cause title,
-  VERSUS, party and signature lines, tables, quotations and Hindi as they are,
-  and confirms afterwards that the text is unchanged.
-- Before filing → **Check Document** finds gaps in paragraph numbers,
-  `____`/`XXX` blanks, highlights, comments, unaccepted tracked changes, old
-  Hindi fonts and the wrong paper size, and jumps to each one.
-- Hindi pleading typed in Kruti Dev must be in Unicode → **Hindi** tab
-  converts it inside Word, word by word, leaving English untouched.
+### ✨ Clean Document
+Makes the formatting consistent after showing you a preview.
+- **Your words are never changed** — names, dates, citations and prayers stay exactly as written. After every run AB Layout reads the document again and confirms: *"Text check passed"*.
+- The cause title, **VERSUS**, party and signature lines, tables and indented quotations keep their layout.
+- Hindi (Kruti Dev or Unicode), other Indian languages and Urdu keep their own fonts.
+- Changed your mind? **Restore Previous Formatting**.
 
-## Features (4.0.0)
+Profiles to choose from:
 
-| | |
+| Profile | What it gives you |
 |---|---|
-| **Check Document** | Inconsistent font / size / line spacing / alignment / indents / paragraph spacing; typed-number gaps and repeats (reported, never auto-renumbered); legacy fonts; blanks and placeholders; highlights; coloured text; comments; tracked changes; paper size (desktop); groups of blank lines; space-typed indents; manual line breaks. |
-| **Clean Document** | 7 profiles incl. "Make Consistent (match this document)", Supreme Court A4 2020 style, double-spaced 14 pt; preview; stale-document guard; text verification; Restore; optional safe blank-line removal. |
-| **Custom profiles** | Saved on the computer; share by copy/paste. |
-| **Kruti Dev ↔ Unicode** | Selection or whole document; preview; exact round-trip check for Unicode → Kruti Dev. |
-| **Page layout** | A4 / legal / affidavit presets with sources (Word for Windows/Mac). |
+| Make Consistent (match this document) | Keeps your own style; removes the inconsistencies. |
+| Supreme Court A4 style (Circular 2020) | Times New Roman 14, 1.5 spacing; quotations 12 pt single. |
+| Double-spaced 14 pt | Times New Roman 14, double spacing. |
+| Petition / Application · Written Submission · Affidavit | Common conventions (Times New Roman 14, 1.5 spacing). |
+| Office Copy (compact) | 12 pt, single spacing — for file and client copies. |
+| Your own | Create, save and share your chamber's style. |
 
-Profiles and presets are conveniences, **not** guarantees of compliance with
-any court's rules.
+> Profiles are conveniences. They do **not** guarantee compliance with any
+> court's rules — always check the current requirements of your court.
 
-## Requirements
+### 🔤 Kruti Dev ↔ Unicode Hindi
+Converts Hindi inside Word, word by word — for the selected text or the whole
+document. English words, numbers, bold and italics stay exactly as they are.
+You see a preview first. Try it on the [website](https://ratiojuris.github.io/ab-layout/#hindi).
 
-- Microsoft 365, Word 2019 or later (Windows/Mac), or Word for the web.
-- Internet connection to open the panel (files are served from GitHub Pages).
-- Word 2007/2010/2013 cannot run add-ins.
+### 📄 Paper and margins
+A4, legal-size and stamp-paper affidavit presets, including the Supreme Court
+A4 layout (4 cm left/right, 2 cm top/bottom).
 
-## Installation
+---
 
-1. Download `manifest.xml` from <https://ratiojuris.github.io/ab-layout/>.
-2. Word → **Insert → Add-ins → My Add-ins → Upload My Add-in** → choose the file.
-3. Open the **AB Layout** ribbon tab → **AB Layout**.
+## Install
 
-Full instructions: [docs/USER_GUIDE.md](docs/USER_GUIDE.md).
+1. Download **[manifest.xml](https://ratiojuris.github.io/ab-layout/manifest.xml)** from the [website](https://ratiojuris.github.io/ab-layout/) (*Install the add-in*).
+2. In Word: **Insert → Add-ins → My Add-ins → Upload My Add-in**
+   (some versions: **Home → Add-ins → More Add-ins → My Add-ins**).
+3. Choose `manifest.xml`.
+4. Click the **AB Layout** tab on the ribbon, then **AB Layout**. The panel opens on the right.
 
-## Word for Windows and Word for the web
+**Already installed an older version?** Close the panel and reload Word
+(Ctrl+F5 in Word for the web). If the panel still shows an old version,
+remove the add-in and upload `manifest.xml` again.
 
-Everything works in both, except **paper size and margins**, which Word only
-lets add-ins change in recent desktop Word (WordApiDesktop 1.3). In Word for
-the web the Page tab explains how to do it with Word's own menus. Comment and
-tracked-change counts need newer Word versions and are reported as "could not
-be checked" otherwise. Details: [docs/WORD_COMPATIBILITY.md](docs/WORD_COMPATIBILITY.md).
+### You need
+- Microsoft 365, Word 2019 or later (Windows or Mac), or the free **Word for the web**.
+- An internet connection to open the panel.
+- Word 2007, 2010 and 2013 cannot run add-ins.
 
-## Development
+---
 
-```bash
-npm install
-npm run check        # type check + 56 unit tests
-npm run test:ui      # task pane in Microsoft Edge with a simulated document
-npm run validate:manifest
-```
+## How to use it
 
-No build step: GitHub Pages serves the repository as-is. See
-[docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) and
-[docs/TECHNICAL_ARCHITECTURE.md](docs/TECHNICAL_ARCHITECTURE.md).
+1. **Check** → *Check Document* → read the list → *Show* jumps to each item.
+2. **Clean** → choose a profile → *Preview Changes* → *Apply These Changes*.
+3. Read through the document and **save** it.
+4. **Hindi** → choose direction and text → *Preview Conversion* → *Convert Now*.
+5. **Page** → choose a layout → *Apply Page Layout*.
 
-## Limitations (honest status)
+Tip: **save your document before applying changes.** You can always use
+*Restore*, Word's Undo (Ctrl+Z), or close without saving.
 
-- Tested with unit tests, Microsoft's manifest validator and a browser test
-  of the real task pane in Microsoft Edge with a **simulated** Word document.
-  **Not yet tested inside real Word** (desktop or web) — see the manual
-  checklist in DEVELOPMENT.md.
-- Restore cannot bring back the exact mix of fonts inside a paragraph that
-  had several; removed blank lines are not restored (use Undo).
-- Typed paragraph numbers are checked, not fixed.
-- Only Kruti Dev is converted (not Chanakya, DevLys or regional legacy fonts).
-- Needs internet to open the panel.
+Step-by-step help for every option: **[User Guide](docs/USER_GUIDE.md)**.
 
-## Roadmap
+---
 
-[docs/PRODUCT_ROADMAP.md](docs/PRODUCT_ROADMAP.md) · Research:
-[docs/PRODUCT_RESEARCH.md](docs/PRODUCT_RESEARCH.md) ·
-Workflows: [docs/ADVOCATE_WORKFLOWS.md](docs/ADVOCATE_WORKFLOWS.md)
+## Word for Windows, Mac and the web
+
+| | Windows / Mac | Word for the web |
+|---|---|---|
+| Check Document | ✅ | ✅ |
+| Clean Document and Restore | ✅ | ✅ |
+| Kruti Dev ↔ Unicode | ✅ | ✅ |
+| Paper size and margins | ✅ recent Microsoft 365 | Use Word's *Layout → Size / Margins* (AB Layout tells you how) |
+| Count comments and tracked changes | Newer versions | ✅ |
+
+---
+
+## Good to know
+
+- *Restore* cannot bring back the exact mix of fonts inside a paragraph that had several; blank lines that you chose to remove are not brought back (use Undo or your saved copy).
+- Paragraph numbers you typed by hand are **checked, not changed**, so references like "para 5" never silently break.
+- Only Kruti Dev is converted at present (not Chanakya, DevLys or regional fonts).
+- AB Layout is new: if something looks wrong in your version of Word, please [tell us](https://github.com/RatioJuris/ab-layout/issues) — include your Word version and a screenshot, **never a client's document**.
 
 ## Privacy
 
-AB Layout has no server, no account and no analytics. Documents are processed
-inside Word; their text is never sent, stored or logged. The only external
-code is Microsoft's `office.js`.
+Your document is processed inside Word on your computer or in your Word for
+the web session. AB Layout has no server, no account and no analytics, and it
+never sends, stores or logs your document's text.
+
+## Help and feedback
+
+- 📘 [User Guide](docs/USER_GUIDE.md)
+- 🐛 [Report a problem or suggest a feature](https://github.com/RatioJuris/ab-layout/issues)
+- 🗺️ [What's planned](docs/PRODUCT_ROADMAP.md)
+
+---
 
 ## License
 
-Copyright (C) 2026 PrajnaBytes International Private Limited and RatioJuris.
+Copyright © 2026 PrajnaBytes International Private Limited and RatioJuris.
 
-Free software under the **GNU General Public License v3.0 or later**
-([LICENSE](LICENSE)), with additional terms under GPLv3 section 7 in
-[NOTICE](NOTICE): the attribution "Developed by PrajnaBytes International
-Private Limited and RatioJuris" must be preserved (including in the task
-pane), modified versions must be marked as such, and no rights are granted to
-the names "AB Layout", "RatioJuris" or "PrajnaBytes". Versions up to 3.1.1 were
-published under Apache-2.0.
-
-Kruti Dev → Unicode conversion is ported from
-[kru2uni](https://github.com/ltrc/kru2uni) (LTRC, IIIT Hyderabad, GPL-3.0).
+AB Layout is free software under the **GNU General Public License v3.0 or
+later** ([LICENSE](LICENSE)), with additional terms in [NOTICE](NOTICE): the
+attribution "Developed by PrajnaBytes International Private Limited and
+RatioJuris" must be kept, modified versions must be marked as such, and the
+names "AB Layout", "RatioJuris" and "PrajnaBytes" may not be used for other
+products. Kruti Dev → Unicode conversion is based on
+[kru2uni](https://github.com/ltrc/kru2uni) (LTRC, IIIT Hyderabad).
 
 AB Layout is not legal advice.
+
+---
+
+*Developers and contributors: see **[CONTRIBUTING.md](CONTRIBUTING.md)**.*

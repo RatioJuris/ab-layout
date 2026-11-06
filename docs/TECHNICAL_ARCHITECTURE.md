@@ -123,7 +123,7 @@ optional WordApi 1.4 (comments), 1.6 (tracked changes), WordApiDesktop 1.3
 | Task pane UI | Real `taskpane.html` in Microsoft Edge (puppeteer-core) with fake office.js | `npm run test:ui` |
 | Types | TypeScript `checkJs` with `@types/office-js` | `npm run typecheck` |
 | Manifest | Microsoft validator | `npm run validate:manifest` |
-| Real Word | Manual checklist | see DEVELOPMENT.md |
+| Real Word | Manual checklist | see CONTRIBUTING.md |
 
 The fake Word cannot prove real Word behaviour; see WORD_COMPATIBILITY.md.
 

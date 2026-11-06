@@ -46,7 +46,7 @@ never the browser or OS name.
 | Real Word for Mac | **Not tested** |
 
 Full parity is **not claimed** until the manual checklist in
-[DEVELOPMENT.md](./DEVELOPMENT.md#manual-test-checklist-real-word) has been run in
+[CONTRIBUTING.md](../CONTRIBUTING.md#manual-checklist-word-for-windows-and-word-for-the-web) has been run in
 each environment.
 
 ## Behaviours that need confirmation in real Word
