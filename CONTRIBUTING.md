@@ -31,9 +31,10 @@ You can contribute in multiple ways:
   ```
 * Ensure:
 
-  * Accurate page size
-  * Correct margins
+  * Accurate page size and margins **in points** (1 cm = 28.35 pt)
   * Clear naming
+  * A `note` citing the official source (circular / rule number and date). Unsourced presets must be described as conventions, never as court requirements.
+  * The file stays **valid JSON** (no comments) — `npm test` checks this.
 
 ---
 
@@ -122,14 +123,28 @@ Avoid:
 
 ## 🧪 Testing
 
-Before submitting:
+Before submitting, run:
 
-* Test in **Microsoft Word**
-* Verify:
+```bash
+npm install
+npm run check      # type check + unit tests
+npm run test:ui    # task pane in Microsoft Edge with a simulated Word document
+```
 
-  * Layout applies correctly
-  * Undo works
-  * No UI breaks
+Then test in **Microsoft Word** (see [docs/DEVELOPMENT.md](./docs/DEVELOPMENT.md) for sideloading) and verify:
+
+* Check Document lists real findings and "Show" jumps to the paragraph
+* Clean Document: preview, apply, "Text check passed", Restore
+* Applying the same profile twice changes nothing the second time
+* Kruti Dev conversion leaves English words untouched
+* No UI breaks in Word for Windows **and** Word for the web
+
+## 🧾 Rules that protect advocates' documents
+
+* Never change document **text** in formatting code. Only the properties in `FormatChange` may be written.
+* Never send document content anywhere, and never log it.
+* Anything uncertain is **reported**, not guessed.
+* New source files in `web/core`, `web/word` and `web/ui` use the `rj-pb-` prefix and the standard header (the attribution test enforces this).
 
 ---
 
@@ -143,7 +158,7 @@ Before submitting:
 
 ## 📄 License
 
-By contributing, you agree that your contributions will be licensed under the **Apache License 2.0**.
+By contributing, you agree that your contributions will be licensed under the **GNU General Public License v3.0 or later**, together with the additional terms in [NOTICE](./NOTICE) (GPLv3 section 7: preservation of the attribution "Developed by PrajnaBytes International Private Limited and RatioJuris", marking of modified versions, and no rights to the project names). Do not remove or alter file headers or the task pane attribution.
 
 ---
 
@@ -155,5 +170,5 @@ Thank you for contributing to **AB Layout** ⚖️
 
 ---
 
-**Maintained by:** Bee Isrg Rajan
-🔗 https://github.com/isrgrajan
+**Developed by:** PrajnaBytes International Private Limited and RatioJuris
+**Maintained by:** Bee Isrg Rajan — 🔗 https://github.com/isrgrajan

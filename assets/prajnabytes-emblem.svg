@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Website copy of prajnabytes-emblem-live.svg (the final asset), cropped to the frame of the previous emblem (viewBox 30 76 468 356) so every layout keeps its size. Regenerate from the live file if it changes. -->
+<!-- Prajnabytes emblem – live loop. Geometry and colours copied unchanged from 512x512.svg. -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="468" height="356" viewBox="30 76 468 356" role="img" aria-labelledby="t d">
+  <title id="t">Prajnabytes International Pvt. Ltd. emblem</title>
+  <desc id="d">The four gears turn steadily, and a liquid current flows from each gear along its connecting line into the head.</desc>
+  <style>
+    .gear { animation: turn 12s linear infinite; }
+    #gear-teal { transform-origin: 107.8px 122.6px; }
+    #gear-blue { transform-origin: 146.3px 211.8px; }
+    #gear-purple { transform-origin: 67.8px 301.8px; }
+    #gear-red { transform-origin: 145.5px 381.8px; }
+    @keyframes turn { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) {
+      .gear { animation: none; }
+      .liquid { display: none; }
+    }
+  </style>
+  <defs>
+    <path id="s-g-red" d="M181.5,390h1.2v-1.2v-13.7V374h-1.2h-9.3c-0.5-1.9-1.3-3.7-2.2-5.4l6.6-6.6l0.8-0.8l-0.8-0.8l-9.7-9.7 l-0.8-0.8l-0.8,0.8l-6.6,6.6c-1.6-0.9-3.3-1.6-5.1-2.1V346v-1.2h-1.2h-13.7h-1.2v1.2v9.1c-1.7,0.5-3.3,1.2-4.8,2l-6.4-6.4l-0.8-0.8 l-0.8,0.8l-9.7,9.7l-0.8,0.8l0.8,0.8l6.3,6.3c-0.9,1.7-1.7,3.4-2.2,5.3h-9h-1.2v1.2v13.7v1.2h1.2h8.9c0.6,2,1.4,3.9,2.4,5.6 l-6.3,6.3l-0.8,0.8l0.8,0.8l9.7,9.7l0.8,0.8l0.8-0.8l6.4-6.4c1.7,0.9,3.4,1.6,5.2,2.1v9v1.2h1.2h13.7h1.2v-1.2v-9.3 c1.6-0.5,3.2-1.2,4.7-2l6.6,6.6l0.8,0.8l0.8-0.8l9.7-9.7l0.8-0.8l-0.8-0.8L170,395c0.9-1.6,1.6-3.3,2.1-5L181.5,390L181.5,390z M162.1,381.8c0,9.1-7.4,16.6-16.6,16.6c-9.1,0-16.6-7.4-16.6-16.6s7.4-16.6,16.6-16.6C154.7,365.2,162.1,372.6,162.1,381.8z"/>
+    <path id="s-b-red" d="M299.4,297v0.5H245c4.8,9.8,9.8,18.5,14,27.6h-18.1l-44.4,46.1h-19.4c0.1,6.9,0.3,13.8,0.5,20.7h27.7 l44.4-46.1h0v-0.2h79.2v0.1h134.2c0.8-4.7-6.4-11.7-6.4-11.7l3.8-2.3c8-1.7,7.9-7.2,4.5-14.8c-3.4-7.6,0.7-14.8,14.4-18.7 c1.3-0.4,2.4-0.8,3.4-1.2H299.4z"/>
+    <path id="s-b-orange" d="M459.7,349.2c-9.3,3.2-11.9,6.2-9.4,13.6c2.5,7.4,6.5,28.3-16.9,25c0,0-10.8-2.1-30.5-5 c-16.7-2.4-24.6,14.7-29.3,34.5c-0.1,0.5-0.3,0.9-0.4,1.3c-31.3,0.6-79.2-2.3-116.7-21.1c6.7-11.4,11.1-23.3,12-34.8h60.4v-17h134.2 C462.8,347.1,461.8,348.4,459.7,349.2z"/>
+    <path id="s-g-blue" d="M182.2,220h1.2v-1.2v-13.7V204h-1.2h-9.3c-0.5-1.9-1.3-3.7-2.2-5.4l6.6-6.6l0.8-0.8l-0.8-0.8l-9.7-9.7 l-0.8-0.8l-0.8,0.8l-6.6,6.6c-1.6-0.9-3.3-1.6-5.1-2.1v-9.1v-1.2h-1.2h-13.7h-1.2v1.2v9.1c-1.7,0.5-3.3,1.2-4.8,2l-6.4-6.4l-0.8-0.8 l-0.8,0.8l-9.7,9.7l-0.8,0.8l0.8,0.8l6.3,6.3c-0.9,1.7-1.7,3.4-2.2,5.3h-9h-1.2v1.2v13.7v1.2h1.2h8.9c0.6,2,1.4,3.9,2.4,5.6 l-6.3,6.3l-0.8,0.8l0.8,0.8l9.7,9.7l0.8,0.8l0.8-0.8l6.4-6.4c1.7,0.9,3.4,1.6,5.2,2.1v9v1.2h1.2h13.7h1.2v-1.2v-9.3 c1.6-0.5,3.2-1.2,4.7-2l6.6,6.6l0.8,0.8l0.8-0.8l9.7-9.7l0.8-0.8l-0.8-0.8l-6.6-6.6c0.9-1.6,1.6-3.3,2.1-5L182.2,220L182.2,220z M162.9,211.8c0,9.1-7.4,16.6-16.6,16.6c-9.1,0-16.6-7.4-16.6-16.6c0-9.1,7.4-16.6,16.6-16.6C155.4,195.2,162.9,202.7,162.9,211.8z"/>
+    <path id="s-b-blue" d="M451.4,163.6H311.2v16.5h-76.4c-2.4,6.7-4.3,13.9-5.5,21.5h-50.8v20.7h46.6v0H356v0.8h105.3 C463.6,199.8,459.7,180,451.4,163.6z"/>
+    <path id="s-g-purple" d="M103.8,310h1.2v-1.2v-13.7V294h-1.2h-9.3c-0.5-1.9-1.3-3.7-2.2-5.4l6.6-6.6l0.8-0.8l-0.8-0.8l-9.7-9.7 l-0.8-0.8l-0.8,0.8l-6.6,6.6c-1.6-0.9-3.3-1.6-5.1-2.1v-9.1v-1.2h-1.2H61h-1.2v1.2v9.1c-1.7,0.5-3.3,1.2-4.8,2l-6.4-6.4l-0.8-0.8 l-0.8,0.8l-9.7,9.7l-0.8,0.8l0.8,0.8l6.3,6.3c-0.9,1.7-1.7,3.4-2.2,5.3h-9h-1.2v1.2v13.7v1.2h1.2h8.9c0.6,2,1.4,3.9,2.4,5.6 l-6.3,6.3l-0.8,0.8l0.8,0.8l9.7,9.7l0.8,0.8l0.8-0.8l6.4-6.4c1.7,0.9,3.4,1.6,5.2,2.1v9v1.2h1.2h13.7h1.2v-1.2v-9.3 c1.6-0.5,3.2-1.2,4.7-2l6.6,6.6l0.8,0.8l0.8-0.8l9.7-9.7l0.8-0.8l-0.8-0.8l-6.6-6.6c0.9-1.6,1.6-3.3,2.1-5L103.8,310L103.8,310z M84.4,301.8c0,9.1-7.4,16.6-16.6,16.6s-16.6-7.4-16.6-16.6c0-9.1,7.4-16.6,16.6-16.6S84.4,292.7,84.4,301.8z"/>
+    <path id="s-b-purple" d="M476.6,268.5c-17.7-25.1-15.3-44.1-15.3-44.1c0-0.4,0.1-0.9,0.1-1.3H356v16.3H228.5c0.7,7.4,1.7,14.2,3,20.4 h-62.9L145.1,291H99.9v20.7h55.5l23.6-31.3h10.2v-0.1h110.2V297h183.4C492.5,292.9,488.9,286,476.6,268.5z"/>
+    <path id="s-b-teal" d="M451.4,163.6c-33.8-66.3-139.6-74.5-192.7-21.1h-36.5l-35.2-30.2h-47V133h39.3l35,30.1h96.8v0.6H451.4z"/>
+    <path id="s-g-teal" d="M143.8,130.8h1.2v-1.2V116v-1.2h-1.2h-9.3c-0.5-1.9-1.3-3.7-2.2-5.4l6.6-6.6l0.8-0.8l-0.8-0.8l-9.7-9.7 l-0.8-0.8l-0.8,0.8l-6.6,6.6c-1.6-0.9-3.3-1.6-5.1-2.1v-9.1v-1.2h-1.2H101h-1.2v1.2V96c-1.7,0.5-3.3,1.2-4.8,2l-6.4-6.4l-0.8-0.8 l-0.8,0.8l-9.7,9.7l-0.8,0.8l0.8,0.8l6.3,6.3c-0.9,1.7-1.7,3.4-2.2,5.3h-9h-1.2v1.2v13.7v1.2h1.2h8.9c0.6,2,1.4,3.9,2.4,5.6 l-6.3,6.3l-0.8,0.8l0.8,0.8l9.7,9.7l0.8,0.8l0.8-0.8l6.4-6.4c1.7,0.9,3.4,1.6,5.2,2.1v9v1.2h1.2h13.7h1.2v-1.2v-9.3 c1.6-0.5,3.2-1.2,4.7-2l6.6,6.6l0.8,0.8l0.8-0.8l9.7-9.7l0.8-0.8l-0.8-0.8l-6.6-6.6c0.9-1.6,1.6-3.3,2.1-5L143.8,130.8L143.8,130.8z M124.4,122.6c0,9.1-7.4,16.6-16.6,16.6s-16.6-7.4-16.6-16.6c0-9.1,7.4-16.6,16.6-16.6S124.4,113.5,124.4,122.6z"/>
+    <linearGradient id="liquid-teal" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="72" y2="0" spreadMethod="repeat">
+      <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+      <stop offset=".28" stop-color="#fff" stop-opacity=".34"/>
+      <stop offset=".52" stop-color="#fff" stop-opacity="0"/>
+      <stop offset=".76" stop-color="#000" stop-opacity=".09"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+      <animateTransform attributeName="gradientTransform" type="translate" from="0 0" to="72 0" dur="3.72s" repeatCount="indefinite"/>
+    </linearGradient>
+    <linearGradient id="liquid-blue" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="72" y2="0" spreadMethod="repeat">
+      <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+      <stop offset=".28" stop-color="#fff" stop-opacity=".34"/>
+      <stop offset=".52" stop-color="#fff" stop-opacity="0"/>
+      <stop offset=".76" stop-color="#000" stop-opacity=".09"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+      <animateTransform attributeName="gradientTransform" type="translate" from="-17 0" to="55 0" dur="3.72s" repeatCount="indefinite"/>
+    </linearGradient>
+    <linearGradient id="liquid-purple" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="72" y2="0" spreadMethod="repeat">
+      <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+      <stop offset=".28" stop-color="#fff" stop-opacity=".34"/>
+      <stop offset=".52" stop-color="#fff" stop-opacity="0"/>
+      <stop offset=".76" stop-color="#000" stop-opacity=".09"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+      <animateTransform attributeName="gradientTransform" type="translate" from="-34 0" to="38 0" dur="3.72s" repeatCount="indefinite"/>
+    </linearGradient>
+    <linearGradient id="liquid-red" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="72" y2="0" spreadMethod="repeat">
+      <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+      <stop offset=".28" stop-color="#fff" stop-opacity=".34"/>
+      <stop offset=".52" stop-color="#fff" stop-opacity="0"/>
+      <stop offset=".76" stop-color="#000" stop-opacity=".09"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+      <animateTransform attributeName="gradientTransform" type="translate" from="-51 0" to="21 0" dur="3.72s" repeatCount="indefinite"/>
+    </linearGradient>
+    <!-- the current lives in the connecting lines and fades out as it enters the head -->
+    <linearGradient id="zone-fade" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="512" y2="0">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="0.434" stop-color="#fff"/>
+      <stop offset="0.537" stop-color="#000"/>
+    </linearGradient>
+    <mask id="trace-zone" maskUnits="userSpaceOnUse" x="0" y="0" width="512" height="512">
+      <rect x="0" y="0" width="512" height="512" fill="url(#zone-fade)"/>
+    </mask>
+  </defs>
+
+  <use class="gear" id="gear-red" xlink:href="#s-g-red" fill="#E53F41"/>
+  <use xlink:href="#s-b-red" fill="#E53F41"/>
+  <use xlink:href="#s-b-orange" fill="#EC8F3F"/>
+  <use class="gear" id="gear-blue" xlink:href="#s-g-blue" fill="#3A94CD"/>
+  <use xlink:href="#s-b-blue" fill="#3A94CD"/>
+  <use class="gear" id="gear-purple" xlink:href="#s-g-purple" fill="#9F3F97"/>
+  <use xlink:href="#s-b-purple" fill="#9F3F97"/>
+  <use xlink:href="#s-b-teal" fill="#2EB4A1"/>
+  <use class="gear" id="gear-teal" xlink:href="#s-g-teal" fill="#2EB4A1"/>
+
+  <g class="liquid" mask="url(#trace-zone)">
+    <use xlink:href="#s-b-teal" fill="url(#liquid-teal)"/>
+    <use xlink:href="#s-b-blue" fill="url(#liquid-blue)"/>
+    <use xlink:href="#s-b-purple" fill="url(#liquid-purple)"/>
+    <use xlink:href="#s-b-red" fill="url(#liquid-red)"/>
+  </g>
+</svg>

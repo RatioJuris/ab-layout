@@ -1,0 +1,75 @@
+AB Layout (Advocate Benefit Layout)
+Copyright (C) 2026 PrajnaBytes International Private Limited and RatioJuris
+
+Developed by PrajnaBytes International Private Limited and RatioJuris.
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option) any later
+version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program (see the LICENSE file). If not, see <https://www.gnu.org/licenses/>.
+
+SPDX-License-Identifier: GPL-3.0-or-later
+
+------------------------------------------------------------------------------
+Additional terms (GNU GPL version 3, section 7)
+
+The following additional terms apply to this program and to every part of it,
+as permitted by section 7 of the GNU General Public License version 3:
+
+(a) Attribution - section 7(b). All copies and all modified versions must
+    preserve, unaltered:
+      1. the line "Developed by PrajnaBytes International Private Limited and
+         RatioJuris" and the copyright notice in every source file header;
+      2. this NOTICE file; and
+      3. the attribution displayed in the add-in's user interface (the task
+         pane footer, defined in web/core/rj-pb-attribution.js), which is the
+         program's "Appropriate Legal Notices". A modified version with an
+         interactive user interface must continue to display it.
+
+(b) Marking of modified versions - section 7(c). Modified versions must be
+    marked as different from the original, must not be presented as the
+    original AB Layout, and must not misrepresent their origin. You may add
+    your own name as the author of your modifications next to (not instead
+    of) the attribution above.
+
+(c) Names and trademarks - section 7(e). This licence does not grant any
+    right to use the names "AB Layout", "Advocate Benefit Layout",
+    "RatioJuris" or "PrajnaBytes" (or their logos and icons) as trade names,
+    trademarks or service marks, for example to name, brand or promote a
+    modified or competing product, except as required to preserve the
+    attribution in (a).
+
+These terms are "further restrictions" only to the extent section 7 of the
+GPLv3 allows; they do not otherwise limit your rights under the licence.
+
+------------------------------------------------------------------------------
+Licence history
+
+Versions up to and including 3.1.1 were published under the Apache License,
+Version 2.0. From version 4.0.0 the project is licensed under GPL-3.0-or-later
+by its copyright holders. Apache-2.0 licensed material may be incorporated into
+a GPLv3 work.
+
+------------------------------------------------------------------------------
+Third-party material
+
+- Microsoft Office JavaScript API (office.js) is loaded at run time from
+  Microsoft's content delivery network and is not distributed with this
+  project. It is used under Microsoft's terms.
+- Kruti Dev to Unicode conversion (web/core/rj-pb-krutidev.js) is ported from
+  kru2uni by Nehal J Wani and Raveesh Motlani, Copyright 2015 Language
+  Technologies Research Centre, IIIT Hyderabad, licensed under GPL-3.0
+  (https://github.com/ltrc/kru2uni). The Unicode to Kruti Dev direction was
+  written for AB Layout.
+- Development-only tools (not shipped to users): TypeScript (Apache-2.0),
+  @types/office-js (MIT), @resvg/resvg-js (MPL-2.0).
+
+AB Layout is not legal advice and does not guarantee compliance with the rules
+of any court. Always check the current requirements of the court concerned.

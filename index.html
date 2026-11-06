@@ -1,293 +1,364 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--
+File: index.html (project website, served by GitHub Pages)
+Project: AB Layout (Advocate Benefit Layout)
+Developed by PrajnaBytes International Private Limited and RatioJuris
+Copyright (C) 2026 PrajnaBytes International Private Limited and RatioJuris
+SPDX-License-Identifier: GPL-3.0-or-later
+Additional terms under GPLv3 section 7 apply (attribution and names) - see NOTICE.
+-->
+<html lang="en" data-theme="light">
 <head>
-
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-<title>AB Layout – Legal Formatting Engine</title>
-
-<meta name="description" content="AB Layout is a Microsoft Word Add-in for Indian legal drafting with automated court formatting." />
-<meta name="theme-color" content="#0f6cbd" />
-
-<link rel="canonical" href="https://ratiojuris.github.io/ab-layout/" />
-<link rel="icon" href="assets/icon-32.png" />
-
-<style>
-
-/* ===== THEME ===== */
-
-:root {
-  --bg:#f9fafb;
-  --text:#1f2937;
-  --muted:#6b7280;
-  --card:#ffffff;
-  --border:#e5e7eb;
-  --primary:#0f6cbd;
-}
-
-[data-theme="dark"] {
-  --bg:#1f1f1f;
-  --text:#f5f5f5;
-  --muted:#b3b3b3;
-  --card:#2b2b2b;
-  --border:#333;
-}
-
-/* ===== BASE ===== */
-
-body {
-  margin:0;
-  font-family:Segoe UI,system-ui;
-  background:var(--bg);
-  color:var(--text);
-  transition:0.2s;
-}
-
-.container {
-  max-width:1000px;
-  margin:auto;
-  padding:20px;
-}
-
-/* ===== HERO ===== */
-
-.hero {
-  text-align:center;
-  padding:60px 20px;
-}
-
-.hero h1 {
-  font-size:36px;
-  margin-bottom:10px;
-}
-
-.hero p {
-  color:var(--muted);
-}
-
-/* ===== BUTTONS ===== */
-
-.btn {
-  padding:12px 18px;
-  border-radius:6px;
-  font-weight:600;
-  margin:6px;
-  display:inline-block;
-  cursor:pointer;
-  text-decoration:none;
-}
-
-.primary {
-  background:var(--primary);
-  color:#fff;
-}
-
-.secondary {
-  background:var(--card);
-  border:1px solid var(--border);
-  color:var(--text);
-}
-
-/* ===== TOGGLE ===== */
-
-.toggle {
-  position:absolute;
-  top:20px;
-  right:20px;
-  cursor:pointer;
-  opacity:0.7;
-}
-
-/* ===== GRID ===== */
-
-.section {
-  margin-top:50px;
-}
-
-.grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:12px;
-}
-
-.card {
-  background:var(--card);
-  border:1px solid var(--border);
-  padding:16px;
-  border-radius:8px;
-  transition:0.2s;
-}
-
-.card:hover {
-  transform:translateY(-2px);
-}
-
-/* ===== FOOTER ===== */
-
-.footer {
-  text-align:center;
-  margin-top:60px;
-  color:var(--muted);
-  font-size:13px;
-}
-
-.signature {
-  margin-top:6px;
-  opacity:0.6;
-  font-style:italic;
-}
-
-.status {
-  margin-top:10px;
-  font-size:13px;
-  color:var(--muted);
-}
-
-</style>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AB Layout – Court-ready legal documents in Microsoft Word</title>
+  <meta name="description" content="AB Layout (Advocate Benefit Layout) is a free Microsoft Word add-in for Indian advocates: check and clean the formatting of legal documents without changing a word, convert Kruti Dev Hindi to Unicode, and set paper and margins. No AI, no account; documents stay in Word." />
+  <meta name="theme-color" content="#061a3f" />
+  <meta name="author" content="PrajnaBytes International Private Limited and RatioJuris" />
+  <link rel="canonical" href="https://ratiojuris.github.io/ab-layout/" />
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="assets/icon-128.png" />
+  <meta property="og:title" content="AB Layout – Advocate Benefit Layout" />
+  <meta property="og:description" content="Clean, consistent legal documents in Microsoft Word – without changing a single word. Free for every advocate." />
+  <meta property="og:image" content="https://ratiojuris.github.io/ab-layout/assets/icon-512.png" />
+  <link rel="stylesheet" href="site/rj-pb-site.css?v=4.0.0" />
 </head>
-
 <body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="brand-bar" aria-hidden="true"></div>
 
-<div class="toggle" onclick="toggleTheme()">🌗</div>
+  <nav class="nav" aria-label="Main">
+    <div class="wrap">
+      <a class="logo" href="#top">
+        <img src="assets/icon.svg" alt="" />
+        <span>AB Layout<small>Advocate Benefit Layout</small></span>
+      </a>
+      <ul>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#hindi">Hindi converter</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#install">Install</a></li>
+        <li><a href="#developers">Developers</a></li>
+      </ul>
+      <div class="actions">
+        <button id="themeBtn" class="icon-btn" type="button" aria-label="Switch to dark theme">&#9790;</button>
+        <a class="btn btn-gold btn-sm" href="manifest.xml" data-download-manifest>Install free</a>
+      </div>
+    </div>
+  </nav>
 
-<div class="container">
+  <header class="hero" id="top">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow"><span class="dot"></span> Free Microsoft Word add-in for Indian advocates</span>
+        <h1>Court-ready documents.<br /><span class="grad">Without changing a&nbsp;word.</span></h1>
+        <p class="lede">AB Layout checks your petition, affidavit or written submission, makes the formatting consistent, and confirms afterwards that every word is exactly as you wrote it.</p>
+        <div class="cta">
+          <a class="btn btn-gold" href="manifest.xml" data-download-manifest>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+            Install the add-in
+          </a>
+          <a class="btn btn-ghost" href="#hindi">Try the Hindi converter</a>
+        </div>
+        <ul class="chips" aria-label="Key facts">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2eb4a1" stroke-width="3" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Free &amp; open source</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2eb4a1" stroke-width="3" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>No AI, no account</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2eb4a1" stroke-width="3" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Your document stays in Word</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2eb4a1" stroke-width="3" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Word for Windows, Mac &amp; web</li>
+        </ul>
+        <div class="repo-stats" id="repoStats"></div>
+      </div>
 
-<!-- HERO -->
-<section class="hero">
-  <h1>⚖ AB Layout</h1>
-  <p id="desc">Loading layout engine...</p>
+      <div class="stage" id="stage" role="img" aria-label="Illustration: a petition with mixed formatting becomes consistent, while the cause title and VERSUS stay in place.">
+        <div class="page" aria-hidden="true">
+          <div class="ct">IN THE HIGH COURT AT ALLAHABAD</div>
+          <div class="ct2">WRIT PETITION (CIVIL) NO. ____ OF 2026</div>
+          <div class="party"><span>Ram Kumar Sharma</span><span>&hellip;Petitioner</span></div>
+          <div class="vs">VERSUS</div>
+          <div class="party" style="margin-top:0"><span>State of Uttar Pradesh</span><span>&hellip;Respondent</span></div>
+          <div class="para p1"><span class="num">1.</span><div class="lines"><div class="ln" style="width:88%"></div><div class="ln" style="width:100%"></div><div class="ln" style="width:100%"></div><div class="ln" style="width:58%"></div></div></div>
+          <div class="para p2"><span class="num">2.</span><div class="lines"><div class="ln" style="width:88%"></div><div class="ln" style="width:100%"></div><div class="ln" style="width:100%"></div><div class="ln" style="width:72%"></div></div></div>
+          <div class="para p3"><span class="num">3.</span><div class="lines"><div class="ln" style="width:88%"></div><div class="ln" style="width:100%"></div><div class="ln" style="width:40%"></div></div></div>
+          <div class="para p4"><span class="num">4.</span><div class="lines"><div class="ln" style="width:88%"></div><div class="ln" style="width:100%"></div><div class="ln" style="width:66%"></div></div></div>
+          <div class="sig">Through Counsel</div>
+          <span class="keep-tag t1">Title kept centred</span>
+          <span class="keep-tag t2">VERSUS untouched</span>
+        </div>
+        <div class="pane" aria-hidden="true">
+          <header><img src="assets/icon.svg" alt="" /> AB Layout &middot; Clean</header>
+          <ul>
+            <li><span class="ok">&#10003;</span> Font: Times New Roman 14</li>
+            <li class="after"><span class="ok">&#10003;</span> 1.5 line spacing, justified</li>
+            <li class="after"><span class="ok">&#10003;</span> Text check passed &mdash; every word unchanged</li>
+          </ul>
+          <div class="status">Kruti Dev and Hindi text keep their fonts</div>
+        </div>
+        <div class="toggle-ba" role="group" aria-label="Show before or after">
+          <button id="btnBefore" type="button" aria-pressed="true">Before</button>
+          <button id="btnAfter" type="button" aria-pressed="false">After</button>
+        </div>
+      </div>
+    </div>
+  </header>
 
-  <a class="btn primary" onclick="downloadManifest(event)">
-    ⬇ Install Add-in
-  </a>
+  <main id="main">
+    <div class="strip">
+      <div class="wrap grid">
+        <div class="stat reveal"><b>0 words</b><span>changed when formatting &mdash; verified after every run</span></div>
+        <div class="stat reveal"><b>7 profiles</b><span>incl. Supreme Court A4 style and your own</span></div>
+        <div class="stat reveal"><b>2-way</b><span>Kruti Dev &harr; Unicode Hindi, inside Word</span></div>
+        <div class="stat reveal"><b>&#8377;0</b><span>No subscription, no server, no account</span></div>
+      </div>
+    </div>
 
-  <a class="btn secondary" href="https://github.com/RatioJuris/ab-layout">
-    GitHub
-  </a>
+    <!-- FEATURES -->
+    <section class="block" id="features">
+      <div class="wrap">
+        <div class="kicker">What it does</div>
+        <h2>Less time fighting formatting.<br />More time on the matter.</h2>
+        <p class="sub">Built for documents assembled from old petitions, typist drafts and PDF extracts &mdash; the way legal documents are really made.</p>
+        <div class="features">
+          <article class="feature reveal">
+            <div class="ico c-teal"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></div>
+            <h3>Check Document</h3>
+            <p>Finds mixed fonts and spacing, gaps in paragraph numbers, <code>____</code> and <code>XXX</code> blanks, highlights, comments, tracked changes and the wrong paper size &mdash; and jumps to each one.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="ico c-blue"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 10h16M4 14h16M4 18h10"/></svg></div>
+            <h3>Clean Document</h3>
+            <p>One click, after a preview. Body paragraphs become consistent; cause title, VERSUS, party and signature lines, tables and quotations keep their layout.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="ico c-purple"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h10M9 4v3M6 7c0 5 4 8 8 9M12 7c-1 4-4 7-7 8M14 20l4-10 4 10M15.5 17h5"/></svg></div>
+            <h3>Kruti Dev &harr; Unicode</h3>
+            <p>Converts Hindi word by word inside Word. English, numbers, bold and italics stay exactly as they are.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="ico c-red"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg></div>
+            <h3>Text check &amp; Restore</h3>
+            <p>After applying, AB Layout reads the document again and confirms every paragraph has the same words in the same order. Changed your mind? Restore.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="ico c-orange"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 7h6M9 17h6"/></svg></div>
+            <h3>Paper &amp; margins</h3>
+            <p>A4, legal-size and stamp-paper affidavit presets, each with its source. Presets are conveniences &mdash; always check your court's current rules.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="ico c-navy"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg></div>
+            <h3>Your chamber style</h3>
+            <p>Create your own profiles, keep them on your computer, and share them with the chamber by copy and paste.</p>
+          </article>
+        </div>
+      </div>
+    </section>
 
-  <div class="status" id="stats"></div>
-  <div class="status" id="version"></div>
-</section>
+    <!-- RESPECT LAYOUT -->
+    <section class="block">
+      <div class="wrap respect">
+        <div class="anatomy reveal" aria-label="Example pleading showing what AB Layout keeps and what it formats">
+          <div class="row keep c" data-tag="kept"><span>IN THE HIGH COURT OF JUDICATURE AT ALLAHABAD</span></div>
+          <div class="row keep" data-tag="tabs kept"><span>Ram Kumar Sharma &hellip; &nbsp; &hellip;Petitioner</span></div>
+          <div class="row keep c" data-tag="kept"><span>VERSUS</span></div>
+          <div class="row fix" data-tag="formatted"><span>1. That the petitioner is a law-abiding citizen&hellip;</span></div>
+          <div class="row fix" data-tag="formatted"><span>2. That the impugned order dated 01.04.2026&hellip;</span></div>
+          <div class="row hi" data-tag="font kept" lang="hi"><span>याचिकाकर्ता की ओर से निवेदन&hellip;</span></div>
+          <div class="row keep r" data-tag="kept"><span>Through Counsel</span></div>
+        </div>
+        <div class="reveal">
+          <div class="kicker">Respects how pleadings look</div>
+          <h2>Not "select all &rarr; justify".</h2>
+          <p class="sub" style="margin-bottom:24px">AB Layout understands the parts of a legal document and only formats what should be formatted.</p>
+          <ul class="checks">
+            <li><svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#2eb4a1"/><path d="M7 12l3.5 3.5L17 9" stroke="#fff" stroke-width="2.4" fill="none"/></svg><div><b>Titles, VERSUS, party and signature lines keep their layout</b><span>Centred, right-aligned and tab-aligned lines only get the font family.</span></div></li>
+            <li><svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#3a94cd"/><path d="M7 12l3.5 3.5L17 9" stroke="#fff" stroke-width="2.4" fill="none"/></svg><div><b>Hindi is never damaged</b><span>Kruti Dev, other legacy fonts, Unicode Hindi and Urdu keep their own fonts while formatting.</span></div></li>
+            <li><svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#9f3f97"/><path d="M7 12l3.5 3.5L17 9" stroke="#fff" stroke-width="2.4" fill="none"/></svg><div><b>Paragraph numbers are checked, not changed</b><span>"Jumps from 3 to 5; 4 missing" &mdash; you decide, so references like "para 5" never silently break.</span></div></li>
+            <li><svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#e53f41"/><path d="M7 12l3.5 3.5L17 9" stroke="#fff" stroke-width="2.4" fill="none"/></svg><div><b>Nothing happens without a preview</b><span>If the document changes after the preview, nothing is applied.</span></div></li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-<!-- LAYOUTS -->
-<section class="section">
-  <h2>📄 Layouts</h2>
-  <div class="grid" id="layouts"></div>
-</section>
+    <!-- HINDI CONVERTER -->
+    <section class="block" id="hindi">
+      <div class="wrap">
+        <div class="converter reveal">
+          <div class="kicker" style="color:var(--gold-2)">Try it now &middot; works in your browser</div>
+          <h2>Kruti Dev &harr; Unicode Hindi</h2>
+          <p class="sub">Type or paste below. This is the same converter that runs inside the add-in &mdash; in Word it also keeps bold, italics and English words untouched.</p>
+          <div class="conv-grid">
+            <div class="conv-box">
+              <label id="convInLabel" for="convIn">Kruti Dev text</label>
+              <textarea id="convIn" spellcheck="false" aria-describedby="convMsg"></textarea>
+            </div>
+            <button id="swapBtn" class="swap" type="button" aria-label="Swap direction">&#8646;</button>
+            <div class="conv-box">
+              <label id="convOutLabel" for="convOut">Unicode Hindi</label>
+              <output id="convOut" for="convIn" aria-live="polite"></output>
+            </div>
+          </div>
+          <div class="conv-note conv-actions">
+            <button id="sampleBtn" class="btn btn-ghost btn-sm" type="button">Load sample</button>
+            <button id="copyBtn" class="btn btn-gold btn-sm" type="button">Copy result</button>
+            <span id="convMsg" class="msg" role="status"></span>
+          </div>
+          <p class="conv-note">Kruti Dev text appears as English letters unless the Kruti Dev font is installed on your computer. Converted locally; nothing is sent anywhere.</p>
+        </div>
+      </div>
+    </section>
 
-<!-- FOOTER -->
-<div class="footer">
-  © <span id="year"></span> AB Layout  
-  <div class="signature">
-    Crafted with ⚖️ + ❤️ by RatioJuris  
-    <br/>
-    Built once, refined endlessly
-  </div>
-</div>
+    <!-- HOW -->
+    <section class="block" id="how">
+      <div class="wrap">
+        <div class="kicker">How it works</div>
+        <h2>Four steps. A few seconds.</h2>
+        <p class="sub">Open the AB Layout tab in Word and the panel appears beside your document.</p>
+        <div class="steps">
+          <div class="step reveal"><h3>Check</h3><p>See every inconsistency and filing slip-up, and jump to each one.</p></div>
+          <div class="step reveal"><h3>Choose a profile</h3><p>"Make Consistent" keeps your own style &mdash; or pick Supreme Court A4, double-spaced 14 pt, Petition, Affidavit&hellip;</p></div>
+          <div class="step reveal"><h3>Preview</h3><p>See exactly what will change and what will be kept, before anything happens.</p></div>
+          <div class="step reveal"><h3>Apply &amp; verify</h3><p>Formatting is applied and the text is checked word for word. Save &mdash; or Restore.</p></div>
+        </div>
+      </div>
+    </section>
 
-</div>
+    <!-- COMPAT -->
+    <section class="block">
+      <div class="wrap">
+        <div class="kicker">Where it works</div>
+        <h2>Word on Windows, Mac and the web</h2>
+        <p class="sub">Needs Microsoft 365, Word 2019 or later, or the free Word for the web, and an internet connection to open the panel.</p>
+        <table class="compat reveal">
+          <thead><tr><th scope="col">Feature</th><th scope="col">Word for Windows / Mac</th><th scope="col">Word for the web</th></tr></thead>
+          <tbody>
+            <tr><td>Check Document</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+            <tr><td>Clean Document &amp; Restore</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+            <tr><td>Kruti Dev &harr; Unicode</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+            <tr><td>Paper size &amp; margins</td><td class="part">Recent Microsoft 365</td><td>Use Word's Layout menu &mdash; AB Layout explains how</td></tr>
+            <tr><td>Count comments / tracked changes</td><td class="part">Newer versions</td><td class="yes">Yes</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-<script>
+    <!-- LAYOUTS -->
+    <section class="block">
+      <div class="wrap">
+        <div class="kicker">Page layouts</div>
+        <h2>Paper and margin presets</h2>
+        <p class="sub">Loaded from the same file the add-in uses. Conveniences, not legal requirements &mdash; verify with your court.</p>
+        <div class="layouts reveal" id="layouts" aria-live="polite">Loading&hellip;</div>
+      </div>
+    </section>
 
-/* ===== INIT ===== */
-document.getElementById("year").innerText = new Date().getFullYear();
+    <!-- INSTALL -->
+    <section class="block" id="install">
+      <div class="wrap">
+        <div class="kicker">Install</div>
+        <h2>Ready in under a minute</h2>
+        <div class="install">
+          <div class="install-card reveal">
+            <ol>
+              <li><a href="manifest.xml" data-download-manifest><b>Download manifest.xml</b></a> (the small file that tells Word where AB Layout is).</li>
+              <li>In Word, open <b>Insert &rarr; Add-ins &rarr; My Add-ins &rarr; Upload My Add-in</b>.<br /><small>Some versions: <b>Home &rarr; Add-ins &rarr; More Add-ins</b>.</small></li>
+              <li>Choose <code>manifest.xml</code>.</li>
+              <li>Click the <b>AB Layout</b> tab on the ribbon, then <b>AB Layout</b>.</li>
+            </ol>
+            <p style="margin-top:20px"><a class="btn btn-primary" href="manifest.xml" data-download-manifest>Download manifest.xml</a>
+            &nbsp;<a class="btn" style="border:1px solid var(--line)" href="https://github.com/RatioJuris/ab-layout/blob/main/docs/USER_GUIDE.md">Read the user guide</a></p>
+          </div>
+          <div class="req reveal">
+            <h3 style="margin-top:0">Good to know</h3>
+            <ul>
+              <li>Works with Microsoft 365, Word 2019 or later, and Word for the web.</li>
+              <li>Word 2007, 2010 and 2013 cannot run add-ins.</li>
+              <li>Your document is processed inside Word. There is no server and no account.</li>
+              <li>Profiles are a convenience; they do not guarantee compliance with any court's rules.</li>
+              <li>Always save your document before applying changes.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
 
-/* ===== THEME ===== */
-function toggleTheme(){
-  const html = document.documentElement;
-  const current = html.getAttribute("data-theme");
-  const next = current === "dark" ? "light" : "dark";
-  html.setAttribute("data-theme", next);
-  localStorage.setItem("theme", next);
-}
+    <!-- DEVELOPERS -->
+    <section class="block" id="developers">
+      <div class="wrap">
+        <div class="devs reveal">
+          <img class="emblem" src="assets/prajnabytes-emblem.svg" alt="PrajnaBytes emblem: four gears connected to a thinking head" width="468" height="356" />
+          <div>
+            <div class="kicker">Developers</div>
+            <h2>Developed by PrajnaBytes International Private Limited and RatioJuris</h2>
+            <div class="names">
+              <span class="badge"><span class="sw" style="background:linear-gradient(135deg,#2eb4a1,#3a94cd,#9f3f97,#e53f41,#ec8f3f)"></span>PrajnaBytes International Private Limited</span>
+              <span class="badge"><span class="sw" style="background:var(--navy-600)"></span>RatioJuris</span>
+            </div>
+            <p class="sub" style="margin-bottom:18px">Engineering that serves the profession: practical, affordable tools that respect the integrity of legal documents and the confidentiality of clients.</p>
+            <p style="margin:0"><a class="btn btn-primary" href="https://github.com/RatioJuris/ab-layout">View the source on GitHub</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-(function(){
-  const saved = localStorage.getItem("theme");
-  if(saved){
-    document.documentElement.setAttribute("data-theme", saved);
-  }
-})();
+    <!-- FAQ -->
+    <section class="block" id="faq">
+      <div class="wrap">
+        <div class="kicker">Questions</div>
+        <h2>Frequently asked</h2>
+        <div class="faq">
+          <details><summary>Does AB Layout use AI or change my wording?</summary><p>No. It uses fixed, predictable formatting rules. Formatting never changes your words, names, dates, citations or prayers, and the text is checked after every run. Only the Hindi converter changes characters &mdash; and only when you ask it to, after a preview.</p></details>
+          <details><summary>Is my client's document uploaded anywhere?</summary><p>No. Everything happens inside Word on your computer or in your Word for the web session. AB Layout has no server, no account and no analytics.</p></details>
+          <details><summary>Does a profile guarantee my filing will be accepted?</summary><p>No. Profiles and page presets are conveniences, with sources cited where they follow an official circular. Always check the current requirements of your court and registry.</p></details>
+          <details><summary>Can I undo?</summary><p>Yes. Use <b>Restore Previous Formatting</b> in the panel, Word's Undo (Ctrl+Z), or close without saving. Saving a copy before you start is always the safest option.</p></details>
+          <details><summary>What does it cost?</summary><p>Nothing. AB Layout is free and open-source software under the GNU GPL v3 or later.</p></details>
+          <details><summary>Which Word versions are supported?</summary><p>Microsoft 365, Word 2019 or later on Windows and Mac, and Word for the web. Older versions such as Word 2010 cannot run add-ins.</p></details>
+        </div>
 
-/* ===== LOAD LAYOUTS ===== */
-async function loadLayouts(){
-  try {
-    const res = await fetch("/ab-layout/layouts/layouts.json", {
-      cache: "no-store"
-    });
+        <div class="cta-band reveal">
+          <h2>Give your next filing a clean finish.</h2>
+          <p>Install AB Layout free and check your current draft in seconds.</p>
+          <a class="btn btn-gold" href="manifest.xml" data-download-manifest>Install the add-in</a>
+        </div>
+      </div>
+    </section>
+  </main>
 
-    if(!res.ok) throw new Error("Fetch failed");
+  <footer class="site">
+    <div class="wrap">
+      <div class="cols">
+        <div>
+          <a class="logo" href="#top" style="display:flex;align-items:center;gap:10px;color:#fff;font-weight:700;font-size:18px;margin-bottom:12px">
+            <img src="assets/icon.svg" alt="" width="34" height="34" /> AB Layout
+          </a>
+          <p style="margin:0 0 16px">Advocate Benefit Layout &mdash; formatting help for advocates across India.</p>
+          <a class="pb-logo" href="#developers" aria-label="PrajnaBytes"><img src="assets/prajnabytes-logo.svg" alt="PrajnaBytes" width="165" height="34" /></a>
+        </div>
+        <div>
+          <h4>Product</h4>
+          <ul>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#hindi">Hindi converter</a></li>
+            <li><a href="#install">Install</a></li>
+            <li><a href="https://github.com/RatioJuris/ab-layout/blob/main/docs/USER_GUIDE.md">User guide</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Project</h4>
+          <ul>
+            <li><a href="https://github.com/RatioJuris/ab-layout">Source code</a></li>
+            <li><a href="https://github.com/RatioJuris/ab-layout/blob/main/NOTICE">Notice &amp; licence terms</a></li>
+            <li><a href="https://github.com/RatioJuris/ab-layout/issues">Report a problem</a></li>
+            <li><span id="version"></span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="legal">
+        <span>&copy; <span id="year">2026</span> PrajnaBytes International Private Limited and RatioJuris. Developed by PrajnaBytes International Private Limited and RatioJuris.</span>
+        <span>Free software under the GNU GPL v3 or later. Not legal advice.</span>
+      </div>
+    </div>
+  </footer>
 
-    const data = await res.json();
-
-    document.getElementById("desc").innerText =
-      data._meta?.description || "Legal formatting engine";
-
-    document.getElementById("version").innerText =
-      "Version: " + (data._meta?.version || "N/A");
-
-    const container = document.getElementById("layouts");
-    container.innerHTML = "";
-
-    (data.layouts || []).forEach(l=>{
-      const el = document.createElement("div");
-      el.className = "card";
-      el.innerHTML = `
-        <strong>${l.name}</strong><br/>
-        <small>${l.type}</small>
-      `;
-      container.appendChild(el);
-    });
-
-  } catch (e){
-    console.error(e);
-    document.getElementById("desc").innerText =
-      "Unable to load layouts";
-  }
-}
-
-/* ===== GITHUB STATS ===== */
-async function loadRepo(){
-  try {
-    const res = await fetch("https://api.github.com/repos/RatioJuris/ab-layout");
-    const repo = await res.json();
-
-    if(repo?.stargazers_count !== undefined){
-      document.getElementById("stats").innerText =
-        `⭐ ${repo.stargazers_count} • Updated ${new Date(repo.updated_at).toLocaleDateString()}`;
-    }
-
-  } catch {}
-}
-
-/* ===== DOWNLOAD ===== */
-async function downloadManifest(e){
-  e.preventDefault();
-
-  try {
-    const res = await fetch("manifest.xml");
-    const blob = await res.blob();
-
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-
-    a.href = url;
-    a.download = "manifest.xml";
-    a.click();
-
-    URL.revokeObjectURL(url);
-
-  } catch {
-    alert("Download failed");
-  }
-}
-
-/* ===== START ===== */
-loadLayouts();
-loadRepo();
-
-</script>
-
+  <script type="module" src="site/rj-pb-site.js?v=4.0.0"></script>
 </body>
 </html>

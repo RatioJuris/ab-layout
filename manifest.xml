@@ -2,8 +2,14 @@
 <!--
 File: manifest.xml
 Project: AB Layout (Advocate Benefit Layout)
-Version: 3.1.1.0
-Maintainer: RatioJuris
+Version: 4.0.0.0
+Developed by PrajnaBytes International Private Limited and RatioJuris
+Copyright (C) 2026 PrajnaBytes International Private Limited and RatioJuris
+SPDX-License-Identifier: GPL-3.0-or-later
+Additional terms under GPLv3 section 7 apply (attribution and names) - see NOTICE.
+
+Hosted on GitHub Pages (https://ratiojuris.github.io/ab-layout/).
+The Id must never change: it identifies the add-in for installed users.
 -->
 <OfficeApp
   xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
@@ -13,16 +19,15 @@ Maintainer: RatioJuris
   xsi:type="TaskPaneApp">
 
   <Id>8b7c2d3a-6f9a-4b7c-9d2e-1a2b3c4d5e6f</Id>
-  <Version>3.1.1.0</Version>
-  <ProviderName>RatioJuris</ProviderName>
+  <Version>4.0.0.0</Version>
+  <ProviderName>PrajnaBytes International Private Limited and RatioJuris</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
 
   <DisplayName DefaultValue="AB Layout"/>
-  <Description DefaultValue="Legal formatting engine for Indian courts including High Court and District Court standards."/>
+  <Description DefaultValue="Advocate Benefit Layout: check and clean the formatting of legal documents, convert Hindi between Kruti Dev and Unicode, and set paper and margins. Works inside Word; your document is not uploaded."/>
 
-  <!-- ICONS -->
-  <IconUrl DefaultValue="https://ratiojuris.github.io/ab-layout/assets/icons/icon-32.png"/>
-  <HighResolutionIconUrl DefaultValue="https://ratiojuris.github.io/ab-layout/assets/icons/icon-80.png"/>
+  <IconUrl DefaultValue="https://ratiojuris.github.io/ab-layout/assets/icon-32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://ratiojuris.github.io/ab-layout/assets/icon-64.png"/>
 
   <SupportUrl DefaultValue="https://github.com/RatioJuris/ab-layout"/>
 
@@ -36,7 +41,7 @@ Maintainer: RatioJuris
 
   <Requirements>
     <Sets DefaultMinVersion="1.3">
-      <Set Name="WordApi"/>
+      <Set Name="WordApi" MinVersion="1.3"/>
     </Sets>
   </Requirements>
 
@@ -46,149 +51,71 @@ Maintainer: RatioJuris
 
   <Permissions>ReadWriteDocument</Permissions>
 
-  <!-- ===== RIBBON OVERRIDES ===== -->
-  <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_1">
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
     <Hosts>
       <Host xsi:type="Document">
         <DesktopFormFactor>
-          <!-- FunctionFile is required for ExecuteFunction actions (Ribbon Buttons) -->
-          <FunctionFile resid="functionFileUrl"/>
+          <GetStarted>
+            <Title resid="GetStarted.Title"/>
+            <Description resid="GetStarted.Description"/>
+            <LearnMoreUrl resid="LearnMore.Url"/>
+          </GetStarted>
+          <FunctionFile resid="Commands.Url"/>
 
           <ExtensionPoint xsi:type="PrimaryCommandSurface">
             <CustomTab id="ABLayoutTab">
-              <Label resid="tabLabel"/>
-
-              <!-- COURT GROUP -->
-              <Group id="CourtGroup">
-                <Label resid="courtGroupLabel"/>
-                
-                <Control xsi:type="Button" id="HighCourtBtn">
-                  <Label resid="highCourtLabel"/>
-                  <Supertip>
-                    <Title resid="highCourtLabel"/>
-                    <Description resid="highCourtDesc"/>
-                  </Supertip>
-                  <Icon>
-                    <bt:Image size="16" resid="icon16"/>
-                    <bt:Image size="32" resid="icon32"/>
-                    <bt:Image size="80" resid="icon80"/>
-                  </Icon>
-                  <Action xsi:type="ExecuteFunction">
-                    <FunctionName>applyHighCourt</FunctionName>
-                  </Action>
-                </Control>
-
-                <Control xsi:type="Button" id="DistrictCourtBtn">
-                  <Label resid="districtLabel"/>
-                  <Supertip>
-                    <Title resid="districtLabel"/>
-                    <Description resid="districtDesc"/>
-                  </Supertip>
-                  <Icon>
-                    <bt:Image size="16" resid="icon16"/>
-                    <bt:Image size="32" resid="icon32"/>
-                    <bt:Image size="80" resid="icon80"/>
-                  </Icon>
-                  <Action xsi:type="ExecuteFunction">
-                    <FunctionName>applyDistrictCourt</FunctionName>
-                  </Action>
-                </Control>
-              </Group>
-
-              <!-- AFFIDAVIT GROUP -->
-              <Group id="AffidavitGroup">
-                <Label resid="affidavitGroupLabel"/>
-                <Control xsi:type="Button" id="AffidavitBtn">
-                  <Label resid="affidavitLabel"/>
-                  <Supertip>
-                    <Title resid="affidavitLabel"/>
-                    <Description resid="affidavitDesc"/>
-                  </Supertip>
-                  <Icon>
-                    <bt:Image size="16" resid="icon16"/>
-                    <bt:Image size="32" resid="icon32"/>
-                    <bt:Image size="80" resid="icon80"/>
-                  </Icon>
-                  <Action xsi:type="ExecuteFunction">
-                    <FunctionName>applyAffidavit</FunctionName>
-                  </Action>
-                </Control>
-              </Group>
-
-              <!-- ACTIONS GROUP -->
-              <Group id="ActionGroup">
-                <Label resid="actionGroupLabel"/>
-                <Control xsi:type="Button" id="UndoBtn">
-                  <Label resid="undoLabel"/>
-                  <Supertip>
-                    <Title resid="undoLabel"/>
-                    <Description resid="undoDesc"/>
-                  </Supertip>
-                  <Icon>
-                    <bt:Image size="16" resid="icon16"/>
-                    <bt:Image size="32" resid="icon32"/>
-                    <bt:Image size="80" resid="icon80"/>
-                  </Icon>
-                  <Action xsi:type="ExecuteFunction">
-                    <FunctionName>undoLayout</FunctionName>
-                  </Action>
-                </Control>
+              <Group id="ABLayoutGroup">
+                <Label resid="Group.Label"/>
+                <Icon>
+                  <bt:Image size="16" resid="Icon.16"/>
+                  <bt:Image size="32" resid="Icon.32"/>
+                  <bt:Image size="80" resid="Icon.80"/>
+                </Icon>
 
                 <Control xsi:type="Button" id="OpenPaneBtn">
-                  <Label resid="openPaneLabel"/>
+                  <Label resid="OpenPane.Label"/>
+                  <Supertip>
+                    <Title resid="OpenPane.Label"/>
+                    <Description resid="OpenPane.Desc"/>
+                  </Supertip>
                   <Icon>
-                    <bt:Image size="16" resid="icon16"/>
-                    <bt:Image size="32" resid="icon32"/>
-                    <bt:Image size="80" resid="icon80"/>
+                    <bt:Image size="16" resid="Icon.16"/>
+                    <bt:Image size="32" resid="Icon.32"/>
+                    <bt:Image size="80" resid="Icon.80"/>
                   </Icon>
                   <Action xsi:type="ShowTaskpane">
                     <TaskpaneId>ABLayoutPane</TaskpaneId>
-                    <SourceLocation resid="taskpaneUrl"/>
+                    <SourceLocation resid="Taskpane.Url"/>
                   </Action>
                 </Control>
               </Group>
-              
+              <Label resid="Tab.Label"/>
             </CustomTab>
           </ExtensionPoint>
-
-          <ExtensionPoint xsi:type="QuickAccessToolbar">
-            <OfficeCommand id="HighCourtBtn"/>
-          </ExtensionPoint>
-
         </DesktopFormFactor>
       </Host>
     </Hosts>
 
-    <!-- RESOURCES -->
     <Resources>
       <bt:Images>
-        <bt:Image id="icon16" DefaultValue="https://ratiojuris.github.io/ab-layout/assets/icons/icon-16.png"/>
-        <bt:Image id="icon32" DefaultValue="https://ratiojuris.github.io/ab-layout/assets/icons/icon-32.png"/>
-        <bt:Image id="icon80" DefaultValue="https://ratiojuris.github.io/ab-layout/assets/icons/icon-80.png"/>
+        <bt:Image id="Icon.16" DefaultValue="https://ratiojuris.github.io/ab-layout/assets/icon-16.png"/>
+        <bt:Image id="Icon.32" DefaultValue="https://ratiojuris.github.io/ab-layout/assets/icon-32.png"/>
+        <bt:Image id="Icon.80" DefaultValue="https://ratiojuris.github.io/ab-layout/assets/icon-80.png"/>
       </bt:Images>
-
       <bt:Urls>
-        <bt:Url id="taskpaneUrl" DefaultValue="https://ratiojuris.github.io/ab-layout/web/taskpane.html"/>
-        <bt:Url id="functionFileUrl" DefaultValue="https://ratiojuris.github.io/ab-layout/web/taskpane.html"/>
+        <bt:Url id="Taskpane.Url" DefaultValue="https://ratiojuris.github.io/ab-layout/web/taskpane.html"/>
+        <bt:Url id="Commands.Url" DefaultValue="https://ratiojuris.github.io/ab-layout/web/commands.html"/>
+        <bt:Url id="LearnMore.Url" DefaultValue="https://github.com/RatioJuris/ab-layout/blob/main/docs/USER_GUIDE.md"/>
       </bt:Urls>
-
       <bt:ShortStrings>
-        <bt:String id="tabLabel" DefaultValue="AB Layout"/>
-        <bt:String id="courtGroupLabel" DefaultValue="Court"/>
-        <bt:String id="affidavitGroupLabel" DefaultValue="Affidavit"/>
-        <bt:String id="actionGroupLabel" DefaultValue="Actions"/>
-        <bt:String id="highCourtLabel" DefaultValue="High Court"/>
-        <bt:String id="districtLabel" DefaultValue="District Court"/>
-        <bt:String id="affidavitLabel" DefaultValue="Affidavit"/>
-        <bt:String id="undoLabel" DefaultValue="Undo"/>
-        <bt:String id="openPaneLabel" DefaultValue="Panel"/>
+        <bt:String id="Tab.Label" DefaultValue="AB Layout"/>
+        <bt:String id="Group.Label" DefaultValue="Advocate Benefit Layout"/>
+        <bt:String id="OpenPane.Label" DefaultValue="AB Layout"/>
+        <bt:String id="GetStarted.Title" DefaultValue="AB Layout is ready"/>
       </bt:ShortStrings>
-
       <bt:LongStrings>
-        <bt:String id="highCourtDesc" DefaultValue="Apply standard High Court legal layout."/>
-        <bt:String id="districtDesc" DefaultValue="Apply standard District Court legal layout."/>
-        <bt:String id="affidavitDesc" DefaultValue="Apply notary and affidavit margin presets."/>
-        <bt:String id="undoDesc" DefaultValue="Revert to the layout used before the last change."/>
+        <bt:String id="OpenPane.Desc" DefaultValue="Open AB Layout to check the document, clean formatting, convert Kruti Dev Hindi, and set paper and margins."/>
+        <bt:String id="GetStarted.Description" DefaultValue="Open the AB Layout tab and click AB Layout to check and clean your legal document."/>
       </bt:LongStrings>
     </Resources>
   </VersionOverrides>

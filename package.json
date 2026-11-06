@@ -1,0 +1,33 @@
+{
+  "name": "ab-layout",
+  "version": "4.0.0",
+  "private": true,
+  "description": "AB Layout (Advocate Benefit Layout) - a Microsoft Word add-in that helps Indian advocates clean and format legal documents. No build step: the web/ folder is served as-is by GitHub Pages.",
+  "license": "GPL-3.0-or-later",
+  "author": "PrajnaBytes International Private Limited and RatioJuris",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RatioJuris/ab-layout.git"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test tests/",
+    "test:ui": "node --test tests/e2e/taskpane.e2e.mjs",
+    "typecheck": "tsc -p tsconfig.json",
+    "validate:manifest": "npx --yes office-addin-manifest@3.0.1 validate manifest.xml",
+    "check": "npm run typecheck && npm test",
+    "icons": "node scripts/render-icons.mjs",
+    "serve": "node scripts/serve.mjs",
+    "manifest:local": "node scripts/make-local-manifest.mjs"
+  },
+  "devDependencies": {
+    "@resvg/resvg-js": "2.6.2",
+    "@types/node": "^22.20.5",
+    "@types/office-js": "1.0.616",
+    "puppeteer-core": "^25.16.0",
+    "typescript": "5.9.3"
+  }
+}

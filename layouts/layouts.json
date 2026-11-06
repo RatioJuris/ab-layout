@@ -1,16 +1,13 @@
-/*
-File: layouts.json
-Path: /layouts/layouts.json
-Repository: https://github.com/RatioJuris/ab-layout
-Version: 3.1.1
-*/
-
 {
   "_meta": {
+    "file": "/layouts/layouts.json",
     "project": "AB Layout (Advocate Benefit Layout)",
-    "version": "3.1.1",
-    "maintainer": "RatioJuris",
-    "description": "Production-ready layout definitions for Indian courts",
+    "developedBy": "PrajnaBytes International Private Limited and RatioJuris",
+    "copyright": "Copyright (C) 2026 PrajnaBytes International Private Limited and RatioJuris",
+    "license": "GPL-3.0-or-later; additional terms under GPLv3 section 7 - see NOTICE",
+    "repository": "https://github.com/RatioJuris/ab-layout",
+    "version": "4.0.0",
+    "description": "Page size and margin presets for Indian legal documents. Conveniences only - verify your court's current requirements.",
     "unit": "points",
     "schema": "v3.1"
   },
@@ -20,14 +17,24 @@ Version: 3.1.1
       "label": "High Court Standard (Legal)",
       "width": 612,
       "height": 1008,
-      "margins": { "top": 108, "bottom": 108, "left": 36, "right": 122.4 }
+      "margins": { "top": 108, "bottom": 108, "left": 36, "right": 122.4 },
+      "note": "Traditional legal-size (8.5 x 14 in) layout carried over from AB Layout 3.x. Many courts now require A4."
     },
 
     "high_court_new": {
       "label": "High Court New* (A4)",
       "width": 595.27,
       "height": 841.89,
-      "margins": { "top": 72, "bottom": 72, "left": 72, "right": 72 }
+      "margins": { "top": 72, "bottom": 72, "left": 72, "right": 72 },
+      "note": "A4 with 2.54 cm (1 inch) margins on all sides."
+    },
+
+    "sc_a4_2020": {
+      "label": "Supreme Court A4 (Circular 2020)",
+      "width": 595.27,
+      "height": 841.89,
+      "margins": { "top": 56.7, "bottom": 56.7, "left": 113.4, "right": 113.4 },
+      "note": "Supreme Court of India circular F.No.01/Judl./2020 dated 05.03.2020: A4, margins 4 cm left and right, 2 cm top and bottom. Verify current requirements."
     },
 
     "notary_affidavit": {
@@ -36,40 +43,17 @@ Version: 3.1.1
       "height": 792,
       "multiPage": true,
       "firstPage": { "top": 468, "bottom": 57.6, "left": 72, "right": 72 },
-      "otherPages": { "top": 72, "bottom": 72, "left": 72, "right": 72 }
+      "otherPages": { "top": 72, "bottom": 72, "left": 72, "right": 72 },
+      "note": "Letter size; leaves 16.5 cm at the top of page 1 for the stamp-paper heading. Needs a section break after page 1."
     }
   },
 
   "layouts": [
-    {
-      "id": "hc_standard",
-      "name": "High Court – Standard (Legal)",
-      "preset": "high_court_standard",
-      "type": "high_court"
-    },
-    {
-      "id": "hc_new",
-      "name": "High Court – New* (A4)",
-      "preset": "high_court_new",
-      "type": "high_court"
-    },
-    {
-      "id": "district_standard",
-      "name": "District Court – Standard (Legal)",
-      "preset": "high_court_standard",
-      "type": "district_court"
-    },
-    {
-      "id": "district_new",
-      "name": "District Court – New* (A4)",
-      "preset": "high_court_new",
-      "type": "district_court"
-    },
-    {
-      "id": "affidavit",
-      "name": "Notary / Affidavit",
-      "preset": "notary_affidavit",
-      "type": "affidavit"
-    }
+    { "id": "sc_a4_2020", "name": "Supreme Court – A4 (Circular 2020)", "preset": "sc_a4_2020", "type": "supreme_court" },
+    { "id": "hc_standard", "name": "High Court – Standard (Legal)", "preset": "high_court_standard", "type": "high_court" },
+    { "id": "hc_new", "name": "High Court – New* (A4)", "preset": "high_court_new", "type": "high_court" },
+    { "id": "district_standard", "name": "District Court – Standard (Legal)", "preset": "high_court_standard", "type": "district_court" },
+    { "id": "district_new", "name": "District Court – New* (A4)", "preset": "high_court_new", "type": "district_court" },
+    { "id": "affidavit", "name": "Notary / Affidavit", "preset": "notary_affidavit", "type": "affidavit" }
   ]
 }

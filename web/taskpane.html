@@ -1,178 +1,232 @@
 <!--
 File: taskpane.html
 Path: /web/taskpane.html
-Version: 3.1.1
+Project: AB Layout (Advocate Benefit Layout)
+Version: 4.0.0
+Developed by PrajnaBytes International Private Limited and RatioJuris
+Copyright (C) 2026 PrajnaBytes International Private Limited and RatioJuris
+SPDX-License-Identifier: GPL-3.0-or-later
+Additional terms under GPLv3 section 7 apply (attribution and names) - see NOTICE.
 
-Description:
-Taskpane UI for AB Layout MS 365 Add-in. 
-Handles layout selection and theme toggling.
-
-Maintainer:
-RatioJuris
+Task pane. The URL of this file is referenced by every installed manifest;
+do not rename or move it.
 -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>AB Layout</title>
-
-    <!-- Office JS (must stay CDN) -->
-    <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
-
-    <!-- LOCAL FIRST (offline safe) -->
-    <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AB Layout</title>
+  <!-- Office JS must be loaded from Microsoft's CDN -->
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <link rel="stylesheet" href="styles.css?v=4.0.0" />
+  <link rel="icon" href="../assets/icon-32.png" />
 </head>
-
-<body oncontextmenu="return false;"> <!-- 🚫 Right-click disabled -->
-
-    <!-- THEME TOGGLE -->
-    <div style="text-align:right; padding: 4px 8px; font-size:12px; cursor:pointer; opacity: 0.8;" onclick="toggleTheme()">
-        🌗 Theme
+<body>
+  <header class="header">
+    <img class="logo" src="../assets/icon-64.png" width="32" height="32" alt="" />
+    <div>
+      <h1>AB Layout</h1>
+      <div class="subtitle">Advocate Benefit Layout</div>
     </div>
+  </header>
 
-    <header class="header">
-        <div class="title-row">
-            <span class="icon">⚖</span>
-            <h1>AB Layout</h1>
+  <div id="banner" class="banner" role="status" aria-live="polite" hidden></div>
+
+  <nav class="tabs" role="tablist" aria-label="AB Layout sections">
+    <button role="tab" id="tab-check" aria-controls="panel-check" aria-selected="true">Check</button>
+    <button role="tab" id="tab-clean" aria-controls="panel-clean" aria-selected="false" tabindex="-1">Clean</button>
+    <button role="tab" id="tab-hindi" aria-controls="panel-hindi" aria-selected="false" tabindex="-1">Hindi</button>
+    <button role="tab" id="tab-page" aria-controls="panel-page" aria-selected="false" tabindex="-1">Page</button>
+    <button role="tab" id="tab-profiles" aria-controls="panel-profiles" aria-selected="false" tabindex="-1">Profiles</button>
+  </nav>
+
+  <main>
+    <!-- CHECK -->
+    <section id="panel-check" role="tabpanel" aria-labelledby="tab-check">
+      <p class="lead">Look for formatting problems and things to fix before printing or filing. Nothing in your document is changed.</p>
+      <button id="inspectBtn" class="primary" disabled>Check Document</button>
+      <div id="checkStatus" class="status" role="status" aria-live="polite"></div>
+      <div id="checkSummary" class="summary" hidden></div>
+      <ul id="findings" class="findings"></ul>
+    </section>
+
+    <!-- CLEAN -->
+    <section id="panel-clean" role="tabpanel" aria-labelledby="tab-clean" hidden>
+      <p class="lead">Make the formatting consistent. Words are never changed. Titles, VERSUS, party and signature lines, tables and Hindi text are only lightly touched.</p>
+      <label for="profileSelect">Formatting profile</label>
+      <select id="profileSelect"></select>
+      <div id="profileInfo" class="profile-info"></div>
+
+      <fieldset class="options">
+        <legend>Options</legend>
+        <label class="check"><input type="checkbox" id="optBlank" /> Remove extra blank lines</label>
+        <div class="indent">
+          <label for="optKeep" class="inline">Keep</label>
+          <select id="optKeep" class="inline-select">
+            <option value="1">1</option>
+            <option value="2">2</option>
+          </select>
+          <span class="muted">blank line(s) in each group</span>
+          <p class="warn-text">Caution: blank lines left for signatures or stamps are also reduced. Removed lines are not brought back by Restore (use Word's Undo).</p>
         </div>
-        <div class="subtitle" id="subtitle">Advocate Benefit Layout</div>
-    </header>
+      </fieldset>
 
-    <hr />
+      <button id="previewBtn" class="primary" disabled>Preview Changes</button>
+      <div id="cleanStatus" class="status" role="status" aria-live="polite"></div>
+      <div id="preview" class="card" hidden></div>
+      <button id="applyBtn" class="primary" hidden>Apply These Changes</button>
+      <div id="result" class="card" hidden></div>
+      <button id="restoreBtn" class="secondary" hidden>Restore Previous Formatting</button>
+      <p class="muted small">Tip: save your document before applying. Word's Undo (Ctrl+Z) also works, but may need several presses.</p>
+    </section>
 
-    <main>
-        <section class="section">
-            <label for="courtSelect">Select Court Layout</label>
-            <select id="courtSelect">
-                <option value="" disabled selected>Loading layouts...</option>
+    <!-- HINDI -->
+    <section id="panel-hindi" role="tabpanel" aria-labelledby="tab-hindi" hidden>
+      <p class="lead">Convert Hindi between the old Kruti Dev font and Unicode. Only Hindi words are converted; English text, bold and italics stay as they are.</p>
+      <fieldset class="options">
+        <legend>Convert</legend>
+        <label class="check"><input type="radio" name="hindiDir" value="toUnicode" checked /> Kruti Dev &rarr; Unicode</label>
+        <label class="check"><input type="radio" name="hindiDir" value="toKruti" /> Unicode &rarr; Kruti Dev</label>
+      </fieldset>
+      <fieldset class="options">
+        <legend>Which text</legend>
+        <label class="check"><input type="radio" name="hindiScope" value="selection" checked /> Selected text</label>
+        <label class="check"><input type="radio" name="hindiScope" value="document" /> Whole document</label>
+      </fieldset>
+      <label for="hindiFont">Font for converted text</label>
+      <select id="hindiFont"></select>
+      <p id="hindiFontNote" class="muted small"></p>
+      <button id="hindiPreviewBtn" class="primary" disabled>Preview Conversion</button>
+      <div id="hindiStatus" class="status" role="status" aria-live="polite"></div>
+      <div id="hindiPreview" class="card" hidden></div>
+      <button id="hindiApplyBtn" class="primary" hidden>Convert Now</button>
+      <div id="hindiResult" class="card" hidden></div>
+      <p class="muted small">This changes the letters stored in the document. Save a copy first. To reverse it, use Word's Undo (Ctrl+Z) or convert back.</p>
+    </section>
+
+    <!-- PAGE -->
+    <section id="panel-page" role="tabpanel" aria-labelledby="tab-page" hidden>
+      <p class="lead">Paper size and margins.</p>
+      <div id="pageUnsupported" class="notice" hidden></div>
+      <label for="layoutSelect">Page layout</label>
+      <select id="layoutSelect"></select>
+      <div id="layoutInfo" class="profile-info"></div>
+      <button id="pageApplyBtn" class="primary" disabled>Apply Page Layout</button>
+      <div id="pageStatus" class="status" role="status" aria-live="polite"></div>
+      <button id="pageRestoreBtn" class="secondary" hidden>Restore Previous Page Layout</button>
+      <p class="muted small">Presets are conveniences, not official rules. Check your court's current requirements.</p>
+    </section>
+
+    <!-- PROFILES -->
+    <section id="panel-profiles" role="tabpanel" aria-labelledby="tab-profiles" hidden>
+      <p class="lead">Create your own profile. It is saved on this computer only.</p>
+      <label for="baseSelect">Start from</label>
+      <select id="baseSelect"></select>
+      <form id="profileForm" class="profile-form" novalidate>
+        <label for="pfName">Profile name</label>
+        <input id="pfName" type="text" maxlength="80" required />
+
+        <label for="pfFont">Font</label>
+        <input id="pfFont" type="text" list="fontList" />
+        <datalist id="fontList">
+          <option value="match"></option>
+          <option value="Times New Roman"></option>
+          <option value="Georgia"></option>
+          <option value="Arial"></option>
+          <option value="Calibri"></option>
+          <option value="Cambria"></option>
+          <option value="Bookman Old Style"></option>
+          <option value="Book Antiqua"></option>
+        </datalist>
+
+        <div class="grid2">
+          <div>
+            <label for="pfSize">Size (pt)</label>
+            <input id="pfSize" type="text" inputmode="decimal" />
+          </div>
+          <div>
+            <label for="pfLine">Line spacing</label>
+            <input id="pfLine" type="text" inputmode="decimal" />
+          </div>
+          <div>
+            <label for="pfAlign">Alignment</label>
+            <select id="pfAlign">
+              <option value="Justified">Justified</option>
+              <option value="Left">Left</option>
+              <option value="match">Match document</option>
             </select>
-        </section>
+          </div>
+          <div>
+            <label for="pfFirst">First-line indent (cm)</label>
+            <input id="pfFirst" type="text" inputmode="decimal" />
+          </div>
+          <div>
+            <label for="pfBefore">Space before (pt)</label>
+            <input id="pfBefore" type="text" inputmode="decimal" />
+          </div>
+          <div>
+            <label for="pfAfter">Space after (pt)</label>
+            <input id="pfAfter" type="text" inputmode="decimal" />
+          </div>
+          <div>
+            <label for="pfLeft">Left indent (cm)</label>
+            <input id="pfLeft" type="text" inputmode="decimal" />
+          </div>
+          <div>
+            <label for="pfRight">Right indent (cm)</label>
+            <input id="pfRight" type="text" inputmode="decimal" />
+          </div>
+        </div>
+        <p class="muted small">Type <strong>match</strong> in any box to keep what most of your document already uses.</p>
 
-        <section class="section">
-            <button id="applyBtn" onclick="applySelected()" disabled>
-                Apply Layout
-            </button>
+        <label class="check"><input type="checkbox" id="pfQuotes" /> Format indented quotations separately</label>
+        <div class="grid2">
+          <div>
+            <label for="pfQSize">Quotation size (pt)</label>
+            <input id="pfQSize" type="text" inputmode="decimal" />
+          </div>
+          <div>
+            <label for="pfQLine">Quotation spacing</label>
+            <input id="pfQLine" type="text" inputmode="decimal" />
+          </div>
+        </div>
+        <label class="check"><input type="checkbox" id="pfHeadings" /> Use the same font for headings</label>
+        <label class="check"><input type="checkbox" id="pfTables" /> Use the same font inside tables</label>
+        <label for="pfProtected">Never change these fonts (comma separated)</label>
+        <input id="pfProtected" type="text" />
 
-            <button id="undoBtn" class="secondary" onclick="undoLayout()" disabled>
-                Undo
-            </button>
-        </section>
+        <div id="profileErrors" class="errors" role="alert"></div>
+        <button type="submit" class="primary">Save Profile</button>
+      </form>
+      <div id="customList" class="custom-list"></div>
+      <details class="share">
+        <summary>Share profiles with another computer</summary>
+        <p class="muted small">Copy this text to another computer and paste it there, then press Import.</p>
+        <textarea id="shareText" rows="5" aria-label="Profiles as text"></textarea>
+        <div class="row">
+          <button id="exportBtn" class="secondary" type="button">Show My Profiles</button>
+          <button id="importBtn" class="secondary" type="button">Import</button>
+        </div>
+        <div id="shareStatus" class="status" role="status" aria-live="polite"></div>
+      </details>
+    </section>
+  </main>
 
-        <section id="status" class="status">Initializing engine...</section>
-    </main>
+  <footer class="footer">
+    <div id="rj-pb-attribution" class="attribution">AB Layout v4.0.0 &middot; Developed by PrajnaBytes International Private Limited and RatioJuris</div>
+    <div class="footer-meta">
+      <span id="platform">Starting...</span>
+      &middot; <span>Your document never leaves Word</span>
+      &middot; <a href="https://github.com/RatioJuris/ab-layout" target="_blank" rel="noopener">GPL-3.0 source</a>
+    </div>
+  </footer>
 
-    <footer class="footer">
-        <span id="version">v3.1.1</span>
-        <span> • </span>
-        <span id="engineState">Initializing...</span>
-    </footer>
-
-    <!-- 🔥 LOCAL ENGINE -->
-    <script src="taskpane.js"></script>
-
-    <script>
-        /* ===== CONFIG ===== */
-        const CONFIG = {
-            remote: "https://ratiojuris.github.io/ab-layout/layouts/layouts.json",
-            local: "layouts/layouts.json"
-        };
-
-        /* ===== UI ELEMENTS ===== */
-        const UI = {
-            courtSelect: document.getElementById("courtSelect"),
-            version: document.getElementById("version"),
-            subtitle: document.getElementById("subtitle"),
-            status: document.getElementById("status"),
-            applyBtn: document.getElementById("applyBtn"),
-            undoBtn: document.getElementById("undoBtn"),
-            engineState: document.getElementById("engineState")
-        };
-
-        /* ===== FETCH & POPULATE ===== */
-        async function loadEngine() {
-            try {
-                uiSetStatus("Fetching layouts...");
-                let data;
-                
-                try {
-                    const res = await fetch(CONFIG.remote);
-                    if (!res.ok) throw "Remote Unavailable";
-                    data = await res.json();
-                } catch (e) {
-                    console.warn("⚠️ Offline mode activated / Local fallback");
-                    const res = await fetch(CONFIG.local);
-                    data = await res.json();
-                }
-
-                // Update Metadata from JSON
-                if (data._meta) {
-                    UI.version.innerText = "v" + data._meta.version;
-                    UI.subtitle.innerText = data._meta.description;
-                }
-
-                // Populate Dropdown
-                UI.courtSelect.innerHTML = ""; 
-                data.layouts.forEach(layout => {
-                    const opt = document.createElement("option");
-                    opt.value = layout.id;
-                    opt.textContent = layout.name;
-                    // Pass the preset key to the attribute for taskpane.js
-                    opt.setAttribute("data-preset", layout.preset); 
-                    UI.courtSelect.appendChild(opt);
-                });
-
-                uiSetStatus("Ready", "success");
-                uiSetEngineState("Connected");
-                uiEnableApply(true);
-
-            } catch (err) {
-                uiSetStatus("Initialization failed", "error");
-                console.error(err);
-            }
-        }
-
-        /* ===== UI HELPER FUNCTIONS ===== */
-        function uiSetStatus(msg, type="info") {
-            UI.status.innerText = msg;
-            UI.status.className = "status " + type;
-        }
-
-        function uiSetEngineState(state) {
-            UI.engineState.innerText = state;
-        }
-
-        function uiEnableApply(v) {
-            UI.applyBtn.disabled = !v;
-        }
-
-        function uiEnableUndo(v) {
-            UI.undoBtn.disabled = !v;
-        }
-
-        /* ===== THEME MANAGEMENT ===== */
-        function toggleTheme() {
-            const current = document.documentElement.getAttribute("data-theme");
-            const next = current === "dark" ? "light" : "dark";
-            document.documentElement.setAttribute("data-theme", next);
-            localStorage.setItem("theme", next);
-        }
-
-        const savedTheme = localStorage.getItem("theme");
-        if (savedTheme) {
-            document.documentElement.setAttribute("data-theme", savedTheme);
-        }
-
-        /* ===== WORD SYNC & INITIALIZATION ===== */
-        Office.onReady((info) => {
-            if (info.host === Office.HostType.Word) {
-                loadEngine();
-            } else {
-                uiSetStatus("Please open in Word", "error");
-                uiSetEngineState("Unsupported Host");
-            }
-        });
-    </script>
+  <script nomodule>
+    document.getElementById("banner").hidden = false;
+    document.getElementById("banner").textContent =
+      "This version of Office is too old to run AB Layout. Please update Office or use Word for the web.";
+  </script>
+  <script type="module" src="taskpane.js?v=4.0.0"></script>
 </body>
 </html>
