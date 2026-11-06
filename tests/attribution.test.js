@@ -23,8 +23,13 @@ function walk(dir) {
   });
 }
 
+const nativeFiles = walk(join(root, "native"))
+  .filter((f) => !/[\\/](bin|obj|dist)[\\/]/.test(f))
+  .filter((f) => /\.(cs|csproj|ps1|xml)$/.test(f));
+
 const sourceFiles = [...walk(join(root, "web")), ...walk(join(root, "site")), ...walk(join(root, "scripts")), ...walk(join(root, "tests")), join(root, "index.html")]
-  .filter((f) => /\.(js|mjs|html|css)$/.test(f));
+  .filter((f) => /\.(js|mjs|html|css)$/.test(f))
+  .concat(nativeFiles);
 
 test("every source file carries the developer attribution, licence and section 7 pointer", () => {
   const missing = sourceFiles.filter((f) => {

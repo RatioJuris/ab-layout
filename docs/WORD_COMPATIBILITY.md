@@ -34,6 +34,44 @@ never the browser or OS name.
 | Kruti Dev ↔ Unicode | `getTextRanges`, `insertText("Replace")`, `intersectWithOrNullObject` | WordApi 1.3 | Yes | Yes | — |
 | Paper size & margins | `Section.pageSetup` | **WordApiDesktop 1.3** | M365 Version 2507+ only | **No** | Page tab disabled with instructions to use Layout > Size/Margins |
 
+## Native Windows add-in (native/)
+
+Because Microsoft's web add-in API does not let add-ins change margins in
+most Word versions (and never in Word for the web), AB Layout also ships a
+native Windows add-in (C# COM add-in, .NET Framework 4.8) that uses Word's
+full object model and the **same** rules (`web/core`, run by Jint).
+
+| Feature | Native add-in |
+|---|---|
+| Check / Clean / Restore / Kruti Dev ↔ Unicode | Yes |
+| Paper size and margins | **Yes**, every section, all supported Word versions |
+| Undo | Each action is **one** Undo step (`Application.UndoRecord`) |
+| Offline | Yes (rules and layouts are bundled) |
+| Requirements | Windows, desktop Word 2013+, .NET Framework 4.8 |
+
+**Tested in real Word** (Word for Microsoft 365, 16.0.20527, 64-bit, Windows),
+6 November 2026:
+
+- `native\ABLayout.Word.Tests` — **9/9 passed**, driving a hidden Word: Check
+  Document findings; Clean Document (body normalised; cause title, VERSUS,
+  signature, quotation indent and Kruti Dev font kept; bold case name kept in
+  a mixed-font paragraph; text verified); second run changes nothing; one
+  Undo reverses Clean and Hindi conversion; Restore; stale-preview guard;
+  safe blank-line removal; A4 4 cm/2 cm margins applied and restored; Kruti
+  Dev → Unicode converts only Kruti words (English untouched, bold kept) and
+  back again; Show selects the paragraph.
+- `native\tests-smoke\smoke.ps1` — the **installed** add-in (installed from
+  the release ZIP with `install.ps1`) loads in visible Word, the ribbon tab
+  and docked task pane appear, Check and Clean run through it.
+
+**Finding during testing:** this PC's Word Trust Center had *"Require
+Application Add-ins to be signed by Trusted Publisher"* and *"Disable all
+macros except digitally signed macros"* turned on. That setting does not block
+AB Layout's native add-in (Word checks the Microsoft-signed `mscoree.dll`
+loader). What did block it was Word's *Disabled Items* list, which recorded
+the add-in after an early installer bug (URL-encoded path, now fixed); the
+installer now clears only AB Layout's entry.
+
 ## What has actually been tested
 
 | Environment | Status |
@@ -41,8 +79,9 @@ never the browser or OS name.
 | Core logic (Node.js unit tests) | **Tested** — 56 tests |
 | Task pane UI in Microsoft Edge 156 (the WebView2 engine) with a simulated Word document | **Tested** — 2 end-to-end tests, desktop and web capability modes |
 | Manifest validation (Microsoft validator) | **Tested** — valid |
-| Real Word for Windows (16.0.20527 is installed on the build PC) | **Not tested** — sideloading and clicking the task pane could not be automated in this environment |
-| Real Word for the web | **Not tested** |
+| Real Word for Windows — **native add-in** | **Tested**: 9 real-Word tests + installed-add-in smoke test (see above) |
+| Real Word for Windows — web add-in | **Not tested** (the task pane cannot be opened by automation) |
+| Real Word for the web | Loaded by the user (3.1.1 failure confirmed, screenshot in `docs/`); 4.0.0 **not yet tested** |
 | Real Word for Mac | **Not tested** |
 
 Full parity is **not claimed** until the manual checklist in

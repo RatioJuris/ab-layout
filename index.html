@@ -43,7 +43,7 @@ Additional terms under GPLv3 section 7 apply (attribution and names) - see NOTIC
       </ul>
       <div class="actions">
         <button id="themeBtn" class="icon-btn" type="button" aria-label="Switch to dark theme">&#9790;</button>
-        <a class="btn btn-gold btn-sm" href="manifest.xml" data-download-manifest>Install free</a>
+        <a class="btn btn-gold btn-sm" href="#install">Install free</a>
       </div>
     </div>
   </nav>
@@ -55,11 +55,11 @@ Additional terms under GPLv3 section 7 apply (attribution and names) - see NOTIC
         <h1>Court-ready documents.<br /><span class="grad">Without changing a&nbsp;word.</span></h1>
         <p class="lede">AB Layout checks your petition, affidavit or written submission, makes the formatting consistent, and confirms afterwards that every word is exactly as you wrote it.</p>
         <div class="cta">
-          <a class="btn btn-gold" href="manifest.xml" data-download-manifest>
+          <a class="btn btn-gold" href="https://github.com/RatioJuris/ab-layout/releases/latest/download/ABLayout-Word-Windows.zip">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
-            Install the add-in
+            Download for Windows
           </a>
-          <a class="btn btn-ghost" href="#hindi">Try the Hindi converter</a>
+          <a class="btn btn-ghost" href="#install">Word for the web / Mac</a>
         </div>
         <ul class="chips" aria-label="Key facts">
           <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2eb4a1" stroke-width="3" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Free &amp; open source</li>
@@ -227,15 +227,16 @@ Additional terms under GPLv3 section 7 apply (attribution and names) - see NOTIC
       <div class="wrap">
         <div class="kicker">Where it works</div>
         <h2>Word on Windows, Mac and the web</h2>
-        <p class="sub">Needs Microsoft 365, Word 2019 or later, or the free Word for the web, and an internet connection to open the panel.</p>
+        <p class="sub">The Windows version works fully offline in Word 2013 and later. The web version runs in Word for the web and on Mac.</p>
         <table class="compat reveal">
-          <thead><tr><th scope="col">Feature</th><th scope="col">Word for Windows / Mac</th><th scope="col">Word for the web</th></tr></thead>
+          <thead><tr><th scope="col">Feature</th><th scope="col">Windows version</th><th scope="col">Web version (desktop)</th><th scope="col">Word for the web</th></tr></thead>
           <tbody>
-            <tr><td>Check Document</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
-            <tr><td>Clean Document &amp; Restore</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
-            <tr><td>Kruti Dev &harr; Unicode</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
-            <tr><td>Paper size &amp; margins</td><td class="part">Recent Microsoft 365</td><td>Use Word's Layout menu &mdash; AB Layout explains how</td></tr>
-            <tr><td>Count comments / tracked changes</td><td class="part">Newer versions</td><td class="yes">Yes</td></tr>
+            <tr><td>Check Document</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+            <tr><td>Clean Document &amp; Restore</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+            <tr><td>Kruti Dev &harr; Unicode</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+            <tr><td>Paper size &amp; margins</td><td class="yes">Yes</td><td class="part">Recent Microsoft 365</td><td>Use Word's Layout menu</td></tr>
+            <tr><td>One-step Undo</td><td class="yes">Yes</td><td>&mdash;</td><td>&mdash;</td></tr>
+            <tr><td>Works offline</td><td class="yes">Yes</td><td>&mdash;</td><td>&mdash;</td></tr>
           </tbody>
         </table>
       </div>
@@ -258,20 +259,28 @@ Additional terms under GPLv3 section 7 apply (attribution and names) - see NOTIC
         <h2>Ready in under a minute</h2>
         <div class="install">
           <div class="install-card reveal">
+            <h3 style="margin-top:0">Windows (recommended for Word on a PC)</h3>
             <ol>
-              <li><a href="manifest.xml" data-download-manifest><b>Download manifest.xml</b></a> (the small file that tells Word where AB Layout is).</li>
-              <li>In Word, open <b>Insert &rarr; Add-ins &rarr; My Add-ins &rarr; Upload My Add-in</b>.<br /><small>Some versions: <b>Home &rarr; Add-ins &rarr; More Add-ins</b>.</small></li>
-              <li>Choose <code>manifest.xml</code>.</li>
-              <li>Click the <b>AB Layout</b> tab on the ribbon, then <b>AB Layout</b>.</li>
+              <li><a href="https://github.com/RatioJuris/ab-layout/releases/latest/download/ABLayout-Word-Windows.zip"><b>Download ABLayout-Word-Windows.zip</b></a></li>
+              <li>Close Word. Right-click the ZIP &rarr; <b>Extract All</b>.</li>
+              <li>Double-click <code>install.cmd</code> &mdash; no administrator password needed.<br /><small>If Windows warns, click <b>More info &rarr; Run anyway</b>.</small></li>
+              <li>Open Word and click the <b>AB Layout</b> tab.</li>
             </ol>
-            <p style="margin-top:20px"><a class="btn btn-primary" href="manifest.xml" data-download-manifest>Download manifest.xml</a>
-            &nbsp;<a class="btn" style="border:1px solid var(--line)" href="https://github.com/RatioJuris/ab-layout/blob/main/docs/USER_GUIDE.md">Read the user guide</a></p>
+            <p style="margin-top:16px"><a class="btn btn-primary" href="https://github.com/RatioJuris/ab-layout/releases/latest/download/ABLayout-Word-Windows.zip">Download for Windows</a></p>
+            <h3>Word for the web / Mac</h3>
+            <ol>
+              <li><a href="manifest.xml" data-download-manifest><b>Download manifest.xml</b></a></li>
+              <li>In Word: <b>Insert &rarr; Add-ins &rarr; My Add-ins &rarr; Upload My Add-in</b>, choose <code>manifest.xml</code>.</li>
+              <li>Click the <b>AB Layout</b> tab, then <b>AB Layout</b>.</li>
+            </ol>
+            <p style="margin-top:16px"><a class="btn" style="border:1px solid var(--line)" href="https://github.com/RatioJuris/ab-layout/blob/main/docs/USER_GUIDE.md">Read the user guide</a></p>
           </div>
           <div class="req reveal">
             <h3 style="margin-top:0">Good to know</h3>
             <ul>
-              <li>Works with Microsoft 365, Word 2019 or later, and Word for the web.</li>
-              <li>Word 2007, 2010 and 2013 cannot run add-ins.</li>
+              <li>Windows version: Word 2013 or later on Windows; works offline.</li>
+              <li>Web version: Microsoft 365, Word 2019 or later, Word for the web.</li>
+              <li>Word 2007 and 2010 cannot run add-ins.</li>
               <li>Your document is processed inside Word. There is no server and no account.</li>
               <li>Profiles are a convenience; they do not guarantee compliance with any court's rules.</li>
               <li>Always save your document before applying changes.</li>
@@ -311,7 +320,7 @@ Additional terms under GPLv3 section 7 apply (attribution and names) - see NOTIC
           <details><summary>Does a profile guarantee my filing will be accepted?</summary><p>No. Profiles and page presets are conveniences, with sources cited where they follow an official circular. Always check the current requirements of your court and registry.</p></details>
           <details><summary>Can I undo?</summary><p>Yes. Use <b>Restore Previous Formatting</b> in the panel, Word's Undo (Ctrl+Z), or close without saving. Saving a copy before you start is always the safest option.</p></details>
           <details><summary>What does it cost?</summary><p>Nothing. AB Layout is free and open-source software under the GNU GPL v3 or later.</p></details>
-          <details><summary>Which Word versions are supported?</summary><p>Microsoft 365, Word 2019 or later on Windows and Mac, and Word for the web. Older versions such as Word 2010 cannot run add-ins.</p></details>
+          <details><summary>Which Word versions are supported?</summary><p>The Windows version runs in Word 2013, 2016, 2019, 2021, 2024 and Microsoft 365 on Windows, without internet. The web version runs in Word for the web, on Mac and in Microsoft 365. Word 2007 and 2010 cannot run add-ins.</p></details>
         </div>
 
         <div class="cta-band reveal">

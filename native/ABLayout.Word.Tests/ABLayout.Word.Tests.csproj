@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    AB Layout native add-in - tests that run inside REAL Microsoft Word.
+    Developed by PrajnaBytes International Private Limited and RatioJuris
+    Copyright (C) 2026 PrajnaBytes International Private Limited and RatioJuris
+    SPDX-License-Identifier: GPL-3.0-or-later
+    Additional terms under GPLv3 section 7 apply (attribution and names) - see NOTICE.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <IsPackable>false</IsPackable>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OfficeGac>$(WINDIR)\assembly\GAC_MSIL</OfficeGac>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ABLayout.Word\ABLayout.Word.csproj" />
+    <Reference Include="Microsoft.Office.Interop.Word">
+      <HintPath>$(OfficeGac)\Microsoft.Office.Interop.Word\15.0.0.0__71e9bce111e9429c\Microsoft.Office.Interop.Word.dll</HintPath>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+</Project>

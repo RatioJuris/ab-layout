@@ -1,0 +1,71 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    AB Layout (Advocate Benefit Layout) - native Word add-in for Windows
+    Developed by PrajnaBytes International Private Limited and RatioJuris
+    Copyright (C) 2026 PrajnaBytes International Private Limited and RatioJuris
+    SPDX-License-Identifier: GPL-3.0-or-later
+    Additional terms under GPLv3 section 7 apply (attribution and names) - see NOTICE.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <OutputType>Library</OutputType>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RootNamespace>ABLayout.Word</RootNamespace>
+    <AssemblyName>ABLayout.Word</AssemblyName>
+    <Version>4.0.0</Version>
+    <Company>PrajnaBytes International Private Limited and RatioJuris</Company>
+    <Product>AB Layout (Advocate Benefit Layout)</Product>
+    <Copyright>Copyright (C) 2026 PrajnaBytes International Private Limited and RatioJuris</Copyright>
+    <Description>AB Layout native Word add-in. Developed by PrajnaBytes International Private Limited and RatioJuris.</Description>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <!-- Office interop assemblies installed with Office (types are embedded; nothing is redistributed). -->
+    <OfficeGac>$(WINDIR)\assembly\GAC_MSIL</OfficeGac>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Jint" Version="4.17.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Word">
+      <HintPath>$(OfficeGac)\Microsoft.Office.Interop.Word\15.0.0.0__71e9bce111e9429c\Microsoft.Office.Interop.Word.dll</HintPath>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="office">
+      <HintPath>$(OfficeGac)\office\15.0.0.0__71e9bce111e9429c\office.dll</HintPath>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="stdole">
+      <HintPath>$(WINDIR)\assembly\GAC\stdole\7.0.3300.0__b03f5f7f11d50a3a\stdole.dll</HintPath>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Extensibility">
+      <HintPath>$(WINDIR)\assembly\GAC\Extensibility\7.0.3300.0__b03f5f7f11d50a3a\extensibility.dll</HintPath>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Drawing" />
+  </ItemGroup>
+
+  <!-- The shared AB Layout rules: the same JavaScript the web add-in uses, run by Jint. -->
+  <ItemGroup>
+    <None Include="..\..\web\core\*.js" Link="core\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\layouts\layouts.json" Link="layouts.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\LICENSE" Link="LICENSE" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\NOTICE" Link="NOTICE" CopyToOutputDirectory="PreserveNewest" />
+    <EmbeddedResource Include="Ribbon.xml" LogicalName="ABLayout.Ribbon.xml" />
+    <EmbeddedResource Include="..\..\assets\icon-32.png" LogicalName="ABLayout.icon-32.png" />
+    <EmbeddedResource Include="..\..\assets\icon-80.png" LogicalName="ABLayout.icon-80.png" />
+  </ItemGroup>
+</Project>

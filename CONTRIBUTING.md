@@ -55,6 +55,35 @@ docs/                    user guide, research, compatibility, architecture, road
 
 **Naming and headers:** files in `web/core`, `web/word` and `web/ui` use the `rj-pb-` prefix. Every source file starts with the standard header (attribution, copyright, `SPDX-License-Identifier: GPL-3.0-or-later`, and the GPLv3 section 7 pointer). `tests/attribution.test.js` fails if these are missing.
 
+### Two add-ins, one set of rules
+
+| | Web add-in (`web/`) | Native Windows add-in (`native/`) |
+|---|---|---|
+| Technology | Office.js task pane, served by GitHub Pages | C# COM add-in (.NET Framework 4.8): ribbon tab + docked task pane |
+| Runs in | Word for the web, Mac, Windows (Microsoft 365) | Word 2013+ desktop on Windows, offline |
+| Rules | `web/core/rj-pb-*.js` | **the same files**, run inside Word by the Jint JavaScript engine |
+| Word access | `web/word/` (Office.js) | `native/ABLayout.Word/Office/` (Word object model) |
+
+All decisions — classification, profiles, plans, diagnostics, numbering, text verification, Kruti Dev conversion — live **only** in `web/core`. Never duplicate a rule in C#; add it to `web/core` and both add-ins get it.
+
+```
+native/
+  ABLayout.Word/            the add-in
+    Connect.cs              COM add-in Word loads (ribbon, task panes, automation object)
+    AssemblyResolver.cs     loads Jint etc. from the add-in folder (Word's base folder is its own)
+    Engine/AbEngine.cs      hosts web/core/*.js in Jint; JSON in, JSON out; per-word cache
+    Office/                 WordReader, WordWriter, AbService (every change = ONE Undo step)
+    TaskPaneControl.cs      WinForms task pane (same tabs and wording as the web pane)
+    AddInApi.cs             automation interface used by the tests (marshalled to Word's UI thread)
+    ProfileStore.cs         %APPDATA%\AB Layout\profiles.json (same format as the web export)
+  ABLayout.Word.Tests/      xUnit tests that drive REAL Word
+  installer/                per-user install.cmd/.ps1, uninstall (HKCU only, no admin)
+  tests-smoke/smoke.ps1     checks the INSTALLED add-in inside visible Word
+  build.ps1                 build (+ -Test) and package native\dist\ABLayout-Word-Windows.zip
+```
+
+**Never change** the COM GUIDs/ProgIDs in `Connect.cs`, `TaskPaneControl.cs`, `AddInApi.cs` and `installer/*.ps1` (`ABLayout.Connect` 092F8839…, `ABLayout.TaskPane` DE4D7DDE…). Installed copies depend on them.
+
 ---
 
 ## ⚙️ Setup
@@ -133,6 +162,22 @@ npm run serve -- --https
 
 Upload `manifest.local.xml` (Word for Windows: Insert → Add-ins → My Add-ins → Upload My Add-in; Word for the web: Insert → Add-ins → More Add-ins → My Add-ins → Upload My Add-in). It appears as **"AB Layout (Dev)"** with its own Id, next to the installed version.
 
+### Native Windows add-in
+
+Requirements: Windows, desktop Word, the free [.NET SDK 8](https://dotnet.microsoft.com/download) (Visual Studio is **not** needed). The build references the Office interop assemblies installed with Office and embeds their types.
+
+```powershell
+powershell -ExecutionPolicy Bypass -File native\build.ps1 -Test   # build, run the real-Word tests, package the ZIP
+powershell -ExecutionPolicy Bypass -File native\dist\ABLayout-Word-Windows-4.0.0\install.ps1
+powershell -ExecutionPolicy Bypass -File native\tests-smoke\smoke.ps1   # installed add-in, visible Word
+```
+
+* The tests start their **own hidden Word**, build a synthetic petition, run every operation and read the result back from Word (formatting, layout kept, Kruti Dev kept, idempotency, one-step Undo, Restore, stale preview, blank lines, A4 margins, Hindi conversion). Documents are closed without saving; Word is quit only if it holds no other documents.
+* `smoke.ps1 -Screenshot file.png` captures **only the Word window** (`PrintWindow`), never the rest of the screen.
+* Diagnostic log (no document text): `%LOCALAPPDATA%\AB Layout\ab-layout.log`.
+
+**Troubleshooting loading:** if Word shows the add-in as not loaded, check *File → Options → Add-ins → Disabled Items* (Word disables an add-in after a failed load; `install.ps1` clears only AB Layout's entry). `HKCU\…\Word\Security\RequireAddinSig = 1` ("require signed add-ins") does **not** block AB Layout, because Word checks the registered loader (`mscoree.dll`, signed by Microsoft). The registry `CodeBase` must not be URL-encoded (`AB Layout`, not `AB%20Layout`).
+
 ### Manual checklist (Word for Windows **and** Word for the web)
 
 Use a copy of a realistic document (`tests/helpers/rj-pb-fixtures.js` describes a suitable synthetic petition):
@@ -188,6 +233,10 @@ Task pane: `web/taskpane.html`, `web/styles.css`, `web/ui/`. Keep keyboard navig
 2. `npm run check && npm run test:ui && npm run validate:manifest`
 3. Run the manual checklist in Word for Windows and Word for the web.
 4. Push to `main` — GitHub Pages deploys automatically (check with `gh run list`). Verify the live files, then reload Word with Ctrl+F5.
+5. Native add-in: also bump `<Version>` in `native/ABLayout.Word/ABLayout.Word.csproj`, `$version` in `native/build.ps1` and `Version()` in `AddInApi.cs`; run `native\build.ps1 -Test` and the smoke test; then publish the ZIP as a GitHub Release asset named **`ABLayout-Word-Windows.zip`** (the website and README link to `releases/latest/download/ABLayout-Word-Windows.zip`):
+   ```bash
+   gh release create v4.0.1 native/dist/ABLayout-Word-Windows.zip --title "AB Layout 4.0.1"
+   ```
 
 ---
 

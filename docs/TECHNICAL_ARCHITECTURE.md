@@ -90,6 +90,31 @@ read (reader) -> snapshots -> classify -> plan (only differing properties)
   injects `<img onerror>` text and checks it does not run).
 - Errors are logged with codes only, never document text.
 
+### Native Windows add-in (native/)
+
+Added because Office.js cannot change margins in most Word versions (and
+never in Word for the web). A C# COM add-in for .NET Framework 4.8 that Word
+loads at start-up (registered per user in HKCU; no admin, no VSTO runtime, no
+certificate):
+
+```
+Word ──IDTExtensibility2──> Connect (ribbon tab, task pane per window, automation object)
+                               │
+            TaskPaneControl ───┤──> AbService ──> WordReader / WordWriter (Word object model)
+                               │        │
+                               │        └──> AbEngine (Jint) ──> web/core/rj-pb-*.js  (same rules)
+```
+
+- Data crosses into the rules as the same JSON snapshots Office.js produces
+  (points; line spacing 12 = single), so plans are identical.
+- Every change runs inside `Application.UndoRecord` → one Undo step.
+- Kruti Dev conversion works on space-separated word spans; each span is
+  re-read and must match before it is replaced; spans are processed from the
+  end so positions stay valid.
+- Automation calls (tests) are marshalled to Word's UI thread.
+- An assembly resolver (module initializer) loads Jint/Newtonsoft from the
+  add-in folder, because Word's application base is Word's own folder.
+
 ### Project website
 
 `index.html` (GitHub Pages home) with `site/rj-pb-site.css` and

@@ -264,8 +264,12 @@ export function describeProfile(p) {
   const b = p.body;
   /** @param {NumOrMatch | string} v @param {string} unit */
   const show = (v, unit) => (v === MATCH ? "as in document" : `${v}${unit}`);
+  const font =
+    b.fontName === MATCH && b.fontSize === MATCH
+      ? "Font and size: as in document"
+      : `Font: ${b.fontName === MATCH ? "as in document" : b.fontName}, ${b.fontSize === MATCH ? "size as in document" : `${b.fontSize} pt`}`;
   return [
-    `Font: ${b.fontName === MATCH ? "as in document" : b.fontName}, ${show(b.fontSize, " pt")}`,
+    font,
     `Line spacing: ${show(b.lineSpacing, " lines")}`,
     `Alignment: ${b.alignment === MATCH ? "as in document" : b.alignment}`,
     `First-line indent: ${show(b.firstLineIndentCm, " cm")}`,

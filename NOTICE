@@ -68,6 +68,11 @@ Third-party material
   Technologies Research Centre, IIIT Hyderabad, licensed under GPL-3.0
   (https://github.com/ltrc/kru2uni). The Unicode to Kruti Dev direction was
   written for AB Layout.
+- The native Windows add-in package (native/) additionally distributes Jint
+  (BSD-2-Clause), Acornima (BSD-3-Clause), Newtonsoft.Json (MIT) and
+  Microsoft System.Memory/Buffers/Numerics.Vectors/CompilerServices.Unsafe
+  (MIT). Their licence texts are in native/THIRD-PARTY-NOTICES.txt, which is
+  included in every package.
 - Development-only tools (not shipped to users): TypeScript (Apache-2.0),
   @types/office-js (MIT), @resvg/resvg-js (MPL-2.0).
 

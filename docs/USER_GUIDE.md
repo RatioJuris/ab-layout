@@ -14,19 +14,35 @@ and does not upload your document.
 
 ## 1. Open AB Layout
 
-**First time (install):**
+**First time (install)** — choose one:
 
-1. Download `manifest.xml` from <https://ratiojuris.github.io/ab-layout/>
-   ("Install Add-in").
+*Windows version (Word on a Windows PC — recommended; works offline, sets margins everywhere):*
+
+1. Download **ABLayout-Word-Windows.zip** from
+   <https://github.com/RatioJuris/ab-layout/releases/latest>.
+2. Close Word. Right-click the ZIP → **Extract All**.
+3. Double-click **install.cmd** in the extracted folder (no administrator
+   password needed; if Windows warns, click **More info → Run anyway**).
+
+*Web version (Word for the web or Mac):*
+
+1. Download `manifest.xml` from <https://ratiojuris.github.io/ab-layout/>.
 2. In Word: **Insert → Add-ins → My Add-ins → Upload My Add-in** (in some
    versions: **Home → Add-ins → More Add-ins → My Add-ins → Upload**).
 3. Choose `manifest.xml`.
 
 **Every time:** click the **AB Layout** tab on the ribbon, then the
-**AB Layout** button. The panel opens on the right.
+**AB Layout** button (the Windows version also has direct buttons: *Check
+Document*, *Clean Document*, *Kruti Dev / Unicode*, *Paper and Margins*).
+The panel opens on the right.
 
-You need Microsoft 365, Word 2019 or later, or Word for the web, and an
-internet connection to open the panel. Word 2007/2010/2013 cannot run add-ins.
+The Windows version needs Word 2013 or later on Windows. The web version needs
+Microsoft 365, Word 2019 or later, or Word for the web, and an internet
+connection. Word 2007 and 2010 cannot run either version.
+
+**In the Windows version, every AB Layout action is a single step in Word's
+Undo** — one press of Ctrl+Z reverses a whole Clean Document or Hindi
+conversion.
 
 ## 2. Check your document
 
@@ -114,10 +130,10 @@ Dev font installed.
 
 ## 8. Paper size and margins
 
-Go to **Page**, choose a layout and press **Apply Page Layout**. This works in
-Word for Windows and Mac (recent Microsoft 365 versions). In Word for the
-web, use **Layout → Size** and **Layout → Margins** instead — AB Layout tells
-you this.
+Go to **Page**, choose a layout and press **Apply Page Layout**. This always
+works in the **Windows version**. In the web version it works only in recent
+Microsoft 365 desktop Word; in Word for the web, use **Layout → Size** and
+**Layout → Margins** instead — AB Layout tells you this.
 
 **Affidavit on stamp paper:** to leave space only on page 1, put the cursor
 at the end of page 1, choose **Layout → Breaks → Next Page**, then apply the

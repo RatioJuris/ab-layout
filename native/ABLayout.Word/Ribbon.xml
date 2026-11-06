@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+AB Layout (Advocate Benefit Layout) - ribbon
+Developed by PrajnaBytes International Private Limited and RatioJuris
+Copyright (C) 2026 PrajnaBytes International Private Limited and RatioJuris
+SPDX-License-Identifier: GPL-3.0-or-later
+Additional terms under GPLv3 section 7 apply (attribution and names) - see NOTICE.
+-->
+<customUI xmlns="http://schemas.microsoft.com/office/2009/07/customui" onLoad="OnRibbonLoad">
+  <ribbon>
+    <tabs>
+      <tab id="abTab" label="AB Layout">
+        <group id="abGroup" label="Advocate Benefit Layout">
+          <toggleButton id="abOpen" label="AB Layout" size="large" getImage="GetImage"
+                        getPressed="GetPanePressed" onAction="OnTogglePane"
+                        screentip="AB Layout" supertip="Show or hide the AB Layout panel." />
+          <separator id="abSep" />
+          <button id="abCheck" label="Check Document" tag="check" imageMso="FileDocumentInspect" onAction="OnOpenTab"
+                  screentip="Check Document" supertip="Find formatting problems and things to fix before printing or filing. Nothing is changed." />
+          <button id="abClean" label="Clean Document" tag="clean" imageMso="FormatPainter" onAction="OnOpenTab"
+                  screentip="Clean Document" supertip="Make the formatting consistent without changing any words. Preview first." />
+          <button id="abHindi" label="Kruti Dev / Unicode" tag="hindi" imageMso="Translate" onAction="OnOpenTab"
+                  screentip="Hindi conversion" supertip="Convert Hindi between Kruti Dev and Unicode, word by word." />
+          <button id="abPage" label="Paper and Margins" tag="page" imageMso="PageMarginsGallery" onAction="OnOpenTab"
+                  screentip="Paper and margins" supertip="Apply A4, legal-size or affidavit page layouts." />
+        </group>
+      </tab>
+    </tabs>
+  </ribbon>
+</customUI>

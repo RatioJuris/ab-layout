@@ -25,6 +25,8 @@ Hindi between Kruti Dev and Unicode, and sets paper and margins.
 
 **No AI. No account. No subscription. Your document stays in Word.**
 
+<p align="center"><img src="docs/screenshot-native-word.png" alt="AB Layout inside Microsoft Word: the AB Layout ribbon tab and panel next to a petition" width="900"></p>
+
 ---
 
 ## What it does
@@ -74,20 +76,35 @@ A4 layout (4 cm left/right, 2 cm top/bottom).
 
 ## Install
 
-1. Download **[manifest.xml](https://ratiojuris.github.io/ab-layout/manifest.xml)** from the [website](https://ratiojuris.github.io/ab-layout/) (*Install the add-in*).
+There are two versions. Both do the same checks and cleaning.
+
+| | **Windows version** (recommended for Word on a PC) | **Web version** |
+|---|---|---|
+| Works in | Word 2013, 2016, 2019, 2021, 2024, Microsoft 365 on Windows | Word for the web, Word for Mac, Microsoft 365 |
+| Internet | **Not needed** after installing | Needed to open the panel |
+| Paper and margins | ✅ everywhere | Only recent Microsoft 365 desktop |
+| Undo | **One Ctrl+Z** undoes each AB Layout action | Several Ctrl+Z may be needed |
+
+### Windows version
+1. Download **[ABLayout-Word-Windows.zip](https://github.com/RatioJuris/ab-layout/releases/latest/download/ABLayout-Word-Windows.zip)**.
+2. Close Word. Right-click the ZIP → **Extract All**.
+3. In the extracted folder, double-click **install.cmd**. It installs for your Windows user only — no administrator password.
+   If Windows says *"Windows protected your PC"*, click **More info → Run anyway**.
+4. Open Word and click the **AB Layout** tab.
+
+To remove it, double-click **uninstall.cmd**. Your profiles are kept.
+
+### Web version (Word for the web and Mac)
+1. Download **[manifest.xml](https://ratiojuris.github.io/ab-layout/manifest.xml)** from the [website](https://ratiojuris.github.io/ab-layout/).
 2. In Word: **Insert → Add-ins → My Add-ins → Upload My Add-in**
    (some versions: **Home → Add-ins → More Add-ins → My Add-ins**).
-3. Choose `manifest.xml`.
-4. Click the **AB Layout** tab on the ribbon, then **AB Layout**. The panel opens on the right.
+3. Choose `manifest.xml`, then click the **AB Layout** tab → **AB Layout**.
 
-**Already installed an older version?** Close the panel and reload Word
-(Ctrl+F5 in Word for the web). If the panel still shows an old version,
-remove the add-in and upload `manifest.xml` again.
+**Updated the web version?** Close the panel and reload Word (Ctrl+F5 in
+Word for the web). If it still shows an old version, remove the add-in and
+upload `manifest.xml` again.
 
-### You need
-- Microsoft 365, Word 2019 or later (Windows or Mac), or the free **Word for the web**.
-- An internet connection to open the panel.
-- Word 2007, 2010 and 2013 cannot run add-ins.
+Word 2007 and 2010 cannot run either version.
 
 ---
 
@@ -106,15 +123,20 @@ Step-by-step help for every option: **[User Guide](docs/USER_GUIDE.md)**.
 
 ---
 
-## Word for Windows, Mac and the web
+## What works where
 
-| | Windows / Mac | Word for the web |
-|---|---|---|
-| Check Document | ✅ | ✅ |
-| Clean Document and Restore | ✅ | ✅ |
-| Kruti Dev ↔ Unicode | ✅ | ✅ |
-| Paper size and margins | ✅ recent Microsoft 365 | Use Word's *Layout → Size / Margins* (AB Layout tells you how) |
-| Count comments and tracked changes | Newer versions | ✅ |
+| | Windows version | Web version: Windows/Mac desktop | Web version: Word for the web |
+|---|---|---|---|
+| Check Document | ✅ | ✅ | ✅ |
+| Clean Document and Restore | ✅ | ✅ | ✅ |
+| Kruti Dev ↔ Unicode | ✅ | ✅ | ✅ |
+| Paper size and margins | ✅ | Recent Microsoft 365 only | Use Word's *Layout → Size / Margins* |
+| Comments and tracked changes check | ✅ | Newer versions | ✅ |
+| Works offline | ✅ | — | — |
+
+**Word says AB Layout is disabled or blocked?** In Word: **File → Options →
+Add-ins**, choose **Disabled Items** in *Manage*, click **Go** and enable AB
+Layout. Running `install.cmd` again also re-enables it.
 
 ---
 
