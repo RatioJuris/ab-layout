@@ -12,7 +12,13 @@ native\dist\ABLayout-Word-Windows.zip (folder inside: ABLayout-Word-Windows-<ver
 Usage:  powershell -ExecutionPolicy Bypass -File native\build.ps1 [-Test]
 #>
 
-param([switch]$Test)
+param(
+    [switch]$Test,
+    # Thumbprint of a code-signing certificate in Cert:\CurrentUser\My. Word's
+    # "Require Application Add-ins to be signed by Trusted Publisher" setting
+    # only loads AB Layout if ABLayout.Word.dll is signed by a trusted publisher.
+    [string]$SignThumbprint = ''
+)
 $ErrorActionPreference = 'Stop'
 $root = $PSScriptRoot
 $version = '4.0.0'
@@ -39,6 +45,15 @@ Copy-Item (Join-Path $bin '*') $stage -Recurse -Exclude '*.pdb'
 Copy-Item (Join-Path $root 'installer\*') $stage
 Copy-Item (Join-Path $root 'README-INSTALL.txt') $stage
 Copy-Item (Join-Path $root 'THIRD-PARTY-NOTICES.txt') $stage
+
+if ($SignThumbprint) {
+    $cert = Get-ChildItem Cert:\CurrentUser\My -CodeSigningCert | Where-Object Thumbprint -eq $SignThumbprint
+    if (-not $cert) { throw "Code-signing certificate $SignThumbprint not found in Cert:\CurrentUser\My." }
+    $dllToSign = Join-Path $stage 'ABLayout.Word.dll'
+    $sig = Set-AuthenticodeSignature -FilePath $dllToSign -Certificate $cert -HashAlgorithm SHA256 -TimestampServer 'http://timestamp.digicert.com'
+    if ($sig.Status -ne 'Valid') { throw "Signing failed: $($sig.Status) $($sig.StatusMessage)" }
+    Write-Host "Signed ABLayout.Word.dll ($($cert.Subject))"
+}
 
 # Stable file name so https://github.com/RatioJuris/ab-layout/releases/latest/download/ABLayout-Word-Windows.zip always works.
 $zip = Join-Path $root "dist\ABLayout-Word-Windows.zip"

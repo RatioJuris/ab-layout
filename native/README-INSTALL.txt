@@ -20,8 +20,13 @@ Double-click uninstall.cmd (or run uninstall.ps1 in %LOCALAPPDATA%\Programs\AB L
 Your custom profiles in %APPDATA%\AB Layout are kept.
 
 IF THE TAB DOES NOT APPEAR
-Word > File > Options > Add-ins > Manage: COM Add-ins > Go > tick "AB Layout".
-If it is listed under Disabled Items, enable it there.
+- Open Word on your PC (the Word app), not Word in a web browser.
+- Word > File > Options > Add-ins > Manage: COM Add-ins > Go > tick "AB Layout".
+  If it is listed under Disabled Items, enable it there.
+- Word > File > Options > Trust Center > Trust Center Settings > Add-ins:
+  if "Require Application Add-ins to be signed by Trusted Publisher" is ticked,
+  Word skips AB Layout. Untick it (it is off by default), or ask whoever
+  manages your PC.
 
 HELP
 https://github.com/RatioJuris/ab-layout/issues

@@ -32,9 +32,11 @@ try {
     $addin = $null
     foreach ($a in $word.COMAddIns) { if ($a.ProgId -eq 'ABLayout.Connect') { $addin = $a } }
     if (-not $addin) { throw 'AB Layout is not registered in Word.' }
-    # Word may skip loading add-ins when started by automation; load it explicitly if needed.
-    if (-not $addin.Connect -or $null -eq $addin.Object) { $addin.Connect = $false; $addin.Connect = $true }
-    if ($null -eq $addin.Object) { throw 'AB Layout loaded but did not provide its automation object.' }
+    # AB Layout must have loaded BY ITSELF at start-up. Never force-reconnect here: that would
+    # hide start-up problems (e.g. Word's "require signed add-ins" setting skipping it).
+    if (-not $addin.Connect -or $null -eq $addin.Object) {
+        throw 'AB Layout did not load at Word start-up. Check the log (%LOCALAPPDATA%\AB Layout\ab-layout.log), File > Options > Add-ins > Disabled Items, and Trust Center > Add-ins ("Require Application Add-ins to be signed").'
+    }
     "Add-in loaded: $($addin.Connect)  ($($addin.Description))"
 
     $doc = $word.Documents.Add()

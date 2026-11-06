@@ -35,6 +35,7 @@ namespace ABLayout.Word
             if (_installed) return;
             _installed = true;
             AppDomain.CurrentDomain.AssemblyResolve += Resolve;
+            Log.Write("Module loaded (CLR " + Environment.Version + ")");
         }
 
         private static Assembly Resolve(object sender, ResolveEventArgs args)

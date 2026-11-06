@@ -134,9 +134,14 @@ Step-by-step help for every option: **[User Guide](docs/USER_GUIDE.md)**.
 | Comments and tracked changes check | ✅ | Newer versions | ✅ |
 | Works offline | ✅ | — | — |
 
-**Word says AB Layout is disabled or blocked?** In Word: **File → Options →
-Add-ins**, choose **Disabled Items** in *Manage*, click **Go** and enable AB
-Layout. Running `install.cmd` again also re-enables it.
+**Installed the Windows version but the AB Layout tab does not appear?**
+- Make sure you opened **Word on your PC** (the Word app), not Word in a web browser.
+- **File → Options → Add-ins**, choose **Disabled Items** in *Manage*, click
+  **Go** and enable AB Layout (running `install.cmd` again also does this).
+- **File → Options → Trust Center → Trust Center Settings → Add-ins**: if
+  *"Require Application Add-ins to be signed by Trusted Publisher"* is ticked,
+  Word skips AB Layout. Untick it (it is off in Word by default), or ask
+  whoever manages your PC.
 
 ---
 

@@ -64,13 +64,19 @@ full object model and the **same** rules (`web/core`, run by Jint).
   the release ZIP with `install.ps1`) loads in visible Word, the ribbon tab
   and docked task pane appear, Check and Clean run through it.
 
-**Finding during testing:** this PC's Word Trust Center had *"Require
-Application Add-ins to be signed by Trusted Publisher"* and *"Disable all
-macros except digitally signed macros"* turned on. That setting does not block
-AB Layout's native add-in (Word checks the Microsoft-signed `mscoree.dll`
-loader). What did block it was Word's *Disabled Items* list, which recorded
-the add-in after an early installer bug (URL-encoded path, now fixed); the
-installer now clears only AB Layout's entry.
+**Findings during testing (corrected):** this PC's Word Trust Center has
+*"Require Application Add-ins to be signed by Trusted Publisher"* turned on.
+With that setting, Word **silently skips unsigned add-ins at start-up** (it
+still lists them as connected; a manual reconnect bypasses the check, which
+hid the problem in the first smoke test — the smoke test no longer
+reconnects). Verified: with the setting temporarily off, AB Layout loaded at a
+normal Word start; with it on, it loads only when `ABLayout.Word.dll` is
+signed by a certificate the PC trusts. The released DLL is signed (self-signed
+publisher certificate, trusted on the maintainer's PC); on other PCs with this
+setting on, untick it or trust the publisher — a publicly trusted certificate
+is planned. Separately, Word's *Disabled Items* list had recorded the add-in
+after an early installer bug (URL-encoded path, now fixed); the installer
+clears only AB Layout's entry.
 
 ## What has actually been tested
 

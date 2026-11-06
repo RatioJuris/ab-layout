@@ -51,15 +51,31 @@ namespace ABLayout.Word
 
         /* ===== IDTExtensibility2 ===== */
 
+        public Connect()
+        {
+            Log.Write("Connect: created");
+        }
+
         public void OnConnection(object application, Extensibility.ext_ConnectMode connectMode, object addInInst, ref Array custom)
         {
-            _app = (W.Application)application;
-            // A window handle on Word's UI thread: automation calls arrive on other threads and are moved here.
-            _ui = new Control();
-            _ui.CreateControl();
-            // Start loading the shared rules in the background so the pane opens quickly.
-            _engineTask = Task.Run(() => new AbEngine(Path.Combine(InstallDirectory, "core")));
-            _api = new AddInApi(this);
+            Log.Write("OnConnection: start (" + connectMode + ")");
+            try
+            {
+                _app = (W.Application)application;
+                // Start loading the shared rules in the background so the pane opens quickly.
+                _engineTask = Task.Run(() => new AbEngine(Path.Combine(InstallDirectory, "core")));
+                _api = new AddInApi(this);
+            }
+            catch (Exception ex) { Log.Write("OnConnection: setup", ex); }
+
+            try
+            {
+                // A window handle on Word's UI thread: automation calls arrive on other threads and are moved here.
+                _ui = new Control();
+                _ui.CreateControl();
+            }
+            catch (Exception ex) { Log.Write("OnConnection: UI thread handle", ex); _ui = null; }
+
             try
             {
                 // Late-bound set: the typed COMAddIn.Object setter is unreliable with embedded interop types.
@@ -76,7 +92,7 @@ namespace ABLayout.Word
         }
 
         public void OnAddInsUpdate(ref Array custom) { }
-        public void OnStartupComplete(ref Array custom) { }
+        public void OnStartupComplete(ref Array custom) => Log.Write("OnStartupComplete");
         public void OnBeginShutdown(ref Array custom) { }
 
         /* ===== Services ===== */
@@ -95,6 +111,7 @@ namespace ABLayout.Word
 
         public string GetCustomUI(string ribbonId)
         {
+            Log.Write("GetCustomUI: " + ribbonId);
             using (var s = Assembly.GetExecutingAssembly().GetManifestResourceStream("ABLayout.Ribbon.xml"))
             using (var r = new StreamReader(s)) return r.ReadToEnd();
         }

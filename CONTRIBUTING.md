@@ -176,7 +176,13 @@ powershell -ExecutionPolicy Bypass -File native\tests-smoke\smoke.ps1   # instal
 * `smoke.ps1 -Screenshot file.png` captures **only the Word window** (`PrintWindow`), never the rest of the screen.
 * Diagnostic log (no document text): `%LOCALAPPDATA%\AB Layout\ab-layout.log`.
 
-**Troubleshooting loading:** if Word shows the add-in as not loaded, check *File → Options → Add-ins → Disabled Items* (Word disables an add-in after a failed load; `install.ps1` clears only AB Layout's entry). `HKCU\…\Word\Security\RequireAddinSig = 1` ("require signed add-ins") does **not** block AB Layout, because Word checks the registered loader (`mscoree.dll`, signed by Microsoft). The registry `CodeBase` must not be URL-encoded (`AB Layout`, not `AB%20Layout`).
+**Troubleshooting loading** (always check `%LOCALAPPDATA%\AB Layout\ab-layout.log`; a normal start logs *Module loaded → Connect: created → OnConnection: start (ext_cm_Startup) → GetCustomUI → OnStartupComplete*):
+
+* **Nothing logged at start-up, but Word lists AB Layout as connected** → Word's Trust Center setting *"Require Application Add-ins to be signed by Trusted Publisher"* (`HKCU\Software\Microsoft\Office\16.0\Word\Security\RequireAddinSig = 1`) is on and `ABLayout.Word.dll` is not signed by a publisher that PC trusts. Word skips the add-in silently at start-up (a manual reconnect bypasses the check, so never test by force-reconnecting). Fix: sign the DLL (below) with a certificate the PC trusts, or untick the setting.
+* **Listed under Disabled Items** → Word disabled it after a failed load; `install.ps1` clears only AB Layout's entry.
+* The registry `CodeBase` must not be URL-encoded (`AB Layout`, not `AB%20Layout`).
+
+**Code signing.** `native\build.ps1 -SignThumbprint <thumbprint>` signs `ABLayout.Word.dll` (SHA-256, DigiCert timestamp) with a certificate from `Cert:\CurrentUser\My`. Releases are currently signed with a self-signed certificate (*CN=PrajnaBytes International Private Limited and RatioJuris (AB Layout)*, thumbprint `F3407FCE1810EC7757E7131D9428DD0731DA8D26`, valid to 2031) whose non-exportable private key exists only on the maintainer's PC — never commit or share private keys. That signature is trusted only on PCs that trust this certificate; a certificate from a recognised authority (or Azure Trusted Signing) is needed for "require signed add-ins" PCs in general.
 
 ### Manual checklist (Word for Windows **and** Word for the web)
 
