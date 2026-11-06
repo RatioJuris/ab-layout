@@ -50,9 +50,11 @@ coloured text, paper size (desktop), placeholders; "Show" jumps to each.
 1. Page 1 is printed on stamp paper with a printed heading; text must start lower.
 2. Remaining pages on plain paper with normal margins.
 
-**AB Layout:** *Page* tab → "Notary / Affidavit". Needs a section break after
-page 1 (Word has no first-page-only margin); AB Layout explains this instead
-of putting the large top margin on every page (a 3.x bug).
+**AB Layout:** *Page* tab → "Notary / Affidavit". Windows version: page 1's
+text starts 16.5 cm down (a blank first-page header makes the space; footer
+copied to page 1; no section break, no text change); other pages get normal
+margins. Web version: needs a section break after page 1, which AB Layout
+explains instead of putting the large top margin on every page (a 3.x bug).
 
 ## W5. Chamber house style
 

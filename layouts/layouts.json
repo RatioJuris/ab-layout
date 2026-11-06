@@ -44,7 +44,7 @@
       "multiPage": true,
       "firstPage": { "top": 468, "bottom": 57.6, "left": 72, "right": 72 },
       "otherPages": { "top": 72, "bottom": 72, "left": 72, "right": 72 },
-      "note": "Letter size; leaves 16.5 cm at the top of page 1 for the stamp-paper heading. Needs a section break after page 1."
+      "note": "Letter size; leaves 16.5 cm at the top of page 1 for the stamp-paper heading. Other pages use normal margins."
     }
   },
 

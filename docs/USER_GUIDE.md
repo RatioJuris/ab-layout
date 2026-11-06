@@ -135,9 +135,15 @@ works in the **Windows version**. In the web version it works only in recent
 Microsoft 365 desktop Word; in Word for the web, use **Layout → Size** and
 **Layout → Margins** instead — AB Layout tells you this.
 
-**Affidavit on stamp paper:** to leave space only on page 1, put the cursor
-at the end of page 1, choose **Layout → Breaks → Next Page**, then apply the
-"Notary / Affidavit" layout.
+**Affidavit on stamp paper:** choose **Notary / Affidavit** and press
+**Apply Page Layout**. In the **Windows version**, page 1's text then starts
+16.5 cm from the top (room for the printed stamp-paper heading) and all other
+pages use normal margins. Nothing is added to your text: AB Layout uses a
+blank "first page" header for the space, copies your footer (page numbers) to
+page 1, and one Ctrl+Z or **Restore** removes it. If page 1 already has its
+own header, AB Layout leaves it alone and tells you.
+*(Web version: Word does not allow this there — put the cursor at the end of
+page 1, choose **Layout → Breaks → Next Page**, then apply the layout.)*
 
 ## 9. Create your own profile
 

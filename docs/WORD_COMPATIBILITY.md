@@ -52,12 +52,12 @@ full object model and the **same** rules (`web/core`, run by Jint).
 **Tested in real Word** (Word for Microsoft 365, 16.0.20527, 64-bit, Windows),
 6 November 2026:
 
-- `native\ABLayout.Word.Tests` — **9/9 passed**, driving a hidden Word: Check
+- `native\ABLayout.Word.Tests` — **11/11 passed**, driving a hidden Word: Check
   Document findings; Clean Document (body normalised; cause title, VERSUS,
   signature, quotation indent and Kruti Dev font kept; bold case name kept in
   a mixed-font paragraph; text verified); second run changes nothing; one
   Undo reverses Clean and Hindi conversion; Restore; stale-preview guard;
-  safe blank-line removal; A4 4 cm/2 cm margins applied and restored; Kruti
+  safe blank-line removal; A4 4 cm/2 cm margins applied and restored; affidavit stamp-paper space on page 1 only (19+ page single-section document, text starts at 16.5 cm on page 1 and at the normal margin from page 2, page numbers kept, no section break, one Undo); Kruti
   Dev → Unicode converts only Kruti words (English untouched, bold kept) and
   back again; Show selects the paragraph.
 - `native\tests-smoke\smoke.ps1` — the **installed** add-in (installed from
@@ -85,7 +85,7 @@ clears only AB Layout's entry.
 | Core logic (Node.js unit tests) | **Tested** — 56 tests |
 | Task pane UI in Microsoft Edge 156 (the WebView2 engine) with a simulated Word document | **Tested** — 2 end-to-end tests, desktop and web capability modes |
 | Manifest validation (Microsoft validator) | **Tested** — valid |
-| Real Word for Windows — **native add-in** | **Tested**: 9 real-Word tests + installed-add-in smoke test (see above) |
+| Real Word for Windows — **native add-in** | **Tested**: 11 real-Word tests + installed-add-in smoke test (see above) |
 | Real Word for Windows — web add-in | **Not tested** (the task pane cannot be opened by automation) |
 | Real Word for the web | Loaded by the user (3.1.1 failure confirmed, screenshot in `docs/`); 4.0.0 **not yet tested** |
 | Real Word for Mac | **Not tested** |

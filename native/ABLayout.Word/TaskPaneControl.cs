@@ -560,7 +560,7 @@ namespace ABLayout.Word
             catch { SetStatus(status, "Page layouts could not be loaded. Please reinstall AB Layout.", Problem); applyBtn.Enabled = false; return; }
             var store = JObject.Parse(storeJson);
             foreach (JObject l in (JArray)store["layouts"]) combo.Items.Add(new LayoutItem { Id = (string)l["id"], Name = (string)l["name"] });
-            JArray before = null;
+            JToken before = null;
 
             Func<JObject> layout = () => (JObject)Service.Engine.CallJson("abResolveLayout", storeJson, ((LayoutItem)combo.SelectedItem).Id);
             combo.SelectedIndexChanged += (o, e) =>
@@ -578,10 +578,14 @@ namespace ABLayout.Word
             {
                 var l = layout();
                 var r = Service.ApplyPageLayout(l);
-                before = (JArray)r["before"];
+                before = r["restore"];
                 restoreBtn.Visible = true;
                 var notes = ((JArray)r["notes"]).Select(t => (string)t).ToList();
-                SetStatus(status, $"Applied \"{l["name"]}\" to {r["sections"]} section(s)." + (notes.Count > 0 ? " " + string.Join(" ", notes) : ""), notes.Count > 0 ? CheckCol : Success);
+                var info = ((JArray)r["info"]).Select(t => (string)t).ToList();
+                SetStatus(status, $"Applied \"{l["name"]}\" to {r["sections"]} section(s)."
+                    + (info.Count > 0 ? " " + string.Join(" ", info) : "")
+                    + (notes.Count > 0 ? " " + string.Join(" ", notes) : "")
+                    + " One Ctrl+Z undoes this.", notes.Count > 0 ? CheckCol : Success);
             });
             restoreBtn.Click += (o, e) => Busy(status, new[] { applyBtn, restoreBtn }, () =>
             {

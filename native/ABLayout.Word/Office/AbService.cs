@@ -218,36 +218,169 @@ namespace ABLayout.Word.Office
 
         /* ===== PAGE ===== */
 
+        /// <summary>Bookmark that marks the stamp-paper spacer AB Layout puts in page 1's header.</summary>
+        public const string StampBookmark = "ABLayoutStampSpace";
+
+        /// <summary>
+        /// Applies paper size and margins. For layouts with a different first page
+        /// (affidavit on stamp paper), every page gets the normal margins and page 1
+        /// gets a "different first page" header holding an empty spacer, which pushes
+        /// page 1's text down. No section break is inserted and no text is touched.
+        /// </summary>
         public JObject ApplyPageLayout(JObject layout)
         {
             var doc = Doc;
             var validation = _engine.CallJson("abValidateLayout", layout.ToString());
             if (!(bool)validation["valid"]) throw new AbUserException((string)validation["error"]);
             var before = WordReader.ReadPageSetups(doc);
-            var plan = (JObject)_engine.CallJson("abPlanMargins", layout.ToString(), doc.Sections.Count.ToString());
-            var per = (JArray)plan["perSection"];
+            bool multiPage = layout["multiPage"]?.Value<bool>() == true;
+            var margins = (JObject)(multiPage ? layout["otherPages"] : layout["margins"]);
+            var notes = new JArray();
+            var info = new JArray();
+            JObject stamp = null;
+
             Undoable("AB Layout: Page Layout", () =>
             {
-                int i = 0;
                 foreach (W.Section s in doc.Sections)
                 {
-                    var m = (JObject)per[Math.Min(i, per.Count - 1)];
                     var ps = s.PageSetup;
                     ps.PageWidth = (float)(double)layout["width"];
                     ps.PageHeight = (float)(double)layout["height"];
-                    ps.TopMargin = (float)(double)m["top"];
-                    ps.BottomMargin = (float)(double)m["bottom"];
-                    ps.LeftMargin = (float)(double)m["left"];
-                    ps.RightMargin = (float)(double)m["right"];
-                    i++;
+                    ps.TopMargin = (float)(double)margins["top"];
+                    ps.BottomMargin = (float)(double)margins["bottom"];
+                    ps.LeftMargin = (float)(double)margins["left"];
+                    ps.RightMargin = (float)(double)margins["right"];
+                }
+                var first = doc.Sections[1];
+                if (multiPage)
+                {
+                    stamp = AddStampSpace(first, (double)layout["firstPage"]["top"], notes);
+                    if (stamp != null)
+                        info.Add($"Page 1 text now starts {_engine.Call("abPtToCm", layout["firstPage"]["top"].ToString())} cm from the top, leaving room for the stamp-paper heading. Other pages use normal margins."
+                            + ((bool)stamp["footerCopied"] ? " Your footer was copied to page 1." : ""));
+                }
+                else if (RemoveStampSpace(first))
+                {
+                    info.Add("The stamp-paper space on page 1 was removed.");
                 }
             });
-            return new JObject { ["sections"] = doc.Sections.Count, ["notes"] = plan["notes"], ["before"] = JArray.FromObject(before) };
+
+            var beforeArr = JArray.FromObject(before);
+            return new JObject
+            {
+                ["sections"] = doc.Sections.Count,
+                ["notes"] = notes,
+                ["info"] = info,
+                ["before"] = beforeArr,
+                ["restore"] = new JObject { ["sections"] = beforeArr, ["stamp"] = stamp }
+            };
         }
 
-        public JObject RestorePageLayout(JArray before)
+        private static bool IsEmpty(W.HeaderFooter hf)
+        {
+            var r = hf.Range;
+            return (r.Text ?? "").Trim('\r', '\n', ' ', '\a').Length == 0
+                && r.InlineShapes.Count == 0 && r.Fields.Count == 0 && r.ShapeRange.Count == 0;
+        }
+
+        /// <summary>
+        /// Invisible document variable recording page 1's state before AB Layout added the
+        /// stamp-paper space ("diff=0|1;footer=0|1"), so removing it restores exactly that state.
+        /// </summary>
+        private const string StampStateVariable = "ABLayoutStampState";
+
+        private static string GetVariable(W.Document doc, string name)
+        {
+            foreach (W.Variable v in doc.Variables) if (v.Name == name) return v.Value;
+            return null;
+        }
+
+        private static void SetVariable(W.Document doc, string name, string value)
+        {
+            foreach (W.Variable v in doc.Variables) if (v.Name == name) { v.Value = value; return; }
+            object val = value;
+            doc.Variables.Add(name, ref val);
+        }
+
+        private static void DeleteVariable(W.Document doc, string name)
+        {
+            foreach (W.Variable v in doc.Variables) if (v.Name == name) { v.Delete(); return; }
+        }
+
+        private JObject AddStampSpace(W.Section section, double firstTop, JArray notes)
+        {
+            var doc = (W.Document)section.Range.Document;
+            var ps = section.PageSetup;
+            var header = section.Headers[W.WdHeaderFooterIndex.wdHeaderFooterFirstPage];
+            bool ours = header.Range.Bookmarks.Exists(StampBookmark) && GetVariable(doc, StampStateVariable) != null;
+            bool differentNow = ps.DifferentFirstPageHeaderFooter != 0;
+            if (differentNow && !ours && !IsEmpty(header))
+            {
+                notes.Add("Page 1 already has its own header, so AB Layout did not add the stamp-paper space (to avoid changing that header). Margins were applied to all pages.");
+                return null;
+            }
+
+            if (!ours)
+            {
+                bool footerCopied = false;
+                if (!differentNow)
+                {
+                    ps.DifferentFirstPageHeaderFooter = -1;
+                    var firstFooter = section.Footers[W.WdHeaderFooterIndex.wdHeaderFooterFirstPage];
+                    var primaryFooter = section.Footers[W.WdHeaderFooterIndex.wdHeaderFooterPrimary];
+                    if (IsEmpty(firstFooter) && !IsEmpty(primaryFooter))
+                    {
+                        firstFooter.Range.FormattedText = primaryFooter.Range.FormattedText;
+                        footerCopied = true;
+                    }
+                }
+                SetVariable(doc, StampStateVariable, $"diff={(differentNow ? 1 : 0)};footer={(footerCopied ? 1 : 0)}");
+            }
+            var state = GetVariable(doc, StampStateVariable) ?? "";
+
+            // Header height = space before + one 12 pt line; Word moves page 1's text below it.
+            var range = header.Range;
+            range.Text = "";
+            var p = header.Range.Paragraphs[1];
+            p.SpaceAfter = 0;
+            p.LineSpacingRule = W.WdLineSpacing.wdLineSpaceExactly;
+            p.LineSpacing = 12;
+            p.SpaceBefore = (float)Math.Max(0, firstTop - ps.HeaderDistance - 12);
+            object bm = header.Range;
+            header.Range.Bookmarks.Add(StampBookmark, ref bm);
+            return new JObject { ["existedBefore"] = ours, ["footerCopied"] = state.Contains("footer=1") };
+        }
+
+        /// <summary>
+        /// Removes AB Layout's stamp-paper spacer and puts page 1 back exactly as it was
+        /// before AB Layout added it (different-first-page setting and footer).
+        /// </summary>
+        /// <returns>true if a spacer was found and removed.</returns>
+        private static bool RemoveStampSpace(W.Section section)
+        {
+            var doc = (W.Document)section.Range.Document;
+            var header = section.Headers[W.WdHeaderFooterIndex.wdHeaderFooterFirstPage];
+            if (!header.Range.Bookmarks.Exists(StampBookmark)) return false;
+            object name = StampBookmark;
+            header.Range.Bookmarks.get_Item(ref name).Delete();
+            header.Range.Text = "";
+            var p = header.Range.Paragraphs[1];
+            p.SpaceBefore = 0;
+            p.LineSpacingRule = W.WdLineSpacing.wdLineSpaceSingle;
+
+            var state = GetVariable(doc, StampStateVariable) ?? "";
+            if (state.Contains("footer=1")) section.Footers[W.WdHeaderFooterIndex.wdHeaderFooterFirstPage].Range.Text = "";
+            if (state.Contains("diff=0")) section.PageSetup.DifferentFirstPageHeaderFooter = 0;
+            DeleteVariable(doc, StampStateVariable);
+            return true;
+        }
+
+        /// <param name="restore">The "restore" object from ApplyPageLayout (or just its "before" array).</param>
+        public JObject RestorePageLayout(JToken restore)
         {
             var doc = Doc;
+            var before = restore is JArray arr ? arr : (JArray)restore["sections"];
+            var stamp = restore is JObject o ? o["stamp"] as JObject : null;
             if (doc.Sections.Count != before.Count) return new JObject { ["ok"] = false };
             Undoable("AB Layout: Restore Page Layout", () =>
             {
@@ -263,6 +396,8 @@ namespace ABLayout.Word.Office
                     ps.LeftMargin = (float)(double)b["leftMargin"];
                     ps.RightMargin = (float)(double)b["rightMargin"];
                 }
+                // Remove the stamp space this apply added (a space that was already there before is kept).
+                if (stamp != null && !(bool)stamp["existedBefore"]) RemoveStampSpace(doc.Sections[1]);
             });
             return new JObject { ["ok"] = true };
         }

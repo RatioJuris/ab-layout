@@ -310,6 +310,93 @@ namespace ABLayout.Word.Tests
             finally { Close(doc); }
         }
 
+        /// <summary>Distance (points) from the top of the page to the start of the given page's text.</summary>
+        private static float TopOfTextOnPage(W.Document doc, int page)
+        {
+            object what = W.WdGoToItem.wdGoToPage, which = W.WdGoToDirection.wdGoToAbsolute, count = page, missing = Type.Missing;
+            var r = doc.Range(0, 0).GoTo(ref what, ref which, ref count, ref missing);
+            object pos = r.get_Information(W.WdInformation.wdVerticalPositionRelativeToPage);
+            return Convert.ToSingle(pos);
+        }
+
+        private W.Document LongAffidavit()
+        {
+            var doc = _w.App.Documents.Add();
+            var para = "That the deponent states that the contents of the accompanying application are true and correct to the best of knowledge and belief and nothing material has been concealed therefrom.";
+            doc.Content.Text = string.Join("\r", Enumerable.Range(1, 120).Select(i => $"{i}. {para}"));
+            // Page numbers in the footer, as in most affidavits.
+            var footer = doc.Sections[1].Footers[W.WdHeaderFooterIndex.wdHeaderFooterPrimary];
+            object align = W.WdPageNumberAlignment.wdAlignPageNumberCenter, firstPage = true;
+            footer.PageNumbers.Add(ref align, ref firstPage);
+            doc.UndoClear();
+            return doc;
+        }
+
+        [Fact]
+        public void Affidavit_layout_leaves_stamp_space_on_page_1_only_without_section_breaks()
+        {
+            var doc = LongAffidavit();
+            try
+            {
+                Assert.Equal(1, doc.Sections.Count);
+                Assert.True(doc.ComputeStatistics(W.WdStatistic.wdStatisticPages) > 5);
+                var texts = WordReader.ReadTexts(doc);
+                var svc = new AbService(_w.App, _w.Engine);
+                var store = File.ReadAllText(Path.Combine(Connect.InstallDirectory, "layouts.json"));
+                var affidavit = (JObject)_w.Engine.CallJson("abResolveLayout", store, "affidavit");
+
+                var r = svc.ApplyPageLayout(affidavit);
+                Assert.Empty((JArray)r["notes"]);
+                Assert.Single((JArray)r["info"]);
+                Assert.Equal(1, doc.Sections.Count);                 // no section break inserted
+                Assert.Equal(texts, WordReader.ReadTexts(doc));       // no text changed
+                Assert.Equal(72f, doc.Sections[1].PageSetup.TopMargin, 0);
+                Assert.InRange(TopOfTextOnPage(doc, 1), 460f, 480f);  // 468 pt = 16.5 cm stamp space
+                Assert.InRange(TopOfTextOnPage(doc, 2), 70f, 80f);    // normal margin from page 2
+                var firstFooter = doc.Sections[1].Footers[W.WdHeaderFooterIndex.wdHeaderFooterFirstPage];
+                Assert.True(firstFooter.Range.Fields.Count > 0, "page number kept on page 1");
+
+                // Applying again does not stack a second spacer.
+                svc.ApplyPageLayout(affidavit);
+                Assert.InRange(TopOfTextOnPage(doc, 1), 460f, 480f);
+
+                // Switching to a normal layout removes the stamp space.
+                var a4 = (JObject)_w.Engine.CallJson("abResolveLayout", store, "hc_new");
+                var r2 = svc.ApplyPageLayout(a4);
+                Assert.Contains("removed", (string)((JArray)r2["info"])[0]);
+                Assert.InRange(TopOfTextOnPage(doc, 1), 70f, 80f);
+                Assert.Equal(0, doc.Sections[1].PageSetup.DifferentFirstPageHeaderFooter); // page 1 fully reverted (a letterhead header would show again)
+
+                // Restore puts back the page as it was before the affidavit layout.
+                var r3 = svc.ApplyPageLayout(affidavit);
+                Assert.InRange(TopOfTextOnPage(doc, 1), 460f, 480f);
+                var back = svc.RestorePageLayout(r3["restore"]);
+                Assert.True((bool)back["ok"]);
+                Assert.InRange(TopOfTextOnPage(doc, 1), 70f, 80f);
+                Assert.Equal(0, doc.Sections[1].PageSetup.DifferentFirstPageHeaderFooter); // as before
+                Assert.Equal(texts, WordReader.ReadTexts(doc));
+            }
+            finally { Close(doc); }
+        }
+
+        [Fact]
+        public void One_Undo_reverses_the_affidavit_layout()
+        {
+            var doc = LongAffidavit();
+            try
+            {
+                var svc = new AbService(_w.App, _w.Engine);
+                var store = File.ReadAllText(Path.Combine(Connect.InstallDirectory, "layouts.json"));
+                svc.ApplyPageLayout((JObject)_w.Engine.CallJson("abResolveLayout", store, "affidavit"));
+                Assert.InRange(TopOfTextOnPage(doc, 1), 460f, 480f);
+                object once = 1;
+                doc.Undo(ref once);
+                Assert.InRange(TopOfTextOnPage(doc, 1), 60f, 80f);
+                Assert.Equal(0, doc.Sections[1].PageSetup.DifferentFirstPageHeaderFooter);
+            }
+            finally { Close(doc); }
+        }
+
         [Fact]
         public void Kruti_Dev_converts_only_Kruti_words_and_keeps_English_and_bold()
         {
