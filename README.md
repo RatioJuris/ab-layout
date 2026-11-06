@@ -176,6 +176,20 @@ Your document is processed inside Word on your computer or in your Word for
 the web session. AB Layout has no server, no account and no analytics, and it
 never sends, stores or logs your document's text.
 
+## ❤️ Sponsor a code-signing certificate
+
+AB Layout is free for every advocate, and we want it to install as smoothly
+on a district-court advocate's PC as on a big chamber's. Today the Windows
+installer is signed with our own certificate, so Windows shows *"Windows
+protected your PC"*, and offices that require signed add-ins skip AB Layout.
+
+**A code-signing certificate from a recognised authority would fix this for
+everyone.** If you or your organisation can sponsor one — or a cloud signing
+service, or free signing for open-source projects — please reply on
+**[issue #1: Help wanted – sponsor a code-signing certificate](https://github.com/RatioJuris/ab-layout/issues/1)**.
+Sponsors are credited (with permission) here, on the website and in the
+release notes. Thank you! 🙏
+
 ## Help and feedback
 
 - 📘 [User Guide](docs/USER_GUIDE.md)
