@@ -64,6 +64,11 @@ full object model and the **same** rules (`web/core`, run by Jint).
   the release ZIP with `install.ps1`) loads in visible Word, the ribbon tab
   and docked task pane appear, Check and Clean run through it.
 
+**Affidavit layout:** the first native version only showed a note asking for
+a manual section break on single-section documents
+([screenshot from the user](screenshots/native-affidavit-before-fix.png)); it
+now leaves the stamp-paper space on page 1 automatically (see the README).
+
 **Findings during testing (corrected):** this PC's Word Trust Center has
 *"Require Application Add-ins to be signed by Trusted Publisher"* turned on.
 With that setting, Word **silently skips unsigned add-ins at start-up** (it
@@ -87,7 +92,7 @@ clears only AB Layout's entry.
 | Manifest validation (Microsoft validator) | **Tested** — valid |
 | Real Word for Windows — **native add-in** | **Tested**: 11 real-Word tests + installed-add-in smoke test (see above) |
 | Real Word for Windows — web add-in | **Not tested** (the task pane cannot be opened by automation) |
-| Real Word for the web | Loaded by the user (3.1.1 failure confirmed, screenshot in `docs/`); 4.0.0 **not yet tested** |
+| Real Word for the web | Loaded by the user: the 3.1.1 failure was confirmed ([screenshot](screenshots/web-3.1.1-initialization-failed.png)); 4.0.0 **not yet tested** |
 | Real Word for Mac | **Not tested** |
 
 Full parity is **not claimed** until the manual checklist in

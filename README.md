@@ -25,7 +25,11 @@ Hindi between Kruti Dev and Unicode, and sets paper and margins.
 
 **No AI. No account. No subscription. Your document stays in Word.**
 
-<p align="center"><img src="docs/screenshot-native-word.png" alt="AB Layout inside Microsoft Word: the AB Layout ribbon tab and panel next to a petition" width="900"></p>
+<p align="center">
+  <a href="https://github.com/RatioJuris/ab-layout/releases/latest/download/ABLayout-Setup.exe"><b>⬇ Download for Windows (ABLayout-Setup.exe)</b></a>
+</p>
+
+<p align="center"><img src="docs/screenshots/clean-applied.png" alt="AB Layout inside Microsoft Word: the AB Layout ribbon tab and panel after cleaning a petition, with the text check passed" width="900"></p>
 
 ---
 
@@ -42,12 +46,16 @@ Finds problems before you print or file, and jumps to each one:
 
 Nothing in your document is changed by a check.
 
+<img src="docs/screenshots/check-document.png" alt="Check Document listing inconsistent fonts, sizes and line spacing in a petition" width="820">
+
 ### ✨ Clean Document
 Makes the formatting consistent after showing you a preview.
 - **Your words are never changed** — names, dates, citations and prayers stay exactly as written. After every run AB Layout reads the document again and confirms: *"Text check passed"*.
 - The cause title, **VERSUS**, party and signature lines, tables and indented quotations keep their layout.
 - Hindi (Kruti Dev or Unicode), other Indian languages and Urdu keep their own fonts.
-- Changed your mind? **Restore Previous Formatting**.
+- Changed your mind? **Restore Previous Formatting**, or one Ctrl+Z (Windows version).
+
+<img src="docs/screenshots/clean-preview.png" alt="Clean Document preview: 6 of 14 paragraphs will be reformatted; titles, VERSUS and Hindi are kept" width="820">
 
 Profiles to choose from:
 
@@ -68,9 +76,16 @@ Converts Hindi inside Word, word by word — for the selected text or the whole
 document. English words, numbers, bold and italics stay exactly as they are.
 You see a preview first. Try it on the [website](https://ratiojuris.github.io/ab-layout/#hindi).
 
+<img src="docs/screenshots/kruti-unicode.png" alt="Kruti Dev text converted to Unicode Hindi inside Word; English text unchanged" width="820">
+
 ### 📄 Paper and margins
 A4, legal-size and stamp-paper affidavit presets, including the Supreme Court
-A4 layout (4 cm left/right, 2 cm top/bottom).
+A4 layout (4 cm left/right, 2 cm top/bottom). For an **affidavit on stamp
+paper**, page 1's text starts 16.5 cm down to leave room for the printed
+stamp-paper heading, while every other page uses normal margins — no section
+breaks, page numbers kept.
+
+<img src="docs/screenshots/affidavit-stamp-paper.png" alt="Affidavit layout: page 1 text starts low for the stamp-paper heading; pages 2 and 3 use normal margins" width="820">
 
 ---
 
@@ -86,19 +101,22 @@ There are two versions. Both do the same checks and cleaning.
 | Undo | **One Ctrl+Z** undoes each AB Layout action | Several Ctrl+Z may be needed |
 
 ### Windows version
-1. Download **[ABLayout-Word-Windows.zip](https://github.com/RatioJuris/ab-layout/releases/latest/download/ABLayout-Word-Windows.zip)**.
-2. Close Word. Right-click the ZIP → **Extract All**.
-3. In the extracted folder, double-click **install.cmd**. It installs for your Windows user only — no administrator password.
+1. Download **[ABLayout-Setup.exe](https://github.com/RatioJuris/ab-layout/releases/latest/download/ABLayout-Setup.exe)**.
+2. Close Word and double-click **ABLayout-Setup.exe**. It installs for your Windows user only — no administrator password.
    If Windows says *"Windows protected your PC"*, click **More info → Run anyway**.
-4. Open Word and click the **AB Layout** tab.
+3. Open Word and click the **AB Layout** tab.
 
-To remove it, double-click **uninstall.cmd**. Your profiles are kept.
+To remove it: **Settings → Apps → Installed apps → AB Layout → Uninstall**. Your profiles are kept.
+
+*Can't run .exe files on your PC?* Use **[ABLayout-Word-Windows.zip](https://github.com/RatioJuris/ab-layout/releases/latest/download/ABLayout-Word-Windows.zip)** instead: extract it and double-click **install.cmd** (remove with **uninstall.cmd**).
 
 ### Web version (Word for the web and Mac)
 1. Download **[manifest.xml](https://ratiojuris.github.io/ab-layout/manifest.xml)** from the [website](https://ratiojuris.github.io/ab-layout/).
 2. In Word: **Insert → Add-ins → My Add-ins → Upload My Add-in**
    (some versions: **Home → Add-ins → More Add-ins → My Add-ins**).
 3. Choose `manifest.xml`, then click the **AB Layout** tab → **AB Layout**.
+
+<img src="docs/screenshots/web-panel-check.png" alt="The web version's panel after Check Document" width="300">
 
 **Updated the web version?** Close the panel and reload Word (Ctrl+F5 in
 Word for the web). If it still shows an old version, remove the add-in and

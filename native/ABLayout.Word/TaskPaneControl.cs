@@ -69,6 +69,36 @@ namespace ABLayout.Word
             if (tag != null && _pages.TryGetValue(tag, out var p)) _tabs.SelectedTab = p;
         }
 
+        /* ===== automation hooks (screenshots and UI tests) ===== */
+
+        private IEnumerable<Control> VisibleControls(Control root)
+        {
+            foreach (Control c in root.Controls)
+            {
+                if (!c.Visible) continue;
+                yield return c;
+                foreach (var child in VisibleControls(c)) yield return child;
+            }
+        }
+
+        /// <summary>Acts on a control of the selected tab by its visible text: clicks a button,
+        /// ticks a check box / radio button, or selects a list item.</summary>
+        internal bool Act(string text)
+        {
+            foreach (var c in VisibleControls(_tabs.SelectedTab))
+            {
+                if (c is Button b && b.Text == text && b.Enabled) { b.PerformClick(); return true; }
+                if (c is RadioButton r && r.Text == text) { r.Checked = true; return true; }
+                if (c is CheckBox cb && cb.Text == text) { cb.Checked = !cb.Checked; return true; }
+                if (c is ComboBox combo)
+                {
+                    foreach (var item in combo.Items)
+                        if (item.ToString() == text) { combo.SelectedItem = item; return true; }
+                }
+            }
+            return false;
+        }
+
         /* ===================== layout helpers ===================== */
 
         private void BuildShell()

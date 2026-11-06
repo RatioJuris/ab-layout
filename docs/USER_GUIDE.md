@@ -18,11 +18,15 @@ and does not upload your document.
 
 *Windows version (Word on a Windows PC — recommended; works offline, sets margins everywhere):*
 
-1. Download **ABLayout-Word-Windows.zip** from
+1. Download **ABLayout-Setup.exe** from
    <https://github.com/RatioJuris/ab-layout/releases/latest>.
-2. Close Word. Right-click the ZIP → **Extract All**.
-3. Double-click **install.cmd** in the extracted folder (no administrator
+2. Close Word and double-click **ABLayout-Setup.exe** (no administrator
    password needed; if Windows warns, click **More info → Run anyway**).
+3. To remove it later: **Settings → Apps → Installed apps → AB Layout →
+   Uninstall**.
+
+   *If your PC does not allow .exe files:* download **ABLayout-Word-Windows.zip**
+   instead, extract it and double-click **install.cmd**.
 
 *Web version (Word for the web or Mac):*
 

@@ -207,6 +207,24 @@ namespace ABLayout.Word.Tests
         }
 
         [Fact]
+        public void Clean_keeps_body_aligned_with_a_template_that_indents_every_paragraph()
+        {
+            var doc = Petition();
+            try
+            {
+                // Some advocates' templates indent every paragraph (here 0.63 cm).
+                foreach (W.Paragraph p in doc.Paragraphs) p.LeftIndent = 18f;
+                var svc = new AbService(_w.App, _w.Engine);
+                var petition = Profile(_w.Engine, "petition");
+                var r = svc.ApplyClean(petition, false, 1, (string)svc.PreviewClean(petition, false, 1)["fingerprint"]);
+                Assert.True((bool)r["verification"]["ok"]);
+                foreach (var i in new[] { 9, 10, 11 }) Assert.Equal(18f, Para(doc, i).LeftIndent, 1);
+                Assert.Equal(18f, Para(doc, 14).LeftIndent, 1); // "Place:" line, untouched, still aligned with body
+            }
+            finally { Close(doc); }
+        }
+
+        [Fact]
         public void One_Undo_reverses_the_whole_Clean_Document()
         {
             var doc = Petition();

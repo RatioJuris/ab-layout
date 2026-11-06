@@ -48,6 +48,9 @@ namespace ABLayout.Word
         /// <summary>Opens the task pane on the active window (used by the installation test).</summary>
         public string ShowPane(string tab) => Run(() => new JObject { ["shown"] = _connect.ShowPane(tab) });
 
+        /// <summary>Clicks / ticks / selects a control in the open pane by its visible text (UI automation).</summary>
+        public string PaneAct(string text) => Run(() => new JObject { ["done"] = _connect.PaneAct(text) });
+
         public string Inspect() => Run(() => _connect.CreateService().Inspect(Enumerable.Empty<string>()));
 
         public string Preview(string profileId, bool removeBlankLines, int keep) =>

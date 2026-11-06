@@ -49,12 +49,20 @@ $assemblyName = [System.Reflection.AssemblyName]::GetAssemblyName($dll).FullName
 # Same format RegAsm writes (spaces are NOT escaped; an escaped %20 makes Word fail to load the add-in).
 $codeBase = 'file:///' + $dll.Replace('\', '/')
 
+# 64-bit Word reads Software\Classes\CLSID; 32-bit Word on 64-bit Windows reads the
+# redirected Software\Classes\WOW6432Node\CLSID. Register in both so either works.
+$clsidRoots = @('HKCU:\Software\Classes\CLSID')
+if ([Environment]::Is64BitOperatingSystem) { $clsidRoots += 'HKCU:\Software\Classes\WOW6432Node\CLSID' }
+
 function Register-ComClass([string]$clsid, [string]$progId, [string]$className) {
     $classes = 'HKCU:\Software\Classes'
-    $ck = "$classes\CLSID\{$clsid}"
     New-Item -Path "$classes\$progId\CLSID" -Force | Out-Null
     Set-ItemProperty -Path "$classes\$progId" -Name '(default)' -Value $progId
     Set-ItemProperty -Path "$classes\$progId\CLSID" -Name '(default)' -Value "{$clsid}"
+    foreach ($root in $clsidRoots) { Register-ClsidKey "$root\{$clsid}" $progId $className }
+}
+
+function Register-ClsidKey([string]$ck, [string]$progId, [string]$className) {
     foreach ($k in @("$ck\InprocServer32", "$ck\InprocServer32\4.0.0.0")) {
         New-Item -Path $k -Force | Out-Null
         if ($k -like '*InprocServer32') { Set-ItemProperty -Path $k -Name '(default)' -Value 'mscoree.dll'; Set-ItemProperty -Path $k -Name 'ThreadingModel' -Value 'Both' }
@@ -72,7 +80,7 @@ function Register-ComClass([string]$clsid, [string]$progId, [string]$className) 
 Write-Host 'Registering the add-in for this user ...'
 Register-ComClass '092F8839-CC6E-49D3-AE33-00BD57D4D9F1' 'ABLayout.Connect' 'ABLayout.Word.Connect'
 Register-ComClass 'DE4D7DDE-E8FA-4184-ACA5-DB4F54928BFA' 'ABLayout.TaskPane' 'ABLayout.Word.TaskPaneControl'
-New-Item -Path 'HKCU:\Software\Classes\CLSID\{DE4D7DDE-E8FA-4184-ACA5-DB4F54928BFA}\Control' -Force | Out-Null
+foreach ($root in $clsidRoots) { New-Item -Path "$root\{DE4D7DDE-E8FA-4184-ACA5-DB4F54928BFA}\Control" -Force | Out-Null }
 
 $addin = 'HKCU:\Software\Microsoft\Office\Word\Addins\ABLayout.Connect'
 New-Item -Path $addin -Force | Out-Null

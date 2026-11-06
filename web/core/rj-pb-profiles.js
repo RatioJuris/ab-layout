@@ -82,7 +82,7 @@ export const BUILT_IN_PROFILES = [
     builtIn: true,
     body: {
       fontName: "Times New Roman", fontSize: 14, alignment: "Justified", lineSpacing: 1.5,
-      spaceBefore: 0, spaceAfter: 6, firstLineIndentCm: MATCH, leftIndentCm: 0, rightIndentCm: 0
+      spaceBefore: 0, spaceAfter: 6, firstLineIndentCm: MATCH, leftIndentCm: MATCH, rightIndentCm: MATCH
     },
     quotes: { enabled: true, fontSize: 12, lineSpacing: 1 },
     headingsFont: true,
@@ -99,7 +99,7 @@ export const BUILT_IN_PROFILES = [
     builtIn: true,
     body: {
       fontName: "Times New Roman", fontSize: 14, alignment: "Justified", lineSpacing: 2,
-      spaceBefore: 0, spaceAfter: 0, firstLineIndentCm: MATCH, leftIndentCm: 0, rightIndentCm: 0
+      spaceBefore: 0, spaceAfter: 0, firstLineIndentCm: MATCH, leftIndentCm: MATCH, rightIndentCm: MATCH
     },
     quotes: { enabled: false, fontSize: MATCH, lineSpacing: MATCH },
     headingsFont: true,
@@ -113,7 +113,7 @@ export const BUILT_IN_PROFILES = [
     builtIn: true,
     body: {
       fontName: "Times New Roman", fontSize: 14, alignment: "Justified", lineSpacing: 1.5,
-      spaceBefore: 0, spaceAfter: 6, firstLineIndentCm: 1.27, leftIndentCm: 0, rightIndentCm: 0
+      spaceBefore: 0, spaceAfter: 6, firstLineIndentCm: 1.27, leftIndentCm: MATCH, rightIndentCm: MATCH
     },
     quotes: { enabled: true, fontSize: 12, lineSpacing: 1 },
     headingsFont: true,
@@ -141,7 +141,7 @@ export const BUILT_IN_PROFILES = [
     builtIn: true,
     body: {
       fontName: "Times New Roman", fontSize: 14, alignment: "Justified", lineSpacing: 1.5,
-      spaceBefore: 0, spaceAfter: 6, firstLineIndentCm: 1.27, leftIndentCm: 0, rightIndentCm: 0
+      spaceBefore: 0, spaceAfter: 6, firstLineIndentCm: 1.27, leftIndentCm: MATCH, rightIndentCm: MATCH
     },
     quotes: { enabled: false, fontSize: MATCH, lineSpacing: MATCH },
     headingsFont: true,

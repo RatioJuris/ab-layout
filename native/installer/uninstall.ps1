@@ -23,6 +23,7 @@ foreach ($id in @('ABLayout.Connect', 'ABLayout.TaskPane')) {
 }
 foreach ($clsid in @('092F8839-CC6E-49D3-AE33-00BD57D4D9F1', 'DE4D7DDE-E8FA-4184-ACA5-DB4F54928BFA')) {
     Remove-Item "HKCU:\Software\Classes\CLSID\{$clsid}" -Recurse -Force -ErrorAction SilentlyContinue
+    Remove-Item "HKCU:\Software\Classes\WOW6432Node\CLSID\{$clsid}" -Recurse -Force -ErrorAction SilentlyContinue
 }
 
 $target = Join-Path $env:LOCALAPPDATA 'Programs\AB Layout'

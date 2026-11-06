@@ -238,6 +238,14 @@ h2 { font-size: clamp(28px, 3.4vw, 42px); line-height: 1.12; letter-spacing: -0.
 .c-orange { background: linear-gradient(135deg, #ffb06a, var(--pb-orange)); }
 .c-navy { background: linear-gradient(135deg, var(--navy-600), var(--navy-800)); }
 
+/* Screenshot gallery */
+.gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.shot { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+.shot img { display: block; width: 100%; height: auto; border-bottom: 1px solid var(--line); }
+.shot figcaption { padding: 14px 18px; font-size: 15px; color: var(--muted); }
+.shot figcaption b { color: var(--text); }
+.shot a { display: block; }
+
 /* Respect section */
 .respect { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
 .anatomy {
@@ -370,6 +378,7 @@ footer.site a:hover { color: #fff; }
   .hero .wrap, .respect, .install, .devs { grid-template-columns: 1fr; }
   .stage { height: 500px; max-width: 520px; }
   .features { grid-template-columns: 1fr 1fr; }
+  .gallery { grid-template-columns: 1fr; }
   .steps, .strip .grid { grid-template-columns: 1fr 1fr; }
   .nav ul { display: none; }
   .conv-grid { grid-template-columns: 1fr; }

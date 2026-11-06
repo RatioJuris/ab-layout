@@ -77,9 +77,11 @@ native/
     AddInApi.cs             automation interface used by the tests (marshalled to Word's UI thread)
     ProfileStore.cs         %APPDATA%\AB Layout\profiles.json (same format as the web export)
   ABLayout.Word.Tests/      xUnit tests that drive REAL Word
-  installer/                per-user install.cmd/.ps1, uninstall (HKCU only, no admin)
-  tests-smoke/smoke.ps1     checks the INSTALLED add-in inside visible Word
-  build.ps1                 build (+ -Test) and package native\dist\ABLayout-Word-Windows.zip
+  installer/ABLayout.iss    Inno Setup script -> ABLayout-Setup.exe (per user, no admin, Apps & features uninstall)
+  installer/install.*       ZIP alternative: per-user install.cmd/.ps1 and uninstall (HKCU only)
+  tests-smoke/smoke.ps1     checks the INSTALLED add-in inside visible Word (must load at start-up by itself)
+  tests-smoke/screenshots.ps1  regenerates docs/screenshots/*.png (captures only the Word window)
+  build.ps1                 build (+ -Test, -SignThumbprint) -> native\dist\ABLayout-Setup.exe and ABLayout-Word-Windows.zip
 ```
 
 **Never change** the COM GUIDs/ProgIDs in `Connect.cs`, `TaskPaneControl.cs`, `AddInApi.cs` and `installer/*.ps1` (`ABLayout.Connect` 092F8839…, `ABLayout.TaskPane` DE4D7DDE…). Installed copies depend on them.
@@ -164,7 +166,9 @@ Upload `manifest.local.xml` (Word for Windows: Insert → Add-ins → My Add-ins
 
 ### Native Windows add-in
 
-Requirements: Windows, desktop Word, the free [.NET SDK 8](https://dotnet.microsoft.com/download) (Visual Studio is **not** needed). The build references the Office interop assemblies installed with Office and embeds their types.
+Requirements: Windows, desktop Word, the free [.NET SDK 8](https://dotnet.microsoft.com/download) (Visual Studio is **not** needed) and, for `ABLayout-Setup.exe`, the free [Inno Setup 6](https://jrsoftware.org/isdl.php) (a per-user install is enough; `build.ps1` finds it and skips the .exe if it is missing). The build references the Office interop assemblies installed with Office and embeds their types.
+
+**Registry views:** COM classes are registered in **both** `HKCU\Software\Classes\CLSID` (64-bit Word) and `HKCU\Software\Classes\WOW6432Node\CLSID` (32-bit Word on 64-bit Windows) — both installers do this; never register only one.
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File native\build.ps1 -Test   # build, run the real-Word tests, package the ZIP
@@ -239,9 +243,9 @@ Task pane: `web/taskpane.html`, `web/styles.css`, `web/ui/`. Keep keyboard navig
 2. `npm run check && npm run test:ui && npm run validate:manifest`
 3. Run the manual checklist in Word for Windows and Word for the web.
 4. Push to `main` — GitHub Pages deploys automatically (check with `gh run list`). Verify the live files, then reload Word with Ctrl+F5.
-5. Native add-in: also bump `<Version>` in `native/ABLayout.Word/ABLayout.Word.csproj`, `$version` in `native/build.ps1` and `Version()` in `AddInApi.cs`; run `native\build.ps1 -Test` and the smoke test; then publish the ZIP as a GitHub Release asset named **`ABLayout-Word-Windows.zip`** (the website and README link to `releases/latest/download/ABLayout-Word-Windows.zip`):
+5. Native add-in: also bump `<Version>` in `native/ABLayout.Word/ABLayout.Word.csproj`, `$version` in `native/build.ps1` and `Version()` in `AddInApi.cs`; run `native\build.ps1 -Test` and the smoke test; then publish **`ABLayout-Setup.exe`** and **`ABLayout-Word-Windows.zip`** as GitHub Release assets with exactly those names (the website and README link to `releases/latest/download/<name>`); regenerate the screenshots with `tests-smoke\screenshots.ps1` if the UI changed:
    ```bash
-   gh release create v4.0.1 native/dist/ABLayout-Word-Windows.zip --title "AB Layout 4.0.1"
+   gh release create v4.0.1 native/dist/ABLayout-Setup.exe native/dist/ABLayout-Word-Windows.zip --title "AB Layout 4.0.1"
    ```
 
 ---

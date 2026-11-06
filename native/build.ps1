@@ -69,3 +69,23 @@ try {
     }
 } finally { $archive.Dispose(); $stream.Dispose() }
 Write-Host "Package: $zip" -ForegroundColor Green
+
+# Windows installer (ABLayout-Setup.exe) when Inno Setup 6 is available.
+$iscc = @(
+    (Join-Path $env:LOCALAPPDATA 'Programs\Inno Setup 6\ISCC.exe'),
+    (Join-Path ${env:ProgramFiles(x86)} 'Inno Setup 6\ISCC.exe'),
+    (Join-Path $env:ProgramFiles 'Inno Setup 6\ISCC.exe')
+) | Where-Object { Test-Path $_ } | Select-Object -First 1
+if ($iscc) {
+    $outDir = Join-Path $root 'dist'
+    & $iscc /Q "/DStage=$stage" "/DVersion=$version" "/DOutDir=$outDir" (Join-Path $root 'installer\ABLayout.iss')
+    if ($LASTEXITCODE -ne 0) { throw 'Installer build failed.' }
+    $setup = Join-Path $outDir 'ABLayout-Setup.exe'
+    if ($SignThumbprint) {
+        $sig = Set-AuthenticodeSignature -FilePath $setup -Certificate $cert -HashAlgorithm SHA256 -TimestampServer 'http://timestamp.digicert.com'
+        if ($sig.Status -ne 'Valid') { throw "Signing the installer failed: $($sig.Status)" }
+    }
+    Write-Host "Installer: $setup" -ForegroundColor Green
+} else {
+    Write-Host 'Inno Setup 6 not found - skipped ABLayout-Setup.exe (https://jrsoftware.org/isdl.php).' -ForegroundColor Yellow
+}

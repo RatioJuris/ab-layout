@@ -159,6 +159,9 @@ namespace ABLayout.Word
             return pane.Visible && pane.ContentControl is TaskPaneControl;
         }
 
+        internal bool PaneAct(string text) =>
+            CurrentPane(false)?.ContentControl is TaskPaneControl tp && tp.Act(text);
+
         /* ===== Task panes (one per document window) ===== */
 
         public void CTPFactoryAvailable(ICTPFactory factory) => _ctpFactory = factory;
